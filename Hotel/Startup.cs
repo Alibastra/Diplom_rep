@@ -41,7 +41,7 @@ namespace Hotel
                     template: "{controller=Room}/{action=List}/{id?}");
 
             });
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
         }
     }
 }
