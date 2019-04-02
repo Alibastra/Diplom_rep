@@ -1,0 +1,9 @@
+﻿@model  IEnumerable<Room>
+
+@foreach (var p in Model)
+{
+    <div>
+        <h3>Room № @p.RoomNumber</h3>
+        <h4>@p.Price.ToString("c")</h4>
+    </div>
+ }
