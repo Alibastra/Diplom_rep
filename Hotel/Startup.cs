@@ -37,6 +37,10 @@ namespace Hotel
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                   name: "pagination",
+                   template: "Room/Page{page}",
+                   defaults: new {Controller = "Room", action = "List" });
+                routes.MapRoute(
                     name: "defaulte",
                     template: "{controller=Room}/{action=List}/{id?}");
 

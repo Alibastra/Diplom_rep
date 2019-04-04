@@ -1,0 +1,10 @@
+﻿@model Room
+<div class="well">
+    <h3>
+        <strong>Room Number № @Model.RoomNumber</strong>
+        <span class="pull-right labele label-primary">
+            @Model.Price.ToString("c")
+        </span>
+    </h3>
+    <span class="lead"> @Model.Category </span>
+</div>
