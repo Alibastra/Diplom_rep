@@ -13,10 +13,11 @@ namespace Hotel.Controllers
         {
             repository = repo;
         }
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int quantity, int page = 1)
             => View(new RoomsListViewModel
             {
                 Rooms = repository.Rooms
+                    .Where(p => ((category==null||p.Category==category)&&(quantity == 0||p.Quantity==quantity)))
                     .OrderBy(p => p.RoomID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -25,7 +26,9 @@ namespace Hotel.Controllers
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = repository.Rooms.Count()
-                }
+                },
+                CurrentCategory=category,
+                CurrentQuantity=quantity
             });
     }
 }

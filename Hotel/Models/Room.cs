@@ -7,10 +7,9 @@ namespace Hotel.Models
 {
     public class Room
     {
-        public int RoomID { get; set; }
-        public int  RoomNumber { get; set; }
+        public int  RoomID { get; set; }
         public string Category { get; set; }
+        public int Quantity { get; set; }
         public decimal Price { get; set; }
-        public int HotelID { get; set; }
     }
 }

@@ -16,43 +16,38 @@ namespace Hotel.Models
                 context.Rooms.AddRange(
                     new Room
                     {
-                        RoomNumber = 1,
+                        RoomID = 1,
                         Price = 1200,
-                        RoomID = 001,
                         Category = "Luxe",
-                        HotelID = 200
+                        Quantity = 2
                     },
                     new Room
                     {
-                        RoomNumber = 2,
+                        RoomID = 2,
                         Price = 300,
-                        RoomID = 002,
                         Category = "Econom",
-                        HotelID = 200
+                        Quantity = 2
                     },
                     new Room
                     {
-                        RoomNumber = 3,
+                        RoomID = 3,
                         Price = 1200,
-                        RoomID = 003,
                         Category = "Luxe",
-                        HotelID = 200
+                        Quantity = 2
                     },
                     new Room
                     {
-                        RoomNumber = 4,
+                        RoomID = 4,
                         Price = 1200,
-                        RoomID = 004,
                         Category = "Luxe",
-                        HotelID = 200
+                        Quantity = 2
                     },
                     new Room
                     {
-                        RoomNumber = 5,
+                        RoomID = 5,
                         Price = 1200,
-                        RoomID = 005,
                         Category = "Luxe",
-                        HotelID = 200
+                        Quantity = 3
                     }
                     );
                 context.SaveChanges();

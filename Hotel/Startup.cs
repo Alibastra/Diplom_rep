@@ -37,13 +37,26 @@ namespace Hotel
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                   name: "pagination",
-                   template: "Room/Page{page}",
-                   defaults: new {Controller = "Room", action = "List" });
+                   name: null,
+                   template: "{quantity}/{category}/Page{page:int}",
+                   defaults: new { Controller = "Room", action = "List" });
                 routes.MapRoute(
-                    name: "defaulte",
-                    template: "{controller=Room}/{action=List}/{id?}");
-
+                   name: null,
+                   template: "{quantity}/Page{page:int}",
+                   defaults: new { Controller = "Room", action = "List", page = 1 });
+                routes.MapRoute(
+                   name: null,
+                   template: "{category}/Page{page:int}",
+                   defaults: new { Controller = "Room", action = "List", page = 1 });
+                routes.MapRoute(
+                   name: null,
+                   template: "Page{page:int}",
+                   defaults: new { Controller = "Room", action = "List", page = 1 });
+                routes.MapRoute(
+                    name: null,
+                    template: "",
+                    defaults: new { Controller = "Room", action = "List", page = 1 });
+                routes.MapRoute(name: null, template: "{controller}/{a1ction}/{ id ?}");
             });
             //SeedData.EnsurePopulated(app);
         }
