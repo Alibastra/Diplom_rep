@@ -59,7 +59,6 @@ namespace Hotel
                 routes.MapRoute(name: null, template: "{controller}/{a1ction}/{ id ?}");
             });
 
-            //SeedData.EnsurePopulated(app);
         }
     }
 }

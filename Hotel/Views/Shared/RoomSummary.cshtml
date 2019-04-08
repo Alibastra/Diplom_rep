@@ -3,8 +3,15 @@
     <h3>
         <strong>Room Number № @Model.RoomID</strong>
         <span class="pull-right labele label-primary">
-            @Model.Price.ToString("c")
+            @Model.Price.ToString("c") 
         </span>
+
     </h3>
-    <span class="lead"> @Model.Category </span>
+    @*<h4>
+            Quantity = @Model.Quantity
+        </h4>*@
+    <span class="lead">
+        Quantity = @Model.Quantity
+    </span><br>
+        <span class="lead"> @Model.Category </span>
 </div>

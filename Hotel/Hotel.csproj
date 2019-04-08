@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views - Копировать\Home\" />
     <Folder Include="Views\Home\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>

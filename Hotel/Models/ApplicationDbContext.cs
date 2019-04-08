@@ -5,6 +5,7 @@ namespace Hotel.Models
     public class ApplicationDbContext:DbContext
     {
         bool FlagConfigureContextForMigration = false;
+
         static bool FlagApplyMigrations = true;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -12,6 +13,7 @@ namespace Hotel.Models
             {
                 FlagApplyMigrations = false;
                 Database.Migrate();
+                SeedData.EnsurePopulated(this);
             }
         }
         public DbSet<Room> Rooms { get; set; }
