@@ -58,6 +58,7 @@ namespace Hotel
                     defaults: new { Controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(name: null, template: "{controller}/{a1ction}/{ id ?}");
             });
+
             //SeedData.EnsurePopulated(app);
         }
     }

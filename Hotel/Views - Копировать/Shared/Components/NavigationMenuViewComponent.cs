@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Hotel.Models;
+
+namespace Hotel.Components
+{
+    public class NavigationMenuViewComponent:ViewComponent
+    {
+        private IRoomRepository repository;
+        public NavigationMenuViewComponent(IRoomRepository repo)
+        {
+            repository = repo;
+        }
+        public IViewComponentResult Invoke()
+        {
+            return View(repository.Rooms
+                .Select(x => x.Category)
+                .Distinct()
+                .OrderBy(x => x));
+        }
+    }
+}

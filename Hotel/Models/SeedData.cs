@@ -8,9 +8,8 @@ namespace Hotel.Models
     public static class SeedData
     {
         public static void EnsurePopulated (IApplicationBuilder app)
-        { 
+        {
             ApplicationDbContext context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>();
-
             if (!context.Rooms.Any())
             {
                 context.Rooms.AddRange(

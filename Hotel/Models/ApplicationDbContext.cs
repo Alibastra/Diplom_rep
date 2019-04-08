@@ -15,5 +15,9 @@ namespace Hotel.Models
             }
         }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<CheckIn> CheckIns { get; set; }
+        public DbSet<Supply> Supplys { get; set; }
     }
 }
