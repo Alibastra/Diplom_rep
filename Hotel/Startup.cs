@@ -26,6 +26,8 @@ namespace Hotel
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration["Data:HotelRooms:ConnectionString"]));
             services.AddTransient<IRoomRepository, EFRoomRepository>();
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +36,7 @@ namespace Hotel
             app.UseDeveloperExceptionPage(); 
             app.UseStatusCodePages();//Расширение ответов об ошибках
             app.UseStaticFiles();//обслуживание стратического содержимого из папки wwwroot
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -58,7 +61,7 @@ namespace Hotel
                     defaults: new { Controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(name: null, template: "{controller}/{a1ction}/{ id ?}");
             });
-
         }
+
     }
 }

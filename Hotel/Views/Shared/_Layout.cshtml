@@ -17,8 +17,14 @@
             @await Component.InvokeAsync("NavigationMenu")
         </div>
         <div class="col-xs-8">
+            <button type="submit" class="btn btn-success btn-sm pull-right">
+                Add Room
+            </button>
+        </div>
+        <div class="col-xs-8"></div>
+        <div class="col-xs-8">
             @RenderBody()
         </div>
-    </div>
+        </div>
 </body>
 </html>

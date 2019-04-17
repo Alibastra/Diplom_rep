@@ -25,7 +25,7 @@ namespace Hotel.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Rooms.Count()
+                    TotalItems = category == null ? repository.Rooms.Count(): repository.Rooms.Where(e=>e.Category==category).Count()
                 },
                 CurrentCategory=category,
                 CurrentQuantity=quantity

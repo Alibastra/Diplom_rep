@@ -3,15 +3,20 @@
     <h3>
         <strong>Room Number № @Model.RoomID</strong>
         <span class="pull-right labele label-primary">
-            @Model.Price.ToString("c") 
+            @Model.Price.ToString("c")
         </span>
-
     </h3>
-    @*<h4>
-            Quantity = @Model.Quantity
-        </h4>*@
-    <span class="lead">
-        Quantity = @Model.Quantity
-    </span><br>
-        <span class="lead"> @Model.Category </span>
+    <form id=" @Model.RoomID" asp-action="Edit" asp-controller="Edit" method="post">
+        <input type="hidden" asp-for="RoomID" />
+        <input type="hidden" name="returnUrl"
+               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <span class="lead">
+            @Model.Category
+            <button type="submit" class="btn btn-success btn-sm pull-right">
+                Delete
+            </button>
+            <button type="submit" class="btn btn-success btn-sm pull-right">
+                Edit
+            </button>
+    </form>
 </div>

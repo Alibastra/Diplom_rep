@@ -44,7 +44,28 @@ namespace Hotel.Models
                     {
                         RoomID = 5,
                         Price = 1200,
-                        Category = "Luxe",
+                        Category = "Standart",
+                        Quantity = 3
+                    },
+                    new Room
+                    {
+                        RoomID = 6,
+                        Price = 1200,
+                        Category = "Standart",
+                        Quantity = 3
+                    },
+                    new Room
+                    {
+                        RoomID = 7,
+                        Price = 1200,
+                        Category = "Econom",
+                        Quantity = 3
+                    },
+                    new Room
+                    {
+                        RoomID = 8,
+                        Price = 1200,
+                        Category = "Standart",
                         Quantity = 3
                     }
                     );
