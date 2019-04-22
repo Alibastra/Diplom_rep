@@ -1,18 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Hotel.Models;
 using System.Linq;
 using Hotel.Models.ViewModels;
 
 namespace Hotel.Controllers
 {
-    public class RoomController:Controller
+    public class RoomController : Controller
     {
-        public int PageSize = 4; 
+        public int PageSize = 4;
         private IRoomRepository repository;
-        public RoomController (IRoomRepository repo)
+        public RoomController(IRoomRepository repo)
         {
             repository = repo;
         }
+        //[HttpGet]
+        public ViewResult AddRoom(Room room)=>View();
+
+        //[HttpPost]
+        //public ViewResult AddRoom(Rooms) {
+        //    .AddRange(repository);
+        //    return View("List");
+        //}
+
+
         public ViewResult List(string category, int quantity, int page = 1)
             => View(new RoomsListViewModel
             {
@@ -31,4 +42,4 @@ namespace Hotel.Controllers
                 CurrentQuantity=quantity
             });
     }
-}
+} 

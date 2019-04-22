@@ -1,7 +1,14 @@
 ﻿@model RoomsListViewModel
+<div>
+    <form asp-action="AddRoom" asp-controller="Room" method="post">
+        <button type="submit" class="btn btn-success btn-sm pull-right">
+            Add Room
+        </button>
+    </form>
+</div>
 @foreach (var p in Model.Rooms)
 {
-    @Html.Partial("RoomSummary",p)
+    @Html.Partial("RoomSummary", p)
 }
 <div page-model="@Model.PagingInfo" page-action="List"
      page-classes-enabled="true"

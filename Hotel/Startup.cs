@@ -41,12 +41,12 @@ namespace Hotel
             {
                 routes.MapRoute(
                    name: null,
-                   template: "{quantity}/{category}/Page{page:int}",
-                   defaults: new { Controller = "Room", action = "List" });
+                   template: "{quantity}/{category}/page{page:int}",
+                   defaults: new { controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(
                    name: null,
-                   template: "{quantity}/Page{page:int}",
-                   defaults: new { Controller = "Room", action = "List", page = 1 });
+                   template: "{quantity}/page{page:int}",
+                   defaults: new { controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(
                    name: null,
                    template: "{category}/Page{page:int}",
@@ -59,7 +59,7 @@ namespace Hotel
                     name: null,
                     template: "",
                     defaults: new { Controller = "Room", action = "List", page = 1 });
-                routes.MapRoute(name: null, template: "{controller}/{a1ction}/{ id ?}");
+                routes.MapRoute(name: null, template: "{controller}/{action}/{ id ?}");
             });
         }
 
