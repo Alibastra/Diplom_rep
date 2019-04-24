@@ -11,9 +11,9 @@
         <label>Category:</label>
         <select asp-for="Category" class="form-control">
             <option>Choose an option</option>
-            <option>Luxe</option>
-            <option>Standart</option>
-            <option>Econom</option>
+            <option value="Luxe">Luxe</option>
+            <option value="Standart">Standart</option>
+            <option value="Econom">Econom</option>
         </select>
     </div>
     <div class="form-group">
@@ -32,7 +32,7 @@
             </label>
         </div>*@
     <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn btn-primary" type="submit" value="Save" asp-action="Save" />
         <input class="btn btn-primary" type="submit" value="Cancel" />
     </div>
 </form>

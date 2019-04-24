@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Hotel.Models;
 using System.Linq;
 using Hotel.Models.ViewModels;
+using Npgsql.EntityFrameworkCore;
+
 
 namespace Hotel.Controllers
 {
@@ -14,14 +16,44 @@ namespace Hotel.Controllers
         {
             repository = repo;
         }
-        //[HttpGet]
-        public ViewResult AddRoom(Room room)=>View();
 
-        //[HttpPost]
-        //public ViewResult AddRoom(Rooms) {
-        //    .AddRange(repository);
-        //    return View("List");
+        public ViewResult AddRoom() => View(new Room());
+
+        [HttpPost]
+        public IActionResult Save(Room room)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.SaveRoom(room);
+                return RedirectToAction(nameof(AddRoom));
+            } else { return View(room); }
+        }
+
+        [HttpPost]
+        public IActionResult DeleteRoom(int roomID)
+        {
+            repository.DeleteRoom(roomID);
+            return RedirectToAction(nameof(List));
+        }
+
+        //public IActionResult Edit(int? roomID) {
+        //    if (roomID != null)
+        //        Room room = await repository.FirstOrDefaultAsync();
         //}
+
+        //    , string returnUrl)5
+        //{
+        //    return View(new AddRoomViewModel {ReturnUrl = returnUrl });
+        //}
+
+        //public async Task<IRoomRsult> Save(Room room)
+        //{
+        //    repository.Rooms.Add(room);
+        //    await repository.SaveChangesAsync();
+        //    return RedirectToAction("List");
+        //}
+
+
 
 
         public ViewResult List(string category, int quantity, int page = 1)

@@ -13,10 +13,10 @@
                value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <span class="lead">
             @Model.Category
-            <button type="submit" class="btn btn-success btn-sm pull-right">
+            <button type="submit" class="btn btn-success btn-sm pull-right"  asp-action="DeleteRoom">
                 Delete
             </button>
-            <button type="submit" class="btn btn-success btn-sm pull-right">
+            <button type="submit" class="btn btn-success btn-sm pull-right" >
                 Edit
             </button>
         </span>
