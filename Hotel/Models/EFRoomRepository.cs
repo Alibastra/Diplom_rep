@@ -14,7 +14,6 @@ namespace Hotel.Models
         public IEnumerable<Room> Rooms => context.Rooms;
         public void SaveRoom (Room room)
         {
-
             context.AttachRange();
             context.Rooms.Add(room);
             context.SaveChanges();

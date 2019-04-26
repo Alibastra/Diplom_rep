@@ -4,24 +4,26 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <title>@ViewBag.Titel</title>
+    <title>@ViewBag.Title</title>
 </head>
 
 <body>
     <div class="navbar navbar-inverse" role="navigation">
-            <a class="navbar-brand" href="#">LIST OF ROOMS</a>
-        </div>
+        <a class="navbar-brand" href="#">LIST OF ROOMS</a>
+    </div>
 
     <div class="row panel">
+
         <div id="categories" class="col-xs-3">
             @await Component.InvokeAsync("NavigationMenu")
         </div>
-
-        <div class="col-xs-8"></div>
         <div class="col-xs-8">
-            
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["message"]</div>
+                }
             @RenderBody()
         </div>
-        </div>
+    </div>
 </body>
 </html>
