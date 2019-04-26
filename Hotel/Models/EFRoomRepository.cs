@@ -15,22 +15,23 @@ namespace Hotel.Models
         public void SaveRoom (Room room)
         {
             context.AttachRange();
-            //if (room.RoomID == )
-            //{
             context.Rooms.Add(room);
-            //}
             context.SaveChanges();
         }
 
         public void DeleteRoom(int roomID)
         {
-            //if (room.RoomID != null)
-            //{
-                Room room = Rooms.FirstOrDefault(r => r.RoomID == roomID);
-                context.Rooms.Remove(room);
-                context.SaveChanges();
-             //}
+            Room room = Rooms.FirstOrDefault(r => r.RoomID == roomID);
+            context.Rooms.Remove(room);
+            context.SaveChanges();
         }
+        public void EditRoom(Room room)
+        {
+            context.Rooms.Update(room);
+            context.SaveChanges();
+        }
+
+
 
 
     }

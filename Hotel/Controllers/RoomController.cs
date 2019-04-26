@@ -17,6 +17,24 @@ namespace Hotel.Controllers
             repository = repo;
         }
 
+        public ViewResult List(string category, int quantity, int page = 1)
+            => View(new RoomsListViewModel
+            {
+                Rooms = repository.Rooms
+                    .Where(p => ((category == null || p.Category == category) && (quantity == 0 || p.Quantity == quantity)))
+                    .OrderBy(p => p.RoomID)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = category == null ? repository.Rooms.Count() : repository.Rooms.Where(e => e.Category == category).Count()
+                },
+                CurrentCategory = category,
+                CurrentQuantity = quantity
+            });
+
         public ViewResult AddRoom() => View(new Room());
 
         [HttpPost]
@@ -26,7 +44,8 @@ namespace Hotel.Controllers
             {
                 repository.SaveRoom(room);
                 return RedirectToAction(nameof(AddRoom));
-            } else { return View(room); }
+            }
+            else { return View(room); }
         }
 
         [HttpPost]
@@ -36,42 +55,25 @@ namespace Hotel.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        //public IActionResult Edit(int? roomID) {
-        //    if (roomID != null)
-        //        Room room = await repository.FirstOrDefaultAsync();
-        //}
-
-        //    , string returnUrl)5
-        //{
-        //    return View(new AddRoomViewModel {ReturnUrl = returnUrl });
-        //}
-
-        //public async Task<IRoomRsult> Save(Room room)
-        //{
-        //    repository.Rooms.Add(room);
-        //    await repository.SaveChangesAsync();
-        //    return RedirectToAction("List");
-        //}
-
-
-
-
-        public ViewResult List(string category, int quantity, int page = 1)
-            => View(new RoomsListViewModel
+        [HttpGet]
+        public IActionResult EditRoom(int? roomID)
+        {
+            if (roomID != null)
             {
-                Rooms = repository.Rooms
-                    .Where(p => ((category==null||p.Category==category)&&(quantity == 0||p.Quantity==quantity)))
-                    .OrderBy(p => p.RoomID)
-                    .Skip((page - 1) * PageSize)
-                    .Take(PageSize),
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = category == null ? repository.Rooms.Count(): repository.Rooms.Where(e=>e.Category==category).Count()
-                },
-                CurrentCategory=category,
-                CurrentQuantity=quantity
-            });
+                Room room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID);
+                return View(room);
+                //repository.EditRoom(room);
+                //return RedirectToAction(nameof(EditRoom));
+            }
+            return NotFound(); 
+        }
+        [HttpPost]
+        public IActionResult EditRoom(Room room)
+        {
+            //if (roomID != null)
+            repository.EditRoom(room);
+            return RedirectToAction("List");
+        }
+        public IActionResult Cancel() => RedirectToAction(nameof(List));
     }
 } 

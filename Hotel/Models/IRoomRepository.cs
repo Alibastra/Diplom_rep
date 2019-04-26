@@ -7,5 +7,8 @@ namespace Hotel.Models
         IEnumerable<Room> Rooms { get; }
         void SaveRoom(Room room);
         void DeleteRoom(int roomID);
+        void EditRoom(Room room);
+       
+        
     }
 }

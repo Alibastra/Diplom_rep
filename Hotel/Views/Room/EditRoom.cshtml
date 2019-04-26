@@ -1,0 +1,42 @@
+﻿@model Room
+{
+    ViewBag.Title = "Edit Room";
+}
+<h2>EditRoom</h2>
+<p>Please edit details! @Model.RoomID</p>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="EditRoom" asp-controller="Room" asp-route-id="@Model.RoomID">
+    <div class="form-group">
+            <label asp-for="RoomID" class="control-label">Room Number:</label>
+            <input type="text" asp-for="RoomID" class="form-control" />
+    </div>
+        @*<div class="form-group">
+                <label>category:</label>
+                <select asp-for="category" class="form-control">
+                    <option>choose an option</option>
+                    <option value="luxe">luxe</option>
+                    <option value="standart">standart</option>
+                    <option value="econom">econom</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>number of places:</label><input asp-for="quantity" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>price:</label><input asp-for="price" class="form-control" />
+            </div>*@
+        @*<div class="form-group">
+                <label>comments:</label><input asp-for="comments" class="form-control" />
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input asp-for="state" /> rent is rent
+                </label>
+            </div>*@
+        <div class="text-center">
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <input class="btn btn-primary" type="submit" value="Cancel" asp-controller="Cancel"/>
+        </div>
+    </form>
