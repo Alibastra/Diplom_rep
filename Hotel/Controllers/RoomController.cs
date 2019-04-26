@@ -59,16 +59,12 @@ namespace Hotel.Controllers
         public ViewResult EditRoom(int roomID) =>
             View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
 
-        //[HttpPost]
-        //public IActionResult EditRoom(Room room)
-        //{
-        //        if (ModelState.IsValid)
-        //        {
-        //    repository.SaveRoom(room);
-        //        TempData["message"] = $"Room № {room.RoomID} has been saved";
-        //        return RedirectToAction(nameof(List));
-        //        }
-        //        else { return View(room); }
-        //}
+        [HttpPost]
+        public IActionResult EditRoom(Room room)
+        {
+            repository.EditRoom(room);
+            TempData["message"] = $"Room № {room.RoomID} has been edited";
+            return RedirectToAction(nameof(List));
+        }
     }
 } 

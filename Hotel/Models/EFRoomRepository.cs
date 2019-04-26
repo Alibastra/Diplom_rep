@@ -27,26 +27,8 @@ namespace Hotel.Models
         }
         public void EditRoom(Room room)
         {
-            if (room.RoomID == 0)
-            {
-                context.Rooms.Add(room);
-            }
-            else
-            {
-                Room dbEntry = context.Rooms
-                        .FirstOrDefault(r => r.RoomID == room.RoomID);
-                if (dbEntry != null)
-                {
-                    dbEntry.Category = room.Category;
-                    dbEntry.Quantity = room.Quantity;
-                    dbEntry.Price = room.Price;
-                }
-            }
+            context.Rooms.Update(room);           
             context.SaveChanges();
         }
-
-
-
-
     }
 }
