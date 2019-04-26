@@ -62,9 +62,15 @@ namespace Hotel.Controllers
         [HttpPost]
         public IActionResult EditRoom(Room room)
         {
-            repository.EditRoom(room);
-            TempData["message"] = $"Room № {room.RoomID} has been edited";
-            return RedirectToAction(nameof(List));
+            if (ModelState.IsValid) {
+                repository.EditRoom(room);
+                TempData["message"] = $"Room № {room.RoomID} has been edited";
+                return RedirectToAction(nameof(List));
+            } else
+            {
+                return View(room);
+            }
+            
         }
     }
 } 
