@@ -37,17 +37,29 @@ namespace Hotel.Controllers
 
         public ViewResult AddRoom() => View(new Room());
 
-
-        public IActionResult Save(Room room)
+        [HttpPost]
+        public IActionResult InsertRoom(Room room)
         {
             if (ModelState.IsValid)
             {
-                repository.SaveRoom(room);
-                TempData["message"] = $"Room № {room.RoomID} has been added";
-                return RedirectToAction(nameof(AddRoom));
+                if (repository.Rooms.FirstOrDefault(r => r.RoomID == room.RoomID) == null)
+                {
+                    repository.InsertRoom(room);
+                    TempData["message"] = $"Room № {room.RoomID} has been added";
+                    return RedirectToAction(nameof(List));
+                }
+                else
+                {
+                    TempData["message"] = $"Комната с номером {room.RoomID} уже существует.";
+                    return View("AddRoom", room);
+                }
             }
-            else { return View(room); }
+            else { return View("AddRoom", room); }
         }
+
+        [HttpPost]
+        public IActionResult ConfirmDeleteRoom(int roomID) =>
+            View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
 
         [HttpPost]
         public IActionResult DeleteRoom(int roomID)
@@ -56,21 +68,26 @@ namespace Hotel.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        public ViewResult EditRoom(int roomID) =>
-            View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
+        [HttpPost]
+        public ViewResult EditRoom(int roomID, string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
+        }
 
         [HttpPost]
-        public IActionResult EditRoom(Room room)
+        public IActionResult UpdateRoom(Room room, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                repository.EditRoom(room);
-                TempData["message"] = $"Room № {room.RoomID} has been edited";
-                return RedirectToAction(nameof(List));
+                repository.UpdateRoom(room);
+                TempData["message"] = $"Изменения по комнате № {room.RoomID} сохранены";
+                return RedirectToAction(nameof(List), new { returnUrl});
             }
             else
             {
-                return View(room);
+                ViewBag.ReturnUrl = returnUrl;
+                return View("EditRoom", room);
             }
 
         }

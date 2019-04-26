@@ -5,8 +5,8 @@ namespace Hotel.Models
     public interface IRoomRepository
     {
         IEnumerable<Room> Rooms { get; }
-        void SaveRoom(Room room);
+        void InsertRoom(Room room);
         void DeleteRoom(int roomID);
-        void EditRoom(Room room);
+        void UpdateRoom(Room room);
     }
 }

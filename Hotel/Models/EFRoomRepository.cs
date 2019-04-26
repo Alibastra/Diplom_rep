@@ -12,7 +12,8 @@ namespace Hotel.Models
             context = ctx;
         }
         public IEnumerable<Room> Rooms => context.Rooms;
-        public void SaveRoom (Room room)
+
+        public void InsertRoom (Room room)
         {
             context.AttachRange();
             context.Rooms.Add(room);
@@ -25,9 +26,9 @@ namespace Hotel.Models
             context.Rooms.Remove(room);
             context.SaveChanges();
         }
-        public void EditRoom(Room room)
+        public void UpdateRoom(Room room)
         {
-            context.Rooms.Update(room);           
+            context.Rooms.Update(room);
             context.SaveChanges();
         }
     }

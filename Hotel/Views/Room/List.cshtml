@@ -2,19 +2,22 @@
 @{
     ViewBag.Title = "List of Room";
 }
-    <div>
+    <div class="panel-body">
         <form asp-action="AddRoom" asp-controller="Room" method="post">
             <button type="submit" class="btn btn-success btn-sm pull-right">
                 Add Room
             </button>
         </form>
     </div>
-    @foreach (var p in Model.Rooms)
-    {
-        @Html.Partial("RoomSummary", p)
-    }
-    <div page-model="@Model.PagingInfo" page-action="List"
-         page-classes-enabled="true"
-         page-class="btn" page-class-normal="btn-default"
-         page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">
+    <div>
+        @foreach (var p in Model.Rooms)
+        {
+            @Html.Partial("RoomSummary", p)
+        }
     </div>
+
+        <div page-model="@Model.PagingInfo" page-action="List"
+             page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-default"
+             page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">
+        </div>

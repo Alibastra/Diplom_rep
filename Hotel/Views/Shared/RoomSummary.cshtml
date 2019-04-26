@@ -7,18 +7,23 @@
             @Model.Price.ToString("c")
         </span>
     </h3>
-    <form id=" @Model.RoomID" asp-action="Edit" asp-controller="Edit" method="post">
+
+    <form id=" @Model.RoomID" asp-action="List" asp-controller="Room" method="post">
         <input type="hidden" asp-for="RoomID" />
-        <input type="hidden" name="returnUrl"
-               value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <span class="lead">
             @Model.Category
-            <button type="submit" class="btn btn-success btn-sm pull-right"  asp-action="DeleteRoom">
-                Delete
+            <div>
+            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteRoom">
+                Удалить
             </button>
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
-                Edit
-            </button>
+            </div>
+            <div><br /> </div>
+            <div>
+                <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
+                    Редактировать
+                </button>
+            </div>
         </span>
         <div>
             @Model.Comments

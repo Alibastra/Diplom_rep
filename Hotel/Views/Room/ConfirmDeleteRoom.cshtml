@@ -1,0 +1,42 @@
+﻿@model Room
+
+<div class="modal-content">
+    <div class="modal-header">
+        <form asp-action="List" method="post">
+            <button class="close" data-dismiss="modal" area-hidden="true" asp-action="List">X</button>
+        </form>
+        <h4>Удалить комнату № @Model.RoomID? </h4>
+
+    </div>
+    <div class="modal-body">
+        <form asp-action="UpdateRoom" method="post">
+            <input type="hidden" asp-for="RoomID">
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <input asp-for="Category" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity">Number of places:</label>
+                <input asp-for="Quantity" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price">Price:</label>
+                <input asp-for="Price" class="form-control" readonly />
+            </div>
+            <div class="form-group">
+                <label>comments:</label>
+                <textarea asp-for="Comments" class="form-control" readonly></textarea>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input asp-for="State" disabled /> rent is rent
+                </label>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit" asp-action="DeleteRoom">Удалить</button>
+                <a asp-action="List" class="btn btn-primary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+
