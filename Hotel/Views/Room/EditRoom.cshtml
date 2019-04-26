@@ -3,40 +3,39 @@
     ViewBag.Title = "Edit Room";
 }
 <h2>EditRoom</h2>
-<p>Please edit details! @Model.RoomID</p>
+<p>Please edit details for Room № @Model.RoomID</p>
 
-<div asp-validation-summary="All" class="text-danger"></div>
-<form asp-action="EditRoom" asp-controller="Room" asp-route-id="@Model.RoomID">
+<form asp-action="EditRoom" method="post">
+    <input type="hidden" asp-for="RoomID">
     <div class="form-group">
-            <label asp-for="RoomID" class="control-label">Room Number:</label>
-            <input type="text" asp-for="RoomID" class="form-control" />
+        <label asp-for="Category"></label>
+        <select asp-for="Category" class="form-control">
+            <option>Choose an option</option>
+            <option value="Luxe">Luxe</option>
+            <option value="Standart">Standart</option>
+            <option value="Econom">Econom</option>
+        </select>
     </div>
-        @*<div class="form-group">
-                <label>category:</label>
-                <select asp-for="category" class="form-control">
-                    <option>choose an option</option>
-                    <option value="luxe">luxe</option>
-                    <option value="standart">standart</option>
-                    <option value="econom">econom</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>number of places:</label><input asp-for="quantity" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>price:</label><input asp-for="price" class="form-control" />
-            </div>*@
-        @*<div class="form-group">
-                <label>comments:</label><input asp-for="comments" class="form-control" />
-            </div>
+    <div class="form-group">
+        <label asp-for="Quantity">Number of places:</label>
+        <input asp-for="Quantity" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Price:</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    @*<div class="form-group">
+            <label>comments:</label>
+            <textarea asp-for="comments" class="form-control"></textarea>
+      </div>
 
-            <div class="checkbox">
-                <label>
-                    <input asp-for="state" /> rent is rent
-                </label>
-            </div>*@
-        <div class="text-center">
-            <input class="btn btn-primary" type="submit" value="Save" />
-            <input class="btn btn-primary" type="submit" value="Cancel" asp-controller="Cancel"/>
-        </div>
-    </form>
+        <div class="checkbox">
+            <label>
+                <input asp-for="state" /> rent is rent
+            </label>
+        </div>*@
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit"asp-action="EditRoom" >Save</button>
+        <a asp-action="List" class="btn btn-primary">Cancel</a>
+    </div>
+</form>

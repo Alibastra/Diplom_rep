@@ -37,12 +37,13 @@ namespace Hotel.Controllers
 
         public ViewResult AddRoom() => View(new Room());
 
-        [HttpPost]
+
         public IActionResult Save(Room room)
         {
             if (ModelState.IsValid)
             {
                 repository.SaveRoom(room);
+                TempData["message"] = $"Room № {room.RoomID} has been added";
                 return RedirectToAction(nameof(AddRoom));
             }
             else { return View(room); }
@@ -55,25 +56,19 @@ namespace Hotel.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        [HttpGet]
-        public IActionResult EditRoom(int? roomID)
-        {
-            if (roomID != null)
-            {
-                Room room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID);
-                return View(room);
-                //repository.EditRoom(room);
-                //return RedirectToAction(nameof(EditRoom));
-            }
-            return NotFound(); 
-        }
-        [HttpPost]
-        public IActionResult EditRoom(Room room)
-        {
-            //if (roomID != null)
-            repository.EditRoom(room);
-            return RedirectToAction("List");
-        }
-        public IActionResult Cancel() => RedirectToAction(nameof(List));
+        public ViewResult EditRoom(int roomID) =>
+            View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
+
+        //[HttpPost]
+        //public IActionResult EditRoom(Room room)
+        //{
+        //        if (ModelState.IsValid)
+        //        {
+        //    repository.SaveRoom(room);
+        //        TempData["message"] = $"Room № {room.RoomID} has been saved";
+        //        return RedirectToAction(nameof(List));
+        //        }
+        //        else { return View(room); }
+        //}
     }
 } 

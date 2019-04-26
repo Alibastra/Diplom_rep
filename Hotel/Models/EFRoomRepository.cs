@@ -14,6 +14,7 @@ namespace Hotel.Models
         public IEnumerable<Room> Rooms => context.Rooms;
         public void SaveRoom (Room room)
         {
+
             context.AttachRange();
             context.Rooms.Add(room);
             context.SaveChanges();
@@ -27,7 +28,21 @@ namespace Hotel.Models
         }
         public void EditRoom(Room room)
         {
-            context.Rooms.Update(room);
+            if (room.RoomID == 0)
+            {
+                context.Rooms.Add(room);
+            }
+            else
+            {
+                Room dbEntry = context.Rooms
+                        .FirstOrDefault(r => r.RoomID == room.RoomID);
+                if (dbEntry != null)
+                {
+                    dbEntry.Category = room.Category;
+                    dbEntry.Quantity = room.Quantity;
+                    dbEntry.Price = room.Price;
+                }
+            }
             context.SaveChanges();
         }
 

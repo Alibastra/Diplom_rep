@@ -8,7 +8,5 @@ namespace Hotel.Models
         void SaveRoom(Room room);
         void DeleteRoom(int roomID);
         void EditRoom(Room room);
-       
-        
     }
 }
