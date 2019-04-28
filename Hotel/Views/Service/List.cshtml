@@ -1,11 +1,12 @@
-﻿@model RoomsListViewModel
+﻿@model ServicesListViewModel
 @{
-    ViewBag.Title = "Список комнат";
+    ViewBag.Title = "Услуги";
 }
+
 <div class="row panel">
 
     <div id="categories" class="col-xs-3">
-        @await Component.InvokeAsync("NavigationMenuRoom")
+        @await Component.InvokeAsync("NavigationMenuService")
     </div>
 
     <div class="col-xs-8">
@@ -14,17 +15,17 @@
             <div class="alert alert-success">@TempData["message"]</div>
         }
         <div class="panel-body">
-            <form asp-action="AddRoom" asp-controller="Room" method="post">
+            <form asp-action="AddService" asp-controller="Service" method="post">
                 <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
                 <button type="submit" class="btn btn-success btn-sm pull-right">
-                    +Добавить комнату
+                    +Добавить Услугу
                 </button>
             </form>
         </div>
         <div>
-            @foreach (var p in Model.Rooms)
+            @foreach (var p in Model.Services)
             {
-                @Html.Partial("RoomSummary", p)
+                @Html.Partial("ServiceSummary", p)
             }
         </div>
 

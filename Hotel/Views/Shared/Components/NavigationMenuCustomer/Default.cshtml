@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+<a class="btn btn-block btn-default"
+   asp-action="List"
+   asp-controller="Customer"
+   asp-route-category="">Все категории</a>
+<form asp-action="List" asp-controler="Customer">
+    <label>Фамилия:</label>
+    <input class="btn btn-block btn-default form-control" asp-route-category="@LastName"/>
+    <button type="submit" class="btn btn-success btn-sm pull-left">
+        Поиск
+    </button>
+</form>   

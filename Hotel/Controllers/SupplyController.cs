@@ -16,7 +16,7 @@ namespace Hotel.Controllers
         {
             repository = repo;
         }
-
+        public ViewResult List() => View(new SupplyListViewModel() );
         //public ViewResult List(string category, int quantity, int page = 1)
         //    => View(new RoomsListViewModel
         //    {
@@ -71,7 +71,7 @@ namespace Hotel.Controllers
         //[HttpPost]
         //public ViewResult EditRoom(int roomID, string returnUrl) =>
         //    View(new EditRoomViewModel { Room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
-      
+
 
         //[HttpPost]
         //public IActionResult UpdateRoom(Room room, string returnUrl)

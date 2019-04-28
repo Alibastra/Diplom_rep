@@ -25,6 +25,10 @@ namespace Hotel
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration["Data:HotelRooms:ConnectionString"]));
             services.AddTransient<IRoomRepository, EFRoomRepository>();
+            services.AddTransient<IServiceRepository, EFServiceRepository>();
+            services.AddTransient<ICustomerRepository, EFCustomerRepository>();
+            services.AddTransient<ICheckInRepository, EFCheckInRepository>();
+            services.AddTransient<ISupplyRepository, EFSupplyRepository>();
             services.AddMvc();
             services.AddMemoryCache();
             services.AddSession();
@@ -39,22 +43,6 @@ namespace Hotel
             app.UseSession();
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //   name: null,
-                //   template: "{quantity}/{category}/page{page:int}",
-                //   defaults: new { controller = "Room", action = "List", page = 1 });
-                //routes.MapRoute(
-                //   name: null,
-                //   template: "{quantity}/page{page:int}",
-                //   defaults: new { controller = "Room", action = "List", page = 1 });
-                //routes.MapRoute(
-                //   name: null,
-                //   template: "{category}/Page{page:int}",
-                //   defaults: new { Controller = "Room", action = "List", page = 1 });
-                //routes.MapRoute(
-                //   name: null,
-                //   template: "Page{page:int}",
-                //   defaults: new { Controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(
                     name: null,
                     template: "",

@@ -4,18 +4,18 @@ using Hotel.Models;
 
 namespace Hotel.Views.Shared.Components
 {
-    public class NavigationMenuViewComponent:ViewComponent
+    public class NavigationMenuServiceViewComponent:ViewComponent
     {
-        private IRoomRepository repository;
+        private IServiceRepository repository;
 
-        public NavigationMenuViewComponent(IRoomRepository repo)
+        public NavigationMenuServiceViewComponent(IServiceRepository repo)
         {
             repository = repo;
         }
         public IViewComponentResult Invoke()
         {
            // ViewBag.SelectedCategory = RouteData?.Values[category];
-            return View(repository.Rooms
+            return View(repository.Services
                 .Select(x => x.Category)
                 .Distinct()
                 .OrderBy(x => x));

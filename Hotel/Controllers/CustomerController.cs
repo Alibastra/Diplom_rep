@@ -17,75 +17,75 @@ namespace Hotel.Controllers
             repository = repo;
         }
 
-        //public ViewResult List(string category, int quantity, int page = 1)
-        //    => View(new RoomsListViewModel
-        //    {
-        //        Rooms = repository.Rooms
-        //            .Where(p => ((category == null || p.Category == category) && (quantity == 0 || p.Quantity == quantity)))
-        //            .OrderBy(p => p.RoomID)
-        //            .Skip((page - 1) * PageSize)
-        //            .Take(PageSize),
-        //        PagingInfo = new PagingInfo
-        //        {
-        //            CurrentPage = page,
-        //            ItemsPerPage = PageSize,
-        //            TotalItems = category == null ? repository.Rooms.Count() : repository.Rooms.Where(e => e.Category == category).Count()
-        //        },
-        //        CurrentCategory = category,
-        //        CurrentQuantity = quantity
-        //    });
+        public ViewResult List(string lastname, int page = 1)
+            => View(new CustomersListViewModel
+            {
+                Customers = repository.Customers
+                    .Where(p => (lastname == null || p.LastName == lastname))
+                    .OrderBy(p => p.CustomerID)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = lastname == null ? repository.Customers.Count() : repository.Customers.Where(e => e.LastName == lastname).Count()
+                },
+                LastName = lastname,
+            });
 
-        //public ViewResult AddRoom(string returnUrl) => View(new AddRoomViewModel { Room = new Room(), ReturnUrl = returnUrl });
+        //public ViewResult AddCustomer(string returnUrl) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});
 
         //[HttpPost]
-        //public IActionResult InsertRoom(Room room, string returnUrl)
+        //public IActionResult InsertCustomer(Customer customer, string returnUrl)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        if (repository.Rooms.FirstOrDefault(r => r.RoomID == room.RoomID) == null)
+        //        if (repository.Customers.FirstOrDefault(r => r.CustomerID == customer.CustomerID) == null)
         //        {
-        //            repository.InsertRoom(room);
-        //            TempData["message"] = $"Room № {room.RoomID} has been added";
+        //            repository.InsertCustomer(customer);
+        //            TempData["message"] = $"Комната с номером {customer.CustomerID} была создана";
         //            return RedirectToAction(nameof(List));
         //        }
         //        else
         //        {
-        //            TempData["message"] = $"Комната с номером {room.RoomID} уже существует.";
-        //            return View(new AddRoomViewModel { Room = room, ReturnUrl = returnUrl });
+        //            TempData["message"] = $"Комната с номером {customer.CustomerID} уже существует.";
+        //            return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl });
         //        }
         //    }
-        //    else { return View(new AddRoomViewModel { Room = room, ReturnUrl = returnUrl }); }
+        //    else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl }); }
         //}
 
-        //[HttpPost]
-        //public IActionResult ConfirmDeleteRoom(int roomID, string returnUrl) =>
-        //   View(new DeleteRoomViewModel { Room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
+        [HttpPost]
+        public IActionResult ConfirmDeleteCustomer(int customerID, string returnUrl) =>
+            View(new CustomerViewModel { Customer = repository.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl });
 
-        //[HttpPost]
-        //public IActionResult DeleteRoom(Room room, string returnUrl)
-        //{
-        //    repository.DeleteRoom(room);
-        //    return RedirectToAction(nameof(List));
-        //}
+        [HttpPost]
+        public IActionResult DeleteCustomer(Customer customer)
+        {
+            repository.DeleteCustomer(customer);
+            return RedirectToAction(nameof(List));
+        }
 
-        //[HttpPost]
-        //public ViewResult EditRoom(int roomID, string returnUrl) =>
-        //    View(new EditRoomViewModel { Room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
-      
+        [HttpPost]
+        public ViewResult EditCustomer(int customerID, string returnUrl)
+        {
+            return View(new CustomerViewModel { Customer = repository.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl });
+        }
 
-        //[HttpPost]
-        //public IActionResult UpdateRoom(Room room, string returnUrl)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        repository.UpdateRoom(room);
-        //        TempData["message"] = $"Изменения по комнате № {room.RoomID} сохранены";
-        //        return RedirectToAction(nameof(List));
-        //    }
-        //    else
-        //    {
-        //        return View(new EditRoomViewModel { Room = room, ReturnUrl = returnUrl });
-        //    }
-        //}
+        [HttpPost]
+        public IActionResult UpdateCustomer(Customer customer, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                repository.UpdateCustomer(customer);
+                TempData["message"] = $"Изменения по комнате № {customer.CustomerID} сохранены";
+                return RedirectToAction(nameof(List), new { returnUrl});
+            }
+            else
+            {
+                return View("EditCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl });
+            }
+        }
     }
 }

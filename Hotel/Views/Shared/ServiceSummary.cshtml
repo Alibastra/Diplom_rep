@@ -1,0 +1,29 @@
+﻿@model Service
+<div class="well">
+    
+    <h3>
+        <strong>@Model.ServiceID</strong>
+        </br>
+        <strong>Услуга: "@Model.ServiceName"</strong>
+        <span class="pull-right labele label-primary">
+            @Model.Price.ToString("c")
+        </span>
+    </h3>
+
+    <form id=" @Model.ServiceID" asp-controller="Room" method="post">
+        <input type="hidden" asp-for="ServiceID" />
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <span class="lead">
+            @Model.Category
+            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteService">
+                Удалить
+            </button>
+            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditService">
+                Редактировать
+            </button>
+        </span>
+        <div>
+            @Model.Comments
+        </div>
+    </form>
+</div>

@@ -1,0 +1,46 @@
+﻿@model ServiceViewModel
+@{
+    ViewBag.Title = "Редактировать";
+}
+<div class="modal-dialog">
+    <h2>EditRoom</h2>
+    <p>Please edit details for Room № @Model.Service.ServiceID</p>
+
+    <form asp-action="UpdateService" method="post">
+        <input type="hidden" asp-for="Service.ServiceID" />
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        <div class="form-group">
+            <label asp-for="Service.Category"></label>
+            <div><span asp-validation-for="Service.Category" class="text-danger"></span></div>
+            <select asp-for="Service.Category" class="form-control">
+                <option selected disabled value="">Выбирите вид услуги</option>
+                <option value="Основные">Основные</option>
+                <option value="Дополнительные">Дополнительные</option>
+                <option value="Индивидуальные">Индивидуальные</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Service.ServiceName">Название услуги:</label>
+            <div><span asp-validation-for="Service.ServiceName" class="text-danger"></span></div>
+            <input asp-for="Service.ServiceName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Service.Price">Цена:</label>
+            <div><span asp-validation-for="Service.Price" class="text-danger"></span></div>
+            <input asp-for="Service.Price" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Комментарий:</label>
+            <textarea asp-for="Service.Comments" class="form-control"></textarea>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input asp-for="Service.State" /> Услуга оказывается
+            </label>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Редактировать</button>
+            <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
+        </div>
+    </form>
+</div>

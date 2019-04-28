@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,7 +8,7 @@ namespace Hotel.Models
 {
     public static class SeedData
     {
-        public static void EnsurePopulated (ApplicationDbContext context)
+        public static void EnsurePopulated(ApplicationDbContext context)
         {
             if (!context.Rooms.Any())
             {
@@ -86,7 +87,91 @@ namespace Hotel.Models
                     }
                     );
                 context.SaveChanges();
+
+            }
+            if (!context.Services.Any())
+            {
+                context.Services.AddRange(
+                    new Service
+                    {
+                        ServiceID = 1,
+                        Price = 1200,
+                        ServiceName = "Услуга № 1",
+                        Category = "Основная",
+                        State = true,
+                        Comments = "Ля-ля-ля"
+                    },
+                    new Service
+                    {
+                        ServiceID = 2,
+                        Price = 1200,
+                        ServiceName = "Услуга № 1",
+                        Category = "Дополнительная",
+                        State = true,
+                        Comments = "Ля-ля-ля"
+                    },
+                    new Service
+                    {
+                        ServiceID = 3,
+                        Price = 1200,
+                        ServiceName = "Услуга № 1",
+                        Category = "Индивидуальная",
+                        State = true,
+                        Comments = "Ля-ля-ля"
+                    },
+                    new Service
+                    {
+                        ServiceID = 4,
+                        Price = 1200,
+                        ServiceName = "Услуга № 1",
+                        Category = "Основная",
+                        State = true,
+                        Comments = "Ля-ля-ля"
+                    },
+                    new Service
+                    {
+                        ServiceID = 5,
+                        Price = 1200,
+                        ServiceName = "Услуга № 1",
+                        Category = "Дополнительная",
+                        State = true,
+                        Comments = "Ля-ля-ля"
+                    });
+                context.SaveChanges();
+            }
+            if (!context.Customers.Any())
+            {
+                context.Customers.AddRange(
+                   new Customer
+                   {
+                       CustomerID = 1,
+                       FirstName = "Анастасия",
+                       LastName = "Уварова",
+                       BithDate =new DateTime(1997,09,26),
+                       Email = "kotenok26_97@mail.ru",
+                       PhoneNumber = "89253136326"
+                   },
+                   new Customer
+                   {
+                       CustomerID = 2,
+                       FirstName = "Анастасия",
+                       LastName = "Сомова",
+                       BithDate = new DateTime(1997, 09, 26),
+                       Email = "kotenok26_97@mail.ru",
+                       PhoneNumber = "89253136326"
+                   },
+                   new Customer
+                   {
+                       CustomerID = 3,
+                       FirstName = "Анастасия",
+                       LastName = "Карелина",
+                       BithDate = new DateTime(1997, 09, 26),
+                       Email = "kotenok26_97@mail.ru",
+                       PhoneNumber = "89253136326"
+                   });
+                context.SaveChanges();
             }
         }
+
     }
 }

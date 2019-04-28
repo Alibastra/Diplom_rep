@@ -1,20 +1,20 @@
-﻿@model RoomViewModel
+﻿@model CustomerViewModel
 @{
     ViewBag.Title = "Добавить комнату";
 }
 <div class="modal-dialog">
     <h2>Добавить комнату</h2>
     <p>Пожалуйста, заполните данные!</p>
-    <form asp-action="AddRoom" method="post">
+    @*<form asp-action="AddCustomer" method="post">
         <div class="form-group">
             <label>Номер комнаты:</label>
-            <div><span asp-validation-for="Room.RoomID" class="text-danger"></span></div>
-            <input asp-for="Room.RoomID" class="form-control" />
+            <div><span asp-validation-for="Customer.CustomerID" class="text-danger"></span></div>
+            <input asp-for="Customer.CustomerID" class="form-control" />
         </div>
         <div class="form-group">
             <label>Категория:</label>
-            <div><span asp-validation-for="Room.Category" class="text-danger"></span></div>
-            <select asp-for="Room.Category" class="form-control">
+            <div><span asp-validation-for="Customer.Category" class="text-danger"></span></div>
+            <select asp-for="Customer.Category" class="form-control">
                 <option selected disabled value="">Выберите категорию</option>
                 <option value="Luxe">Luxe</option>
                 <option value="Standart">Standart</option>
@@ -23,26 +23,26 @@
         </div>
         <div class="form-group">
             <label>Количество мест:</label>
-            <div><span asp-validation-for="Room.Quantity" class="text-danger"></span></div>
-            <input asp-for="Room.Quantity" class="form-control" />
+            <div><span asp-validation-for="Customer.Quantity" class="text-danger"></span></div>
+            <input asp-for="Customer.Quantity" class="form-control" />
         </div>
         <div class="form-group">
             <label>Цена:</label>
-            <div><span asp-validation-for="Room.Price" class="text-danger"></span></div>
-            <input asp-for="Room.Price" class="form-control" />
+            <div><span asp-validation-for="Customer.Price" class="text-danger"></span></div>
+            <input asp-for="Customer.Price" class="form-control" />
         </div>
         <div class="form-group">
             <label>Коментарии:</label>
-            <input asp-for="Room.Comments" class="form-control" />
+            <input asp-for="Customer.Comments" class="form-control" />
         </div>
         <div class="checkbox">
             <label>
-                <input asp-for="Room.State" /> Сдается
+                <input asp-for="Customer.State" /> Сдается
             </label>
         </div>
         <div class="text-center">
-            <input class="btn btn-primary" type="submit" value="Создать" asp-action="InsertRoom" />
+            <input class="btn btn-primary" type="submit" value="Создать" asp-action="InsertCustomer" />
             <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>
         </div>
-    </form>
+    </form>*@
 </div>

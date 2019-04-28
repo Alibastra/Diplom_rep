@@ -1,0 +1,32 @@
+﻿@model CustomersListViewModel
+@{
+    ViewBag.Title = "Список комнат";
+}
+<div class="row panel">
+
+    <div id="categories" class="col-xs-3">
+        @await Component.InvokeAsync("NavigationMenuCustomer")
+    </div>
+
+    <div class="col-xs-8">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        <div>
+            @foreach (var p in Model.Customers)
+            {
+                @Html.Partial("CustomerSummary", p)
+            }
+        </div>
+
+        <div page-model="@Model.PagingInfo" page-action="List"
+             page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-default"
+             page-class-selected="btn-primary" page-url-category="@Model.LastName" class="btn-group pull-right-right">
+        </div>
+    </div>
+</div>
+
+
+
