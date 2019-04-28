@@ -1,29 +1,124 @@
 ﻿@model Room
+
 <div class="well">
-    
-    <h3>
-        <strong>Room Number № @Model.RoomID</strong>
-        <span class="pull-right labele label-primary">
-            @Model.Price.ToString("c")
-        </span>
-    </h3>
-
-    <form id=" @Model.RoomID" asp-controller="Room" method="post">
-        <input type="hidden" asp-for="RoomID" />
-        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <span class="lead">
-            @Model.Category
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteRoom">
-                Удалить
-            </button>
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
-                Редактировать
-            </button>
-        </span>
-        <div>
-            @Model.Comments
-        </div>
-    </form>
-
-
+    <table class="table">
+        <tbody>
+            <tr>
+                <td width="25%" rowspan="2">
+                    <h3>
+                        <strong>Комната № @Model.RoomID</strong>
+                    </h3>
+                    <br />
+                    @Model.Category
+                </td>
+                <td width="55%">
+                </td>
+                <td width="20%" align="right" colspan="2">
+                    <h3>
+                        @Model.Price.ToString("c")
+                    </h3>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" border="0">
+                    @Model.Comments
+                </td>
+                <td>
+                    <form id=" @Model.RoomID" asp-controller="Room" method="post">
+                        <input type="hidden" asp-for="RoomID" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
+                            Редактировать
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form id=" @Model.RoomID" asp-controller="Room" method="post">
+                        <input type="hidden" asp-for="RoomID" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteRoom">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+@*
+    <div class="well">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td width="20%">
+                        <h3>
+                            <strong>Комната № @Model.RoomID</strong>
+                        </h3>
+                    </td>
+                    <td width="70%">
+                        <h3>
+                            @Model.Category
+                        </h3>
+                    </td>
+                    <td width="15%" align="right" colspan="2">
+                        <h3>
+                            @Model.Price.ToString("c")
+                        </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h3>
+                            @Model.Comments
+                        </h3>
+                    </td>
+                    <td width="15%">
+                        <form id=" @Model.RoomID" asp-controller="Room" method="post">
+                            <input type="hidden" asp-for="RoomID" />
+                            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
+                                Редактировать
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form id=" @Model.RoomID" asp-controller="Room" method="post">
+                            <input type="hidden" asp-for="RoomID" />
+                            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteRoom">
+                                Удалить
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+*@
+@*
+    <div class="well">
+        <h3>
+            <strong>Комната № @Model.RoomID</strong>
+            <span class="pull-right labele label-primary">
+                @Model.Price.ToString("c")
+            </span>
+        </h3>
+        <form id=" @Model.RoomID" asp-controller="Room" method="post">
+            <input type="hidden" asp-for="RoomID" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <span class="lead">
+                @Model.Category
+                <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteRoom">
+                    Удалить
+                </button>
+                <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
+                    Редактировать
+                </button>
+            </span>
+            <div>
+                @Model.Comments
+            </div>
+        </form>
+    </div>
+*@

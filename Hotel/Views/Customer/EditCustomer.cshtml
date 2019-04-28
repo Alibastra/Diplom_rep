@@ -1,9 +1,9 @@
 ﻿@model CustomerViewModel
 @{
-    ViewBag.Title = "Edit Customer";
+    ViewBag.Title = "Редактировать данные клиента";
 }
 <div class="modal-dialog">
-    <h4>Редактировать данные</h4>
+    <h4>Редактировать данные клиента</h4>
     <p> гостя @Model.Customer.FirstName @Model.Customer.LastName? </p>
     <form asp-action="UpdateCustomer" method="post">
         <input type="hidden" asp-for="Customer.CustomerID" />
@@ -33,7 +33,7 @@
             <input asp-for="Customer.PhoneNumber" class="form-control" readonly />
         </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="submit">Редактировать</button>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
             <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
         </div>
     </form>

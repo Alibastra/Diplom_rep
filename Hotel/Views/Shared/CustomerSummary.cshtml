@@ -2,8 +2,8 @@
 <div class="well">
     <h3>
         <strong>@Model.FirstName @Model.LastName</strong>
-        <span class="pull-right labele label-primary">
-            @Model.BithDate.ToString()
+        <span class="pull-right">
+            @Model.BithDate.ToString("dd.MM.yyyy")
         </span>
     </h3>
     <form id=" @Model.CustomerID" asp-controller="Room" method="post">
@@ -13,10 +13,10 @@
             @Model.PhoneNumber
             </br>
             @Model.Email
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteCustomer">
+            <button type="button" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCustomer">
                 Удалить
             </button>
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditCustomer">
+            <button type="button" class="btn btn-success btn-sm pull-right" asp-action="EditCustomer">
                 Редактировать
             </button>
         </span>

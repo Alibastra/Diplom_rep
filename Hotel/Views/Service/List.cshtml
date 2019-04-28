@@ -1,11 +1,12 @@
 ﻿@model ServicesListViewModel
+
 @{
     ViewBag.Title = "Услуги";
 }
 
 <div class="row panel">
 
-    <div id="categories" class="col-xs-3">
+    <div id="categories" class="col-xs-2">
         @await Component.InvokeAsync("NavigationMenuService")
     </div>
 
@@ -22,12 +23,60 @@
                 </button>
             </form>
         </div>
-        <div>
-            @foreach (var p in Model.Services)
-            {
-                @Html.Partial("ServiceSummary", p)
-            }
-        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Код</th>
+                    <th>Категория</th>
+                    <th>Наименование услуги</th>
+                    <th>Коментарий</th>
+                    <th>Стоимость</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Model.Services)
+                {
+                    <tr>
+                        <td align="center">
+                            @service.ServiceID
+                        </td>
+                        <td>
+                            @service.Category
+                        </td>
+                        <td>
+                            @service.ServiceName
+                        </td>
+                        <td>
+                            @service.Comments
+                        </td>
+                        <td>
+                            @service.Price.ToString("c")
+                        </td>
+                        <td align="center">
+                            <form id="@service.ServiceID" asp-controller="Service" asp-action="EditService" method="post">
+                                <input type="hidden" name="serviceID" value="@service.ServiceID" />
+                                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                                <button type="submit" class="btn btn-success btn-sm pull-right">
+                                    Редактировать
+                                </button>
+                            </form>
+                        </td>
+                        <td align="center">
+                            <form id="@service.ServiceID" asp-controller="Service" asp-action="ConfirmDeleteService" method="post">
+                                <input type="hidden" name="serviceID" value="@service.ServiceID" />
+                                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                                <button type="submit" class="btn btn-danger btn-sm pull-right">
+                                    Удалить
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
         <div page-model="@Model.PagingInfo" page-action="List"
              page-classes-enabled="true"
@@ -39,3 +88,44 @@
 
 
 
+
+
+@*
+    @{
+        ViewBag.Title = "Услуги";
+    }
+
+    <div class="row panel">
+
+        <div id="categories" class="col-xs-3">
+            @await Component.InvokeAsync("NavigationMenuService")
+        </div>
+
+        <div class="col-xs-8">
+            @if (TempData["message"] != null)
+            {
+                <div class="alert alert-success">@TempData["message"]</div>
+            }
+            <div class="panel-body">
+                <form asp-action="AddService" asp-controller="Service" method="post">
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <button type="submit" class="btn btn-success btn-sm pull-right">
+                        +Добавить Услугу
+                    </button>
+                </form>
+            </div>
+            <div>
+                @foreach (var p in Model.Services)
+                {
+                    @Html.Partial("ServiceSummary", p)
+                }
+            </div>
+
+            <div page-model="@Model.PagingInfo" page-action="List"
+                 page-classes-enabled="true"
+                 page-class="btn" page-class-normal="btn-default"
+                 page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">
+            </div>
+        </div>
+    </div>
+*@

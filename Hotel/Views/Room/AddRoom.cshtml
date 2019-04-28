@@ -6,6 +6,7 @@
     <h2>Добавить комнату</h2>
     <p>Пожалуйста, заполните данные!</p>
     <form asp-action="AddRoom" method="post">
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
         <div class="form-group">
             <label>Номер комнаты:</label>
             <div><span asp-validation-for="Room.RoomID" class="text-danger"></span></div>

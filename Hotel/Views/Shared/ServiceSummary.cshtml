@@ -1,4 +1,5 @@
 ﻿@model Service
+
 <div class="well">
     
     <h3>
@@ -15,7 +16,7 @@
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <span class="lead">
             @Model.Category
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteService">
+            <button type="submit" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteService">
                 Удалить
             </button>
             <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditService">

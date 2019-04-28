@@ -21,7 +21,7 @@ namespace Hotel.Controllers
             => View(new CustomersListViewModel
             {
                 Customers = repository.Customers
-                    .Where(p => (lastname == null || p.LastName == lastname))
+                    .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower())>=0))
                     .OrderBy(p => p.CustomerID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -34,27 +34,27 @@ namespace Hotel.Controllers
                 LastName = lastname,
             });
 
-        //public ViewResult AddCustomer(string returnUrl) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});
+        public ViewResult AddCustomer(string returnUrl) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});
 
-        //[HttpPost]
-        //public IActionResult InsertCustomer(Customer customer, string returnUrl)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (repository.Customers.FirstOrDefault(r => r.CustomerID == customer.CustomerID) == null)
-        //        {
-        //            repository.InsertCustomer(customer);
-        //            TempData["message"] = $"Комната с номером {customer.CustomerID} была создана";
-        //            return RedirectToAction(nameof(List));
-        //        }
-        //        else
-        //        {
-        //            TempData["message"] = $"Комната с номером {customer.CustomerID} уже существует.";
-        //            return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl });
-        //        }
-        //    }
-        //    else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl }); }
-        //}
+        [HttpPost]
+        public IActionResult InsertCustomer(Customer customer, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (repository.Customers.FirstOrDefault(r => r.CustomerID == customer.CustomerID) == null)
+                {
+                    repository.InsertCustomer(customer);
+                    TempData["message"] = $"Комната с номером {customer.CustomerID} была создана";
+                    return RedirectToAction(nameof(List));
+                }
+                else
+                {
+                    TempData["message"] = $"Комната с номером {customer.CustomerID} уже существует.";
+                    return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl });
+                }
+            }
+            else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl }); }
+        }
 
         [HttpPost]
         public IActionResult ConfirmDeleteCustomer(int customerID, string returnUrl) =>

@@ -4,7 +4,7 @@
 }
 <div class="modal-dialog">
     <h2>EditRoom</h2>
-    <p>Please edit details for Room № @Model.Service.ServiceID</p>
+    <p>Код услуги @Model.Service.ServiceID</p>
 
     <form asp-action="UpdateService" method="post">
         <input type="hidden" asp-for="Service.ServiceID" />

@@ -10,7 +10,7 @@ namespace Hotel.Controllers
 {
     public class ServiceController : Controller
     {
-        public int PageSize = 4;
+        public int PageSize = 8;
         private IServiceRepository repository;
         public ServiceController(IServiceRepository repo)
         {

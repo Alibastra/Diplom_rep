@@ -13,7 +13,6 @@
             <label asp-for="Room.Category"></label>
             <div><span asp-validation-for="Room.Category" class="text-danger"></span></div>
             <select asp-for="Room.Category" class="form-control">
-                <option selected disabled value="">Выберите категорию</option>
                 <option value="Luxe">Luxe</option>
                 <option value="Standart">Standart</option>
                 <option value="Econom">Econom</option>
@@ -39,7 +38,7 @@
             </label>
         </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="submit">Редактировать</button>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
             <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
         </div>
     </form>
