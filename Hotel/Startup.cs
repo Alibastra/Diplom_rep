@@ -39,26 +39,26 @@ namespace Hotel
             app.UseSession();
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                   name: null,
-                   template: "{quantity}/{category}/page{page:int}",
-                   defaults: new { controller = "Room", action = "List", page = 1 });
-                routes.MapRoute(
-                   name: null,
-                   template: "{quantity}/page{page:int}",
-                   defaults: new { controller = "Room", action = "List", page = 1 });
-                routes.MapRoute(
-                   name: null,
-                   template: "{category}/Page{page:int}",
-                   defaults: new { Controller = "Room", action = "List", page = 1 });
-                routes.MapRoute(
-                   name: null,
-                   template: "Page{page:int}",
-                   defaults: new { Controller = "Room", action = "List", page = 1 });
-                routes.MapRoute(
-                    name: null,
-                    template: "",
-                    defaults: new { Controller = "Room", action = "List", page = 1 });
+                //routes.MapRoute(
+                //   name: null,
+                //   template: "{quantity}/{category}/page{page:int}",
+                //   defaults: new { controller = "Room", action = "List", page = 1 });
+                //routes.MapRoute(
+                //   name: null,
+                //   template: "{quantity}/page{page:int}",
+                //   defaults: new { controller = "Room", action = "List", page = 1 });
+                //routes.MapRoute(
+                //   name: null,
+                //   template: "{category}/Page{page:int}",
+                //   defaults: new { Controller = "Room", action = "List", page = 1 });
+                //routes.MapRoute(
+                //   name: null,
+                //   template: "Page{page:int}",
+                //   defaults: new { Controller = "Room", action = "List", page = 1 });
+                //routes.MapRoute(
+                //    name: null,
+                //    template: "",
+                //    defaults: new { Controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(name: null, template: "{controller}/{action}/{ id ?}");
             });
         }
