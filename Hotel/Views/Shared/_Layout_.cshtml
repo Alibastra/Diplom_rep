@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .input-validation-error {border-color: red; background-color: #fee; }
+    </style>
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">ГОСТИНИЦА КОСМОС</a>
+        </br>
+        </br>
+        @await Component.InvokeAsync("NavigationPanel")
+    </div>
+    @RenderBody()
+</body>
+</html>
