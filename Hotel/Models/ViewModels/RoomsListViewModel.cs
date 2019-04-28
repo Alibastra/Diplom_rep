@@ -9,6 +9,5 @@ namespace Hotel.Models.ViewModels
         public IEnumerable<Room> Rooms { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public string CurrentCategory { get; set; }
-        public int CurrentQuantity { get; set; }
     }
 }

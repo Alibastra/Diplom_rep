@@ -1,15 +1,17 @@
-﻿@model RoomsListViewModel
+﻿@*@model RoomsListViewModel
 @{
     ViewBag.Title = "List of Room";
 }
-    <div class="panel-body">
-        <form asp-action="AddRoom" asp-controller="Room" method="post">
-            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+<div class="panel-body">
+    <form asp-action="AddRoom" asp-controller="Room" method="post">
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+        <span class="lead">
             <button type="submit" class="btn btn-success btn-sm pull-right">
                 Add Room
             </button>
-        </form>
-    </div>
+        </span>
+    </form>
+</div>
     <div>
         @foreach (var p in Model.Rooms)
         {
@@ -21,4 +23,4 @@
              page-classes-enabled="true"
              page-class="btn" page-class-normal="btn-default"
              page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">
-        </div>
+        </div>*@

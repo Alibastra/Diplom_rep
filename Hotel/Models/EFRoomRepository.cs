@@ -20,9 +20,8 @@ namespace Hotel.Models
             context.SaveChanges();
         }
 
-        public void DeleteRoom(int roomID)
+        public void DeleteRoom(Room room)
         {
-            Room room = Rooms.FirstOrDefault(r => r.RoomID == roomID);
             context.Rooms.Remove(room);
             context.SaveChanges();
         }

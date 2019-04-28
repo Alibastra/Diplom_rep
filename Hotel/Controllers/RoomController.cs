@@ -17,11 +17,11 @@ namespace Hotel.Controllers
             repository = repo;
         }
 
-        public ViewResult List(string category, int quantity, int page = 1)
+        public ViewResult List(string category, int page = 1)
             => View(new RoomsListViewModel
             {
                 Rooms = repository.Rooms
-                    .Where(p => ((category == null || p.Category == category) && (quantity == 0 || p.Quantity == quantity)))
+                    .Where(p => (category == null || p.Category == category))
                     .OrderBy(p => p.RoomID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -32,47 +32,45 @@ namespace Hotel.Controllers
                     TotalItems = category == null ? repository.Rooms.Count() : repository.Rooms.Where(e => e.Category == category).Count()
                 },
                 CurrentCategory = category,
-                CurrentQuantity = quantity
             });
 
-        public ViewResult AddRoom() => View(new Room());
+        public ViewResult AddRoom(string returnUrl) => View(new RoomViewModel { Room = new Room(), ReturnUrl=returnUrl});
 
         [HttpPost]
-        public IActionResult InsertRoom(Room room)
+        public IActionResult InsertRoom(Room room, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 if (repository.Rooms.FirstOrDefault(r => r.RoomID == room.RoomID) == null)
                 {
                     repository.InsertRoom(room);
-                    TempData["message"] = $"Room № {room.RoomID} has been added";
+                    TempData["message"] = $"Комната с номером {room.RoomID} была создана";
                     return RedirectToAction(nameof(List));
                 }
                 else
                 {
                     TempData["message"] = $"Комната с номером {room.RoomID} уже существует.";
-                    return View("AddRoom", room);
+                    return View("AddRoom", new RoomViewModel { Room = room, ReturnUrl = returnUrl });
                 }
             }
-            else { return View("AddRoom", room); }
+            else { return View("AddRoom", new RoomViewModel { Room = room, ReturnUrl = returnUrl }); }
         }
 
         [HttpPost]
-        public IActionResult ConfirmDeleteRoom(int roomID) =>
-            View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
+        public IActionResult ConfirmDeleteRoom(int roomID, string returnUrl) =>
+            View(new RoomViewModel { Room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
 
         [HttpPost]
-        public IActionResult DeleteRoom(int roomID)
+        public IActionResult DeleteRoom(Room room)
         {
-            repository.DeleteRoom(roomID);
+            repository.DeleteRoom(room);
             return RedirectToAction(nameof(List));
         }
 
         [HttpPost]
         public ViewResult EditRoom(int roomID, string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View(repository.Rooms.FirstOrDefault(r => r.RoomID == roomID));
+            return View(new RoomViewModel { Room = repository.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
         }
 
         [HttpPost]
@@ -86,10 +84,8 @@ namespace Hotel.Controllers
             }
             else
             {
-                ViewBag.ReturnUrl = returnUrl;
-                return View("EditRoom", room);
+                return View("EditRoom", new RoomViewModel { Room = room, ReturnUrl = returnUrl });
             }
-
         }
     }
 }

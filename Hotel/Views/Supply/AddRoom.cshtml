@@ -1,8 +1,8 @@
-﻿@model RoomViewModel
+﻿@*@model RoomViewModel*@
 @{
     ViewBag.Title = "Добавить комнату";
 }
-<h2>Добавить комнату</h2>
+@*<h2>Добавить комнату</h2>
 <h2>@Model.ReturnUrl</h2>
 <p>Пожалуйста, заполните данные!</p>
 <form asp-action="AddRoom" method="post">
@@ -44,4 +44,4 @@
         <input class="btn btn-primary" type="submit" value="Save" asp-action="InsertRoom" />
         <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Cancel</a>
     </div>
-</form>
+</form>*@

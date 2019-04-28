@@ -1,18 +1,16 @@
-﻿@model RoomViewModel
+﻿@*@model RoomViewModel*@
 @{
-    ViewBag.Title = "Добавить комнату";
+    ViewBag.Title = "Edit Room";
 }
-<h2>Добавить комнату</h2>
-<h2>@Model.ReturnUrl</h2>
-<p>Пожалуйста, заполните данные!</p>
-<form asp-action="AddRoom" method="post">
+
+@*<h2>EditRoom</h2>
+<p>Please edit details for Room № @Model.Room.RoomID</p>
+
+<form asp-action="UpdateRoom" method="post">
+    <input type="hidden" asp-for="Room.RoomID" />
+    <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
     <div class="form-group">
-        <label>Номер комнаты:</label>
-        <div><span asp-validation-for="Room.RoomID" class="text-danger"></span></div>
-        <input asp-for="Room.RoomID" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label>Category:</label>
+        <label asp-for="Room.Category"></label>
         <div><span asp-validation-for="Room.Category" class="text-danger"></span></div>
         <select asp-for="Room.Category" class="form-control">
             <option selected disabled value="">Выберите категорию</option>
@@ -22,26 +20,26 @@
         </select>
     </div>
     <div class="form-group">
-        <label>Количество мест:</label>
+        <label asp-for="Room.Quantity">Number of places:</label>
         <div><span asp-validation-for="Room.Quantity" class="text-danger"></span></div>
         <input asp-for="Room.Quantity" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Цена:</label>
+        <label asp-for="Room.Price">Price:</label>
         <div><span asp-validation-for="Room.Price" class="text-danger"></span></div>
         <input asp-for="Room.Price" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Коментарии:</label>
-        <input asp-for="Room.Comments" class="form-control" />
+        <label>comments:</label>
+        <textarea asp-for="Room.Comments" class="form-control"></textarea>
     </div>
     <div class="checkbox">
         <label>
-            <input asp-for="Room.State" /> Сдается
+            <input asp-for="Room.State" /> rent is rent
         </label>
     </div>
     <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Save" asp-action="InsertRoom" />
-        <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Cancel</a>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a href="@Model.ReturnUrl" class="btn btn-primary">Cancel</a>
     </div>
-</form>
+</form>*@

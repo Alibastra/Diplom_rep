@@ -8,22 +8,17 @@
         </span>
     </h3>
 
-    <form id=" @Model.RoomID" asp-action="List" asp-controller="Room" method="post">
+    <form id=" @Model.RoomID" asp-controller="Room" method="post">
         <input type="hidden" asp-for="RoomID" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <span class="lead">
             @Model.Category
-            <div>
             <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="ConfirmDeleteRoom">
                 Удалить
             </button>
-            </div>
-            <div><br /> </div>
-            <div>
-                <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
-                    Редактировать
-                </button>
-            </div>
+            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditRoom">
+                Редактировать
+            </button>
         </span>
         <div>
             @Model.Comments

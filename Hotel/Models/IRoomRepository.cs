@@ -6,7 +6,7 @@ namespace Hotel.Models
     {
         IEnumerable<Room> Rooms { get; }
         void InsertRoom(Room room);
-        void DeleteRoom(int roomID);
+        void DeleteRoom(Room room);
         void UpdateRoom(Room room);
     }
 }

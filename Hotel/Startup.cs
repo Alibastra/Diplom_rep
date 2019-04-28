@@ -55,10 +55,10 @@ namespace Hotel
                 //   name: null,
                 //   template: "Page{page:int}",
                 //   defaults: new { Controller = "Room", action = "List", page = 1 });
-                //routes.MapRoute(
-                //    name: null,
-                //    template: "",
-                //    defaults: new { Controller = "Room", action = "List", page = 1 });
+                routes.MapRoute(
+                    name: null,
+                    template: "",
+                    defaults: new { Controller = "Room", action = "List", page = 1 });
                 routes.MapRoute(name: null, template: "{controller}/{action}/{ id ?}");
             });
         }
