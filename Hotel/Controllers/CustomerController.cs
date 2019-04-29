@@ -80,7 +80,7 @@ namespace Hotel.Controllers
             if (ModelState.IsValid)
             {
                 repository.UpdateCustomer(customer);
-                TempData["message"] = $"Изменения информации для клинта {customer.FirstName} {customer.LastName} сохранены";
+                TempData["message"] = $"Изменения информации для клиента {customer.FirstName} {customer.LastName} сохранены";
                 return RedirectToAction(nameof(List), new { returnUrl});
             }
             else

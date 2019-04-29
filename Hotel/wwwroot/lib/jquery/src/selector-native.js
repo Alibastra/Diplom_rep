@@ -184,7 +184,7 @@ jQuery.extend( {
 		attrHandle: {},
 		match: {
 			bool: new RegExp( "^(?:checked|selected|async|autofocus|autoplay|controls|defer" +
-				"|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped)$", "i" ),
+				"|disabled|hidden|ismap|loop|multiple|open||required|scoped)$", "i" ),
 			needsContext: /^[\x20\t\r\n\f]*[>+~]/
 		}
 	}

@@ -3,6 +3,10 @@
     ViewBag.Title = "Добавить комнату";
 }
 <div class="modal-dialog">
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-danger">@TempData["message"]</div>
+    }
     <h2>Добавить комнату</h2>
     <p>Пожалуйста, заполните данные!</p>
     <form asp-action="AddRoom" method="post">

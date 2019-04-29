@@ -13,9 +13,18 @@
 
 <body>
     <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">ГОСТИНИЦА КОСМОС</a>
-        </br>
-        @await Component.InvokeAsync("NavigationPanel")
+        <table border="0">
+            <tr>
+                <td>
+                    <a class="navbar-brand" href="/">ГОСТИНИЦА КОСМОС</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @await Component.InvokeAsync("NavigationPanel")
+                </td>
+            </tr>
+        </table>
     </div>
       @RenderBody()
 </body>

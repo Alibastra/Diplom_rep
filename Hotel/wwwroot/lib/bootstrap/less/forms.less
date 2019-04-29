@@ -144,7 +144,7 @@ output {
   // disabled if the fieldset is disabled. Due to implementation difficulty, we
   // don't honor that edge case; we style them as disabled anyway.
   &[disabled],
-  &[readonly],
+  &[],
   fieldset[disabled] & {
     background-color: @input-bg-disabled;
     opacity: 1; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655
@@ -268,7 +268,7 @@ input[type="search"] {
 // Apply same disabled cursor tweak as for inputs
 // Some special care is needed because <label>s don't inherit their parent's `cursor`.
 //
-// Note: Neither radios nor checkboxes can be readonly.
+// Note: Neither radios nor checkboxes can be .
 input[type="radio"],
 input[type="checkbox"] {
   &[disabled],

@@ -1,24 +1,72 @@
 ﻿@model Customer
+
 <div class="well">
-    <h3>
-        <strong>@Model.FirstName @Model.LastName</strong>
-        <span class="pull-right">
-            @Model.BithDate.ToString("dd.MM.yyyy")
-        </span>
-    </h3>
-    <form id=" @Model.CustomerID" asp-controller="Customer" method="post">
-        <input type="hidden" asp-for="CustomerID" />
-        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <span class="lead">
-            @Model.PhoneNumber
-            </br>
-            @Model.Email
-            <button type="button" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCustomer">
-                Удалить
-            </button>
-            <button type="button" class="btn btn-success btn-sm pull-right" asp-action="EditCustomer">
-                Редактировать
-            </button>
-        </span>
-    </form>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td width="60%">
+                    <h3>
+                        <strong>@Model.FirstName @Model.LastName</strong>
+                    </h3>
+                </td>
+                <td width="20%" align="right" colspan="2">
+                    <h3>
+                        @Model.BithDate.ToString("dd.MM.yyyy")
+                    </h3>
+                </td>
+            </tr>
+            <tr>
+                <td valign="bottom" border="0">
+                    @Model.PhoneNumber
+                    </br>
+                    @Model.Email
+                </td>
+                <td>
+                    <form id=" @Model.CustomerID" asp-controller="Customer" method="post">
+                        <input type="hidden" asp-for="CustomerID" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditCustomer">
+                            Редактировать
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form id=" @Model.CustomerID" asp-controller="Customer" method="post">
+                        <input type="hidden" asp-for="CustomerID" />
+                        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                        <button type="submit" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCustomer">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+@*
+    <div class="well">
+        <h3>
+            <strong>@Model.FirstName @Model.LastName</strong>
+            <span class="pull-right">
+                @Model.BithDate.ToString("dd.MM.yyyy")
+            </span>
+        </h3>
+        <form id=" @Model.CustomerID" asp-controller="Customer" asp-action="EditCustomer" method="post">
+            <input type="hidden" asp-for="CustomerID" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <span class="lead">
+                @Model.PhoneNumber
+                </br>
+                @Model.Email
+
+                <button type="button" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCustomer">
+                    Удалить
+                </button>
+                <button type="button" class="btn btn-success btn-sm pull-right">
+                    Редактировать
+                </button>
+            </span>
+        </form>
+    </div>
+*@
