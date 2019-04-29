@@ -97,7 +97,7 @@ namespace Hotel.Models
                         ServiceID = 1,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
-                        Category = "Основная",
+                        Category = "Основные",
                         State = true,
                         Comments = "Ля-ля-ля"
                     },
@@ -106,7 +106,7 @@ namespace Hotel.Models
                         ServiceID = 2,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
-                        Category = "Дополнительная",
+                        Category = "Дополнительные",
                         State = true,
                         Comments = "Ля-ля-ля"
                     },
@@ -115,7 +115,7 @@ namespace Hotel.Models
                         ServiceID = 3,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
-                        Category = "Индивидуальная",
+                        Category = "Индивидуальные",
                         State = true,
                         Comments = "Ля-ля-ля"
                     },
@@ -124,7 +124,7 @@ namespace Hotel.Models
                         ServiceID = 4,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
-                        Category = "Основная",
+                        Category = "Основные",
                         State = true,
                         Comments = "Ля-ля-ля"
                     },
@@ -133,7 +133,7 @@ namespace Hotel.Models
                         ServiceID = 5,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
-                        Category = "Дополнительная",
+                        Category = "Дополнительные",
                         State = true,
                         Comments = "Ля-ля-ля"
                     });

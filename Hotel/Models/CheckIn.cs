@@ -8,9 +8,13 @@ namespace Hotel.Models
     public class CheckIn
     {
         public int CheckInID { get; set; }
+
         public DateTime Arrival { get; set; }
+
         public DateTime Department { get; set; }
+
         public int RoomID { get; set; }
+
         public int CustomerID { get; set; }
     }
 }

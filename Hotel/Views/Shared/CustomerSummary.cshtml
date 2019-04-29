@@ -6,7 +6,7 @@
             @Model.BithDate.ToString("dd.MM.yyyy")
         </span>
     </h3>
-    <form id=" @Model.CustomerID" asp-controller="Room" method="post">
+    <form id=" @Model.CustomerID" asp-controller="Customer" method="post">
         <input type="hidden" asp-for="CustomerID" />
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
         <span class="lead">

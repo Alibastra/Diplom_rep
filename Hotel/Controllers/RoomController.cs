@@ -64,6 +64,7 @@ namespace Hotel.Controllers
         public IActionResult DeleteRoom(Room room)
         {
             repository.DeleteRoom(room);
+            TempData["message"] = $"Комната с номером {room.RoomID} была удалена";
             return RedirectToAction(nameof(List));
         }
 

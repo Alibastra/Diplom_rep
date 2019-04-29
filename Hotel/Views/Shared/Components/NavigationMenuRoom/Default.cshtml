@@ -5,7 +5,7 @@
    asp-route-category="">Все категории</a>
 @foreach (string category in Model)
 {
-    <a class="=btn btn-block btn-default"@*(@category == ViewBag.SelectedCategory? btn-primary: btn-default)"*@
+    <a class="=btn btn-block btn-default"@*@category == ViewBag.SelectedCategory? btn-primary: btn-default)"*@
    asp-action="List"
    asp-controller="Room"
    asp-route-category="@category"

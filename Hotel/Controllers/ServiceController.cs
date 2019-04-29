@@ -43,12 +43,12 @@ namespace Hotel.Controllers
                 if (repository.Services.FirstOrDefault(r => r.ServiceID == service.ServiceID) == null)
                 {
                     repository.InsertService(service);
-                    TempData["message"] = $"Комната с номером {service.ServiceID} была создана";
+                    TempData["message"] = $"Услуга с номером {service.ServiceID} была добавлена";
                     return RedirectToAction(nameof(List));
                 }
                 else
                 {
-                    TempData["message"] = $"Комната с номером {service.ServiceID} уже существует.";
+                    TempData["message"] = $"Услуга с номером {service.ServiceID} уже существует.";
                     return View("AddService", new ServiceViewModel { Service = service, ReturnUrl = returnUrl });
                 }
             }
@@ -63,6 +63,7 @@ namespace Hotel.Controllers
         public IActionResult DeleteService(Service service)
         {
             repository.DeleteService(service);
+            TempData["message"] = $"Услуга с номером {service.ServiceID} была удалена";
             return RedirectToAction(nameof(List));
         }
 
@@ -78,7 +79,7 @@ namespace Hotel.Controllers
             if (ModelState.IsValid)
             {
                 repository.UpdateService(service);
-                TempData["message"] = $"Изменения по комнате № {service.ServiceID} сохранены";
+                TempData["message"] = $"Изменения услуги № {service.ServiceID} сохранены";
                 return RedirectToAction(nameof(List), new { returnUrl });
             }
             else
