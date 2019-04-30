@@ -1,30 +1,37 @@
 ﻿@model Service
-
-<div class="well">
-    
-    <h3>
-        <strong>@Model.ServiceID</strong>
-        </br>
-        <strong>Услуга: "@Model.ServiceName"</strong>
-        <span class="pull-right labele label-primary">
-            @Model.Price.ToString("c")
-        </span>
-    </h3>
-
-    <form id=" @Model.ServiceID" asp-controller="Room" method="post">
-        <input type="hidden" asp-for="ServiceID" />
-        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-        <span class="lead">
-            @Model.Category
-            <button type="submit" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteService">
-                Удалить
-            </button>
-            <button type="submit" class="btn btn-success btn-sm pull-right" asp-action="EditService">
+<tr>
+    <td align="center">
+        @Model.ServiceID
+    </td>
+    <td>
+        @Model.Category
+    </td>
+    <td>
+        @Model.ServiceName
+    </td>
+    <td>
+        @Model.Comments
+    </td>
+    <td>
+        @Model.Price.ToString("c")
+    </td>
+    <td align="center">
+        <form id="@Model.ServiceID" asp-controller="Service" asp-action="EditService" method="post">
+            <input type="hidden" name="serviceID" value="@Model.ServiceID" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn btn-success btn-sm pull-right">
                 Редактировать
             </button>
-        </span>
-        <div>
-            @Model.Comments
-        </div>
-    </form>
-</div>
+        </form>
+    </td>
+    <td align="center">
+        <form id="@Model.ServiceID" asp-controller="Service" asp-action="ConfirmDeleteService" method="post">
+            <input type="hidden" name="serviceID" value="@Model.ServiceID" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn btn-danger btn-sm pull-right">
+                Удалить
+            </button>
+        </form>
+    </td>
+</tr>
+

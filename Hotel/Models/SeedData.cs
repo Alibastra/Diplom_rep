@@ -171,7 +171,36 @@ namespace Hotel.Models
                    });
                 context.SaveChanges();
             }
+            if (!context.CheckIns.Any())
+            {
+                context.CheckIns.AddRange(
+                   new CheckIn
+                   {
+                       CheckInID = 1,
+                       Arrival=new DateTime(2019, 04, 30),
+                       Department= new DateTime(2019, 05, 5),
+                       RoomID = 5,
+                       CustomerID = 1,
+                   }//,
+                   //new CheckIn
+                   //{
+                   //    CheckInID = 2,
+                   //    Arrival = new DateTime(2019, 04, 30),
+                   //    Department = new DateTime(2019, 05, 5),
+                   //    RoomID = 4,
+                   //    CustomerID = "2",
+                   //},
+                   //new CheckIn
+                   //{
+                   //    CheckInID = 2,
+                   //    Arrival = new DateTime(2019, 04, 30),
+                   //    Department = new DateTime(2019, 05, 5),
+                   //    RoomID = 5,
+                   //    CustomerID = "3",
+                   //}
+                   );
+                context.SaveChanges();
+            }
         }
-
     }
 }

@@ -34,6 +34,23 @@ namespace Hotel.Controllers
                 CurrentCategory = category,
             });
 
+        public ViewResult AddCheckIn(string category, int page = 1, int pagesize=6)
+                    => View(new RoomsListViewModel
+                    {
+                        Rooms = repository.Rooms
+                            .Where(p => (category == null || p.Category == category))
+                            .OrderBy(p => p.RoomID)
+                            .Skip((page - 1) * pagesize)
+                            .Take(pagesize),
+                        PagingInfo = new PagingInfo
+                        {
+                            CurrentPage = page,
+                            ItemsPerPage = pagesize,
+                            TotalItems = category == null ? repository.Rooms.Count() : repository.Rooms.Where(e => e.Category == category).Count()
+                        },
+                        CurrentCategory = category,
+                    });
+
         public ViewResult AddRoom(string returnUrl) => View(new RoomViewModel { Room = new Room(), ReturnUrl=returnUrl});
 
         [HttpPost]

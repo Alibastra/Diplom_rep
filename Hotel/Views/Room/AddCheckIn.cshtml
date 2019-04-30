@@ -1,0 +1,74 @@
+﻿@model RoomsListViewModel
+@{
+    ViewBag.Title = "Список комнат";
+}
+<div class="row panel">
+    <div id="categories" class="col-xs-2">
+        @await Component.InvokeAsync("NavigationMenuRoom")
+    </div>
+
+    <div class="col-xs-8">
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="15%">№ комнаты</th>
+                    <th width="15%">Категория</th>
+                    <th width="45%">Коментарий</th>
+                    <th width="15%">Кол-во мест</th>
+                    <th align="right" width="10%">Стоимость</th>
+                </tr>
+            </thead>
+        </table>
+        @*<form id=" @room.RoomID" asp-controller="CheckIn" asp-action="AddCheckIn" method="post">*@
+
+
+
+        @foreach (var room in Model.Rooms)
+        {
+
+        <button type="button" class=" btn-light btn-block">
+            <div class="well">
+                <table width="100%">
+                    <tr>
+                        <td width="15%" align="left">
+                            @room.RoomID
+                        </td>
+                        <td width="15%" align="left">
+                            @room.Category
+                        </td>
+                        <td width="45%" align="left">
+                            @room.Comments
+                        </td>
+                        <td width="10%" align="center">
+                            @room.Quantity
+                        </td>
+                        <td width="15%" align="right">
+                            @room.Price.ToString("c")
+                        </td>
+                    </tr>
+                </table>
+        </div>
+       </button>
+
+        }
+
+
+
+
+        @*</form>*@
+
+
+        <div page-model="@Model.PagingInfo" page-action="AddCheckIn"
+             page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-default"
+             page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">
+        </div>
+    </div>
+    </div>
+
+
+

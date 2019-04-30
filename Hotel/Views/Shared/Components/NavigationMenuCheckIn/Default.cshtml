@@ -1,0 +1,12 @@
+﻿@model CheckInsListViewModel
+<a class="btn btn-block btn-default"
+   asp-action="List"
+   asp-controller="CheckIn"
+   asp-route-category="">Все записи</a>
+<form asp-action="List" asp-controler="CheckIn">
+    <label>Фамилия:</label>
+    <input class="btn btn-block btn-default form-control" asp-for="CustomerID"/>
+    <button type="submit" class="btn btn-success btn-sm pull-left">
+        поиск
+    </button>
+</form>   

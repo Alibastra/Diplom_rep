@@ -23,9 +23,9 @@
         <div>
             @foreach (var p in Model.Rooms)
             {
-                @Html.Partial("RoomSummary", p)
-            }
-        </div>
+                    @Html.Partial("RoomSummary", p)
+             }
+            </div>
         
         <div page-model="@Model.PagingInfo" page-action="List"
              page-classes-enabled="true"

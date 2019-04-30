@@ -1,0 +1,40 @@
+﻿@model CheckIn
+<tr>
+    <td align="center">
+        @Model.CheckInID
+    </td>
+    <td>
+        @Model.Arrival.ToString("dd.MM.yyyy")
+    </td>
+    <td>
+        @Model.Department.ToString("dd.MM.yyyy")
+    </td>
+    <td>
+        @Model.RoomID
+    </td>
+    <td>
+       @Model.CustomerID
+    </td>
+    <td align="center">
+        <form id="@Model.CheckInID" asp-controller="CheckIn" asp-action="EditCheckIn" method="post">
+            <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+            @*<input type="hidden" name="customerID" value="@Model.CustomerID" />
+            <input type="hidden" name="roomID" value="@Model.RoomID" />*@
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn btn-success btn-sm pull-right">
+                Редактировать
+            </button>
+        </form>
+    </td>
+    <td align="center">
+        <form id="@Model.CheckInID" asp-controller="CheckIn" asp-action="ConfirmDeleteService" method="post">
+            <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+            @*<input type="hidden" name="customerID" value="@Model.CustomerID" />
+            <input type="hidden" name="roomID" value="@Model.RoomID" />*@
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn btn-danger btn-sm pull-right">
+                Удалить
+            </button>
+        </form>
+    </td>
+</tr>

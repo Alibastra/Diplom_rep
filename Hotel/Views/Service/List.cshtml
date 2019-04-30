@@ -23,7 +23,6 @@
                 </button>
             </form>
         </div>
-
         <table class="table">
             <thead>
                 <tr>
@@ -37,47 +36,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var service in Model.Services)
+                @foreach (var p in Model.Services)
                 {
-                    <tr>
-                        <td align="center">
-                            @service.ServiceID
-                        </td>
-                        <td>
-                            @service.Category
-                        </td>
-                        <td>
-                            @service.ServiceName
-                        </td>
-                        <td>
-                            @service.Comments
-                        </td>
-                        <td>
-                            @service.Price.ToString("c")
-                        </td>
-                        <td align="center">
-                            <form id="@service.ServiceID" asp-controller="Service" asp-action="EditService" method="post">
-                                <input type="hidden" name="serviceID" value="@service.ServiceID" />
-                                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                                <button type="submit" class="btn btn-success btn-sm pull-right">
-                                    Редактировать
-                                </button>
-                            </form>
-                        </td>
-                        <td align="center">
-                            <form id="@service.ServiceID" asp-controller="Service" asp-action="ConfirmDeleteService" method="post">
-                                <input type="hidden" name="serviceID" value="@service.ServiceID" />
-                                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                                <button type="submit" class="btn btn-danger btn-sm pull-right">
-                                    Удалить
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                    @Html.Partial("ServiceSummary", p)
                 }
             </tbody>
         </table>
-
         <div page-model="@Model.PagingInfo" page-action="List"
              page-classes-enabled="true"
              page-class="btn" page-class-normal="btn-default"
