@@ -43,30 +43,3 @@
         </tbody>
     </table>
 </div>
-
-@*
-    <div class="well">
-        <h3>
-            <strong>@Model.FirstName @Model.LastName</strong>
-            <span class="pull-right">
-                @Model.BithDate.ToString("dd.MM.yyyy")
-            </span>
-        </h3>
-        <form id=" @Model.CustomerID" asp-controller="Customer" asp-action="EditCustomer" method="post">
-            <input type="hidden" asp-for="CustomerID" />
-            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <span class="lead">
-                @Model.PhoneNumber
-                </br>
-                @Model.Email
-
-                <button type="button" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCustomer">
-                    Удалить
-                </button>
-                <button type="button" class="btn btn-success btn-sm pull-right">
-                    Редактировать
-                </button>
-            </span>
-        </form>
-    </div>
-*@

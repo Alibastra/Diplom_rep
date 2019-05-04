@@ -1,6 +1,6 @@
 ﻿@model RoomsListViewModel
 @{
-    ViewBag.Title = "Список комнат";
+    ViewBag.Title = "Добавить бронь";
 }
 <div class="row panel">
     <div id="categories" class="col-xs-2">
@@ -23,52 +23,42 @@
                 </tr>
             </thead>
         </table>
-        @*<form id=" @room.RoomID" asp-controller="CheckIn" asp-action="AddCheckIn" method="post">*@
-
-
 
         @foreach (var room in Model.Rooms)
         {
-
-        <button type="button" class=" btn-light btn-block">
-            <div class="well">
-                <table width="100%">
-                    <tr>
-                        <td width="15%" align="left">
-                            @room.RoomID
-                        </td>
-                        <td width="15%" align="left">
-                            @room.Category
-                        </td>
-                        <td width="45%" align="left">
-                            @room.Comments
-                        </td>
-                        <td width="10%" align="center">
-                            @room.Quantity
-                        </td>
-                        <td width="15%" align="right">
-                            @room.Price.ToString("c")
-                        </td>
-                    </tr>
-                </table>
-        </div>
-       </button>
-
+            <form id="@room.RoomID" asp-controller="CheckIn" method="post">
+                <button type="button" class=" btn-light btn-block" asp-action="AddCheckIn">
+                    <div class="well">
+                        <table width="100%">
+                            <tr>
+                                <td width="15%" align="left">
+                                    @room.RoomID
+                                </td>
+                                <td width="15%" align="left">
+                                    @room.Category
+                                </td>
+                                <td width="45%" align="left">
+                                    @room.Comments
+                                </td>
+                                <td width="10%" align="center">
+                                    @room.Quantity
+                                </td>
+                                <td width="15%" align="right">
+                                    @room.Price.ToString("c")
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </button>
+            </form>
         }
-
-
-
-
-        @*</form>*@
-
-
         <div page-model="@Model.PagingInfo" page-action="AddCheckIn"
              page-classes-enabled="true"
              page-class="btn" page-class-normal="btn-default"
              page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">
         </div>
     </div>
-    </div>
+</div>
 
 
 
