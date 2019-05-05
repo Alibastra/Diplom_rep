@@ -8,9 +8,10 @@
     </div>
 
     <div class="col-xs-8">
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
         @if (TempData["message"] != null)
         {
-            <div class="alert alert-success">@TempData["message"]</div>
+        <div class="alert alert-success">@TempData["message"]</div>
         }
         <table class="table">
             <thead>
@@ -23,34 +24,36 @@
                 </tr>
             </thead>
         </table>
-
+        <div class="text-right">
+            <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>
+        </div>
         @foreach (var room in Model.Rooms)
         {
-            <form id="@room.RoomID" asp-controller="CheckIn" method="post">
-                <button type="button" class=" btn-light btn-block" asp-action="AddCheckIn">
-                    <div class="well">
-                        <table width="100%">
-                            <tr>
-                                <td width="15%" align="left">
-                                    @room.RoomID
-                                </td>
-                                <td width="15%" align="left">
-                                    @room.Category
-                                </td>
-                                <td width="45%" align="left">
-                                    @room.Comments
-                                </td>
-                                <td width="10%" align="center">
-                                    @room.Quantity
-                                </td>
-                                <td width="15%" align="right">
-                                    @room.Price.ToString("c")
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </button>
-            </form>
+        <form id="@room.RoomID" asp-controller="CheckIn" asp-action="AddCheckIn" method="post">
+            <button type="submit" class=" btn-light btn-block">
+                <div class="well">
+                    <table width="100%">
+                        <tr>
+                            <td width="15%" align="left">
+                                @room.RoomID
+                            </td>
+                            <td width="15%" align="left">
+                                @room.Category
+                            </td>
+                            <td width="45%" align="left">
+                                @room.Comments
+                            </td>
+                            <td width="10%" align="center">
+                                @room.Quantity
+                            </td>
+                            <td width="15%" align="right">
+                                @room.Price.ToString("c")
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </button>
+        </form>
         }
         <div page-model="@Model.PagingInfo" page-action="AddCheckIn"
              page-classes-enabled="true"

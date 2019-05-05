@@ -11,16 +11,19 @@ namespace Hotel.Controllers
     public class CheckInController : Controller
     {
         public int PageSize = 8;
-        private ICheckInRepository repository;
-        public CheckInController(ICheckInRepository repo)
+        private ICheckInRepository repositoryC;
+        private IRoomRepository repositoryR;
+
+        public CheckInController(ICheckInRepository repoC, IRoomRepository repoR)
         {
-            repository = repo;
+            repositoryC = repoC;
+            repositoryR = repoR;
         }
 
         public ViewResult List(int customerId, int page = 1)
             => View(new CheckInsListViewModel
             {
-                CheckIns = repository.CheckIns
+                CheckIns = repositoryC.CheckIns
                     .OrderBy(p => p.CheckInID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -28,21 +31,21 @@ namespace Hotel.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems =repository.CheckIns.Count()
+                    TotalItems =repositoryC.CheckIns.Count()
                 },
                 CustomerID=customerId
             });
 
-        public ViewResult AddCheckIn(string returnUrl) => View(new CheckInViewModel { CheckIn = new CheckIn(), ReturnUrl = returnUrl });
+        public ViewResult AddCheckIn(int roomID, string returnUrl) => View(new CheckInViewModel { CheckIn = new CheckIn(),Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
 
         [HttpPost]
         public IActionResult InsertCheckIn(CheckIn checkIn, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (repository.CheckIns.FirstOrDefault(r => r.CheckInID == checkIn.CheckInID) == null)
+                if (repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkIn.CheckInID) == null)
                 {
-                    repository.InsertCheckIn(checkIn);
+                    repositoryC.InsertCheckIn(checkIn);
                     TempData["message"] = $"CheckIn № {checkIn.CheckInID} has been added";
                     return RedirectToAction(nameof(List));
                 }
@@ -57,18 +60,18 @@ namespace Hotel.Controllers
 
         [HttpPost]
         public IActionResult ConfirmDeleteCheckIn(int checkInID, string returnUrl) =>
-           View(new CheckInViewModel { CheckIn = repository.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID), ReturnUrl = returnUrl });
+           View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID), ReturnUrl = returnUrl });
 
         [HttpPost]
         public IActionResult DeleteCheckIn(CheckIn checkIn, string returnUrl)
         {
-            repository.DeleteCheckIn(checkIn);
+            repositoryC.DeleteCheckIn(checkIn);
             return RedirectToAction(nameof(List));
         }
 
         [HttpPost]
         public ViewResult EditCheckIn(int checkInID, string returnUrl) =>
-            View(new CheckInViewModel { CheckIn = repository.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID), ReturnUrl = returnUrl });
+            View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID), ReturnUrl = returnUrl });
 
 
         [HttpPost]
@@ -76,7 +79,7 @@ namespace Hotel.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.UpdateCheckIn(checkIn);
+                repositoryC.UpdateCheckIn(checkIn);
                 TempData["message"] = $"Изменения по комнате № {checkIn.CheckInID} сохранены";
                 return RedirectToAction(nameof(List));
             }

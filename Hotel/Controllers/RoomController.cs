@@ -34,7 +34,7 @@ namespace Hotel.Controllers
                 CurrentCategory = category,
             });
 
-        public ViewResult AddCheckIn(string category, int page = 1, int pagesize=6)
+        public ViewResult AddCheckIn(string returnUrl, string category, int page = 1, int pagesize=6)
                     => View(new RoomsListViewModel
                     {
                         Rooms = repository.Rooms
@@ -49,6 +49,7 @@ namespace Hotel.Controllers
                             TotalItems = category == null ? repository.Rooms.Count() : repository.Rooms.Where(e => e.Category == category).Count()
                         },
                         CurrentCategory = category,
+                        ReturnUrl = returnUrl
                     });
 
         public ViewResult AddRoom(string returnUrl) => View(new RoomViewModel { Room = new Room(), ReturnUrl=returnUrl});
