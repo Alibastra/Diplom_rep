@@ -36,7 +36,7 @@ namespace Hotel.Controllers
                 CustomerID=customerId
             });
 
-        public ViewResult AddCheckIn(int roomID, string returnUrl) => View(new CheckInViewModel { CheckIn = new CheckIn(),Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
+        public ViewResult AddCheckIn(int roomID, string returnUrl) => View(new CheckInViewModel { CheckIn = new CheckIn() {RoomID=roomID},Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
 
         [HttpPost]
         public IActionResult InsertCheckIn(CheckIn checkIn, string returnUrl)

@@ -29,7 +29,9 @@
         </div>
         @foreach (var room in Model.Rooms)
         {
-        <form id="@room.RoomID" asp-controller="CheckIn" asp-action="AddCheckIn" method="post">
+        <form asp-controller="CheckIn" asp-action="AddCheckIn" method="post">
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <input type="hidden" name="roomID" value="@room.RoomID" />
             <button type="submit" class=" btn-light btn-block">
                 <div class="well">
                     <table width="100%">
