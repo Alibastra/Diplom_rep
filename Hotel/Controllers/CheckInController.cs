@@ -4,6 +4,7 @@ using Hotel.Models;
 using System.Linq;
 using Hotel.Models.ViewModels;
 using Npgsql.EntityFrameworkCore;
+using System;
 
 
 namespace Hotel.Controllers
@@ -36,7 +37,12 @@ namespace Hotel.Controllers
                 CustomerID=customerId
             });
 
-        public ViewResult AddCheckIn(int roomID, string returnUrl) => View(new CheckInViewModel { CheckIn = new CheckIn() {RoomID=roomID},Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID), ReturnUrl = returnUrl });
+        public ViewResult AddCheckIn(int roomID, string returnUrl, DateTime arrival, DateTime depart ) =>
+            View(new CheckInViewModel {
+                CheckIn = new CheckIn() {RoomID=roomID, Arrival=arrival, Department= depart},
+                Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID),
+                ReturnUrl = returnUrl
+            });
 
         [HttpPost]
         public IActionResult InsertCheckIn(CheckIn checkIn, string returnUrl)
