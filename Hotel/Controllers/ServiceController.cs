@@ -40,17 +40,17 @@ namespace Hotel.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (repository.Services.FirstOrDefault(r => r.ServiceID == service.ServiceID) == null)
-                {
-                    repository.InsertService(service);
-                    TempData["message"] = $"Услуга с номером {service.ServiceID} была добавлена";
-                    return RedirectToAction(nameof(List));
-                }
-                else
-                {
-                    TempData["message"] = $"Услуга с номером {service.ServiceID} уже существует.";
-                    return View("AddService", new ServiceViewModel { Service = service, ReturnUrl = returnUrl });
-                }
+                //if (repository.Services.FirstOrDefault(r => r.ServiceID == service.ServiceID) == null)
+                //{
+                repository.InsertService(service);
+                TempData["message"] = $"Услуга с номером {service.ServiceID} была добавлена";
+                return RedirectToAction(nameof(List));
+                //}
+                //else
+                //{
+                //    TempData["message"] = $"Услуга с номером {service.ServiceID} уже существует.";
+                //    return View("AddService", new ServiceViewModel { Service = service, ReturnUrl = returnUrl });
+                //}
             }
             else { return View("AddService", new ServiceViewModel { Service = service, ReturnUrl = returnUrl }); }
         }

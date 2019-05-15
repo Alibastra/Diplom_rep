@@ -21,10 +21,11 @@ namespace Hotel.Controllers
             repositoryR = repoR;
         }
 
-        public ViewResult List(int customerId, int page = 1)
+        public ViewResult List(string lastname, int customerId, int page = 1)
             => View(new CheckInsListViewModel
             {
                 CheckIns = repositoryC.CheckIns
+                    .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower()) >= 0))
                     .OrderBy(p => p.CheckInID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -34,7 +35,28 @@ namespace Hotel.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems =repositoryC.CheckIns.Count()
                 },
-                CustomerID=customerId
+                LastName = lastname
+            });
+
+        public ViewResult AddCheckInFilt(string returnUrl, string category, DateTime arrival, DateTime department, int quantity, int page = 1, int pagesize = 6)
+            => View(new CheckInsListViewModel
+            {
+                Rooms = repositoryR.Rooms
+                    .Where(p => (category == null || p.Category == category))
+                    .OrderBy(p => p.RoomID)
+                    .Skip((page - 1) * pagesize)
+                    .Take(pagesize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pagesize,
+                    TotalItems = category == null ? repositoryR.Rooms.Count() : repositoryR.Rooms.Where(e => e.Category == category).Count()
+                },
+                CurrentArrival = arrival,
+                CurrentDepartment = department,
+                CurrentCategory = category, 
+                Quantity = quantity,
+                ReturnUrl = returnUrl
             });
 
         public ViewResult AddCheckIn(int roomID, string returnUrl, DateTime arrival, DateTime depart ) =>
@@ -49,19 +71,32 @@ namespace Hotel.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkIn.CheckInID) == null)
+                if ((checkIn.LastName==null&&checkIn.CheckInID>0)|| (checkIn.LastName != null && checkIn.CheckInID <= 0))
                 {
                     repositoryC.InsertCheckIn(checkIn);
-                    TempData["message"] = $"CheckIn № {checkIn.CheckInID} has been added";
+                    TempData["message"] = $"Комната с номером {checkIn.RoomID} была забранированна для клиента {checkIn.LastName}";
                     return RedirectToAction(nameof(List));
                 }
                 else
                 {
-                    TempData["message"] = $"Комната с номером {checkIn.CheckInID} уже существует.";
-                    return View(new CheckInViewModel { CheckIn = checkIn, ReturnUrl = returnUrl });
+                    TempData["message"] = $"Выберите только один идентификатор для клиента!";
+                    return View(" AddCheckIn", 
+                                new CheckInViewModel
+                                {
+                                    CheckIn = checkIn,
+                                    Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == checkIn.RoomID),
+                                    ReturnUrl = returnUrl
+                                });
                 }
             }
-            else { return View(new CheckInViewModel { CheckIn = checkIn, ReturnUrl = returnUrl }); }
+            else { return View(" AddCheckIn",
+                                 new CheckInViewModel
+                                 {
+                                     CheckIn = checkIn,
+                                     Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == checkIn.RoomID),
+                                     ReturnUrl = returnUrl
+                                 });
+            }
         }
 
         [HttpPost]

@@ -1,0 +1,23 @@
+﻿@model CheckInsListViewModel
+<a class="btn btn-block btn-default"
+   asp-action="AddCheckInFilt"
+   asp-controller="CheckIn"
+   asp-route-category="">Все комнаты</a>
+<form asp-action="AddCheckInFilt" asp-controler="CheckIn">
+    <label>Дата заезда</label>
+    <input class="btn btn-block btn-default form-control" asp-for="CurrentArrival" />
+    <label>Дата выезда</label>
+    <input class="btn btn-block btn-default form-control" asp-for="CurrentDepartment" />
+    <label>Количество гостей</label>
+    <input class="btn btn-block btn-default form-control" asp-for="Quantity" />
+    <label>Категория комнаты</label>
+    <select asp-for="CurrentCategory" class="form-control pull-left">
+        <option value=null>не важно</option>
+        <option value="Luxe">Luxe</option>
+        <option value="Standart">Standart</option>
+        <option value="Econom">Econom</option>
+    </select>
+    <button type="submit" class="btn btn-success btn-sm pull-left">
+        поиск
+    </button>
+</form>   

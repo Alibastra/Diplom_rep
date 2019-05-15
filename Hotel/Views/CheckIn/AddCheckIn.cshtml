@@ -39,32 +39,21 @@
          <input asp-for="CheckIn.Department" class="form-control" readonly />
      </div>
 
-        <div class="form-group">
-            <label>Клиент</label>
-            @*<div><span asp-validation-for="@Model.RoomID" class="text-danger"></span></div>
-            <input asp-for="CheckIn.CheckInID" class="form-control" />*@
-        </div>
-
-        @*<div class="form-group">
-            <label>Категория:</label>
-            <div><span asp-validation-for="CheckIn.Category" class="text-danger"></span></div>
-            <select asp-for="CheckIn.Category" class="form-control">
-                <option selected disabled value="">Выберите категорию</option>
-                <option value="Luxe">Luxe</option>
-                <option value="Standart">Standart</option>
-                <option value="Econom">Econom</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Количество мест:</label>
-            <div><span asp-validation-for="CheckIn.Quantity" class="text-danger"></span></div>
-            <input asp-for="CheckIn.Quantity" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Цена:</label>
-            <div><span asp-validation-for="CheckIn.Price" class="text-danger"></span></div>
-            <input asp-for="CheckIn.Price" class="form-control" />
-        </div>*@
+     <div class="form-group">
+         @*<table >
+             <tr colspan="2"><label>Клиент</label></tr>
+             <tr>
+                 <td>
+                     <input asp-for="CheckIn.LastName" class="form-control" />
+                 </td>
+                 <td>
+                     <button>Выбрать из базы</button>
+                 </td>
+             </tr>
+         </table>*@
+         <label>Клиент</label>
+         <input asp-for="CheckIn.LastName" class="form-control"/>
+     </div>
         <div class="text-center">
             <input class="btn btn-primary" type="submit" value="Добавить" asp-action="InsertCheckIn" />
             <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>

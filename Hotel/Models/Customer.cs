@@ -8,6 +8,7 @@ namespace Hotel.Models
 {
     public class Customer
     {
+        [Key]
         public int CustomerID { get; set; }
 
         [Required (ErrorMessage = "Пожалуста, введите имя гостя!")]

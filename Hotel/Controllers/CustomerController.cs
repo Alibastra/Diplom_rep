@@ -31,7 +31,7 @@ namespace Hotel.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems = lastname == null ? repository.Customers.Count() : repository.Customers.Where(e => e.LastName == lastname).Count()
                 },
-                LastName = lastname,
+                LastName = lastname
             });
 
         public ViewResult AddCustomer(string returnUrl) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});

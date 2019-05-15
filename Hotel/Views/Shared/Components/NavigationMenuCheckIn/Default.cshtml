@@ -2,11 +2,11 @@
 <a class="btn btn-block btn-default"
    asp-action="List"
    asp-controller="CheckIn"
-   asp-route-category="">Все записи</a>
+   asp-route-category="">Все клиенты</a>
 <form asp-action="List" asp-controler="CheckIn">
-    <label>Фамилия:</label>
-    <input class="btn btn-block btn-default form-control" asp-for="CustomerID"/>
+    <label>Клиент:</label>
+    <input class="btn btn-block btn-default form-control" asp-for="LastName" />
     <button type="submit" class="btn btn-success btn-sm pull-left">
-        поиск
+        Поиск
     </button>
 </form>   

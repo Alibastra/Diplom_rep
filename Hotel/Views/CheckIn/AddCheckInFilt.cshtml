@@ -1,10 +1,10 @@
-﻿@model RoomsListViewModel
+﻿@model CheckInsListViewModel
 @{
     ViewBag.Title = "Добавить бронь";
 }
 <div class="row panel">
-    <div id="categories" class="col-xs-2">
-        @await Component.InvokeAsync("NavigationMenuRoom")
+    <div @*id="categories"*@ class="col-xs-2">
+        @await Component.InvokeAsync("NavigationMenuAddCheckIn")
     </div>
 
     <div class="col-xs-8">
@@ -57,7 +57,7 @@
             </button>
         </form>
         }
-        <div page-model="@Model.PagingInfo" page-action="AddCheckIn"
+        <div page-model="@Model.PagingInfo" page-action="AddCheckInFilt"
              page-classes-enabled="true"
              page-class="btn" page-class-normal="btn-default"
              page-class-selected="btn-primary" page-url-category="@Model.CurrentCategory" class="btn-group pull-right-right">

@@ -7,11 +7,6 @@
     <p>Пожалуйста, заполните данные!</p>
     <form asp-action="AddService" method="post">
         <div class="form-group">
-            <label>Код услуги:</label>
-            <div><span asp-validation-for="Service.ServiceID" class="text-danger"></span></div>
-            <input asp-for="Service.ServiceID" class="form-control" />
-        </div>
-        <div class="form-group">
             <label>Категория:</label>
             <div><span asp-validation-for="Service.Category" class="text-danger"></span></div>
             <select asp-for="Service.Category" class="form-control">

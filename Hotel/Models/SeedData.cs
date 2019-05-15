@@ -94,7 +94,6 @@ namespace Hotel.Models
                 context.Services.AddRange(
                     new Service
                     {
-                        ServiceID = 1,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
                         Category = "Основные",
@@ -103,7 +102,6 @@ namespace Hotel.Models
                     },
                     new Service
                     {
-                        ServiceID = 2,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
                         Category = "Дополнительные",
@@ -112,7 +110,6 @@ namespace Hotel.Models
                     },
                     new Service
                     {
-                        ServiceID = 3,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
                         Category = "Индивидуальные",
@@ -121,7 +118,6 @@ namespace Hotel.Models
                     },
                     new Service
                     {
-                        ServiceID = 4,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
                         Category = "Основные",
@@ -130,7 +126,6 @@ namespace Hotel.Models
                     },
                     new Service
                     {
-                        ServiceID = 5,
                         Price = 1200,
                         ServiceName = "Услуга № 1",
                         Category = "Дополнительные",
@@ -144,7 +139,6 @@ namespace Hotel.Models
                 context.Customers.AddRange(
                    new Customer
                    {
-                       CustomerID = 1,
                        FirstName = "Анастасия",
                        LastName = "Уварова",
                        BithDate =new DateTime(1997,09,26),
@@ -153,7 +147,6 @@ namespace Hotel.Models
                    },
                    new Customer
                    {
-                       CustomerID = 2,
                        FirstName = "Анастасия",
                        LastName = "Сомова",
                        BithDate = new DateTime(1997, 09, 26),
@@ -162,7 +155,6 @@ namespace Hotel.Models
                    },
                    new Customer
                    {
-                       CustomerID = 3,
                        FirstName = "Анастасия",
                        LastName = "Карелина",
                        BithDate = new DateTime(1997, 09, 26),
@@ -176,28 +168,25 @@ namespace Hotel.Models
                 context.CheckIns.AddRange(
                    new CheckIn
                    {
-                       CheckInID = 1,
-                       Arrival=new DateTime(2019, 04, 30),
-                       Department= new DateTime(2019, 05, 5),
+                       Arrival = new DateTime(2019, 04, 30),
+                       Department = new DateTime(2019, 05, 5),
                        RoomID = 5,
                        CustomerID = 1,
-                   }//,
-                   //new CheckIn
-                   //{
-                   //    CheckInID = 2,
-                   //    Arrival = new DateTime(2019, 04, 30),
-                   //    Department = new DateTime(2019, 05, 5),
-                   //    RoomID = 4,
-                   //    CustomerID = "2",
-                   //},
-                   //new CheckIn
-                   //{
-                   //    CheckInID = 2,
-                   //    Arrival = new DateTime(2019, 04, 30),
-                   //    Department = new DateTime(2019, 05, 5),
-                   //    RoomID = 5,
-                   //    CustomerID = "3",
-                   //}
+                   },
+                   new CheckIn
+                   {
+                       Arrival = new DateTime(2019, 04, 30),
+                       Department = new DateTime(2019, 05, 5),
+                       RoomID = 4,
+                       CustomerID = 2,
+                   },
+                   new CheckIn
+                   {
+                       Arrival = new DateTime(2019, 04, 30),
+                       Department = new DateTime(2019, 05, 5),
+                       RoomID = 5,
+                       CustomerID = 3,
+                   }
                    );
                 context.SaveChanges();
             }

@@ -8,8 +8,9 @@ namespace Hotel.Models
 {
     public class Service
     {
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Пожалуста, введите корректный номер услуги!")]
+        //[Required]
+        [Key]
+        //[Range(1, int.MaxValue, ErrorMessage = "Пожалуста, введите корректный номер услуги!")]
         public int ServiceID { get; set; }
 
         [Required(ErrorMessage = "Пожалуста, выберите категорию!")]
