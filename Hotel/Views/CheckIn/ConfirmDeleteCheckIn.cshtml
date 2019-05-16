@@ -1,39 +1,48 @@
-﻿@model CustomerViewModel
+﻿@model CheckInViewModel
 @{
-    ViewBag.Title = "Удалить комнату";
+    ViewBag.Title = "Удалить бронирование";
 }
-
 <div class="modal-dialog">
     <div class="modal-header">
-        <h4>Удалить гостя @Model.Customer.FirstName @Model.Customer.LastName? </h4>
+    <h4>Удалить бронирование с кодом @Model.CheckIn.CheckInID</h4>
     </div>
-    <div class="modal-body">
-        <form asp-action="DeleteCustomer" method="post">
-            <input type="hidden" asp-for="Customer.CustomerID">
-            <div class="form-group">
-                <label asp-for="Customer.FirstName">Имя:</label>
-                <input asp-for="Customer.FirstName" class="form-control"  />
-            </div>
-            <div class="form-group">
-                <label asp-for="Customer.LastName">Фамилия:</label>
-                <input asp-for="Customer.LastName" class="form-control"  />
-            </div>
-            <div class="form-group">
-                <label asp-for="Customer.BithDate">Дата рождения:</label>
-                <input asp-for="Customer.BithDate" class="form-control"  />
-            </div>
-            <div class="form-group">
-                <label asp-for="Customer.Email">Почта:</label>
-                <input asp-for="Customer.Email" class="form-control"  />
-            </div>
-            <div class="form-group">
-                <label asp-for="Customer.PhoneNumber">Номер телефона:</label>
-                <input asp-for="Customer.PhoneNumber" class="form-control"  />
-            </div>
-            <div class="text-center">
-                <button class="btn btn-primary" type="submit">Удалить</button>
-                <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
-            </div>
-        </form>
-    </div>
+    <form asp-action="DeleteCheckIn" method="post">
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        <input type="hidden" asp-for="CheckIn.CheckInID">
+        <div class="form-group">
+            <label asp-for="CheckIn.RoomID">Номер комнаты:</label>
+            <input asp-for="CheckIn.RoomID" class="form-control" readonly />
+        </div>
+        <div>
+            <table width="100%">
+                <tr>
+                    <th>Категория</th>
+                    <th>Кол-во мест</th>
+                    <th>Цена</th>
+                </tr>
+                <tr>
+                    <td>@Model.Room.Category</td>
+                    <td>@Model.Room.Quantity</td>
+                    <td>@Model.Room.Price</td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group">
+            <label asp-for="CheckIn.Arrival">Дата заселения:</label>
+            <input asp-for="CheckIn.Arrival" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="CheckIn.Department">Дата выезда:</label>
+            <input asp-for="CheckIn.Department" class="form-control" readonly />
+        </div>
+
+        <div class="form-group">
+            <label>Клиент</label>
+            <input asp-for="CheckIn.LastName" class="form-control" readonly />
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Удалить</button>
+            <a class="btn btn-primary" href="@Model.ReturnUrl">Отмена</a>
+        </div>
+    </form>
 </div>

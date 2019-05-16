@@ -16,24 +16,23 @@ namespace Hotel.Controllers
         {
             repository = repo;
         }
-        public ViewResult List() => View(new SupplyListViewModel() );
-        //public ViewResult List(string category, int quantity, int page = 1)
-        //    => View(new RoomsListViewModel
-        //    {
-        //        Rooms = repository.Rooms
-        //            .Where(p => ((category == null || p.Category == category) && (quantity == 0 || p.Quantity == quantity)))
-        //            .OrderBy(p => p.RoomID)
-        //            .Skip((page - 1) * PageSize)
-        //            .Take(PageSize),
-        //        PagingInfo = new PagingInfo
-        //        {
-        //            CurrentPage = page,
-        //            ItemsPerPage = PageSize,
-        //            TotalItems = category == null ? repository.Rooms.Count() : repository.Rooms.Where(e => e.Category == category).Count()
-        //        },
-        //        CurrentCategory = category,
-        //        CurrentQuantity = quantity
-        //    });
+
+        public ViewResult List(int checkInID, int page = 1)
+            => View(new SupplysListViewModel
+            {
+                Supplys = repository.Supplys
+                    .Where(p => (checkInID == 0 || p.CheckInID == checkInID))
+                    .OrderBy(p => p.SupplyID)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = checkInID == 0 ? repository.Supplys.Count() : repository.Supplys.Where(e => e.CheckInID == checkInID).Count()
+                },
+                CheckInID = checkInID
+            });
 
         //public ViewResult AddRoom(string returnUrl) => View(new AddRoomViewModel { Room = new Room(), ReturnUrl = returnUrl });
 

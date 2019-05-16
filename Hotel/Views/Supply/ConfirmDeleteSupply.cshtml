@@ -1,0 +1,42 @@
+﻿@model RoomViewModel
+@{
+    ViewBag.Title = "Удалить комнату";
+}
+
+<div class="modal-dialog">
+    <div class="modal-header">
+        <h4>Удалить комнату № @Model.Room.RoomID? </h4>
+    </div>
+    <div class="modal-body">
+        <form asp-action="DeleteRoom" method="post">
+            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+            <input type="hidden" asp-for="Room.RoomID" readonly>
+            <div class="form-group">
+                <label asp-for="Room.Category">Категория:</label>
+                <input asp-for="Room.Category" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Room.Quantity">Количество мест:</label>
+                <input asp-for="Room.Quantity" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Room.Price">Цена:</label>
+                <input asp-for="Room.Price" class="form-control" readonly/>
+            </div>
+            <div class="form-group">
+                <label>Комментарий:</label>
+                <textarea asp-for="Room.Comments" class="form-control" readonly></textarea>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input asp-for="Room.State" disabled/> Сдается
+                </label>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Удалить</button>
+                <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+

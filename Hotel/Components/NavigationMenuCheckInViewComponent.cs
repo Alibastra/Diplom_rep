@@ -13,15 +13,6 @@ namespace Hotel.Views.Shared.Components
         {
             repository = repo;
         }
-        public IViewComponentResult Invoke()
-        {
-            return View();
-            //return View(new CustomersListViewModel());
-            // ViewBag.SelectedCategory = RouteData?.Values[category];
-            //return View(repository.Customers
-            //    .Select(x => x.LastName)
-            //    .Distinct()
-            //    .OrderBy(x => x));
-        }
+        public IViewComponentResult Invoke()=> View();
     }
 }

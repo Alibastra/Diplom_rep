@@ -1,40 +1,79 @@
-﻿@model CustomerViewModel
+﻿@model CheckInViewModel
 @{
-    ViewBag.Title = "Редактировать данные клиента";
+    ViewBag.Title = "Редактировать бронирование";
 }
 <div class="modal-dialog">
-    <h4>Редактировать данные клиента</h4>
-    <p> гостя @Model.Customer.FirstName @Model.Customer.LastName? </p>
-    <form asp-action="UpdateCustomer" method="post">
-        <input type="hidden" asp-for="Customer.CustomerID" />
+    <h4>Редактировать бронирование с кодом @Model.CheckIn.CheckInID</h4>
+    <form asp-action="UpdateCheckIn" method="post">
         <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        <input type="hidden" asp-for="CheckIn.CheckInID">
         <div class="form-group">
-            <label asp-for="Customer.FirstName">Имя:</label>
-            <div><span asp-validation-for="Customer.FirstName" class="text-danger"></span></div>
-            <input asp-for="Customer.FirstName" class="form-control"  />
+            <table width="100%">
+                <tr colspan="2"><label asp-for="CheckIn.RoomID">Номер комнаты:</label></tr>
+                <tr>
+                    <td width="90%">
+                        <input asp-for="CheckIn.RoomID" class="form-control" readonly />
+                    </td>
+                    <td width="10%">
+                        <button class="btn btn-success">Изменить</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <table width="100%">
+                <tr>
+                    <th>Категория</th>
+                    <th>Кол-во мест</th>
+                    <th>Цена</th>
+                </tr>
+                <tr>
+                    <td>@Model.Room.Category</td>
+                    <td>@Model.Room.Quantity</td>
+                    <td>@Model.Room.Price</td>
+                </tr>
+            </table>
         </div>
         <div class="form-group">
-            <label asp-for="Customer.LastName">Фамилия:</label>
-            <div><span asp-validation-for="Customer.LastName" class="text-danger"></span></div>
-            <input asp-for="Customer.LastName" class="form-control"  />
+            <label asp-for="CheckIn.Arrival">Дата заселения:</label>
+            <input asp-for="CheckIn.Arrival" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="Customer.BithDate">Дата рождения:</label>
-            <div><span asp-validation-for="Customer.BithDate" class="text-danger"></span></div>
-            <input asp-for="Customer.BithDate" class="form-control"  />
+            <label asp-for="CheckIn.Department">Дата выезда:</label>
+            <input asp-for="CheckIn.Department" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="Customer.Email">Почта:</label>
-            <div><span asp-validation-for="Customer.Email" class="text-danger"></span></div>
-            <input asp-for="Customer.Email" class="form-control"  />
+            <table width="100%">
+                <tr colspan="2"><label asp-for="CheckIn.CustomerID">Код клиента:</label></tr>
+                <tr>
+                    <td width="90%">
+                        <input asp-for="CheckIn.CustomerID" class="form-control" readonly />
+                    </td>
+                    <td width="10%">
+                        <button class="btn btn-success">Изменить</button>
+                    </td>
+                </tr>
+            </table>
         </div>
+
         <div class="form-group">
-            <label asp-for="Customer.PhoneNumber">Номер телефона:</label>
-            <input asp-for="Customer.PhoneNumber" class="form-control"  />
+            @*<table>
+                    <tr colspan="2"><label>Клиент</label></tr>
+                    <tr>
+                        <td>
+                            <input asp-for="CheckIn.LastName" class="form-control" />
+                        </td>
+                        <td>
+                            <button>Выбрать из базы</button>
+                        </td>
+                    </tr>
+                </table>*@
+            <label>Клиент</label>
+            <input asp-for="CheckIn.LastName" class="form-control" />
         </div>
         <div class="text-center">
-            <button class="btn btn-primary" type="submit">Сохранить</button>
-            <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
+            <input class="btn btn-primary" type="submit" value="Сохранить" />
+            <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>
         </div>
     </form>
 </div>

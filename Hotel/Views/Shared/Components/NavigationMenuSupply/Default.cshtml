@@ -1,0 +1,12 @@
+﻿@model SupplysListViewModel
+<a class="btn btn-block btn-default"
+   asp-action="List"
+   asp-controller="Supply"
+   asp-route-category="">Все услуги</a>
+<form asp-action="List" asp-controler="Supply">
+    <label>Номер брони:</label>
+    <input class="btn btn-block btn-default form-control" asp-for="CheckInID"/>
+    <button type="submit" class="btn btn-success btn-sm pull-left">
+        Поиск
+    </button>
+</form>   

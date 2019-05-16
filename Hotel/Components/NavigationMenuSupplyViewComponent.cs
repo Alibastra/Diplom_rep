@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Hotel.Models;
-using Hotel.Models.ViewModels;
 
 namespace Hotel.Views.Shared.Components
 {
-    public class NavigationMenuCustomerViewComponent : ViewComponent
+    public class NavigationMenuSupplyViewComponent:ViewComponent
     {
-        private ICustomerRepository repository;
+        private ISupplyRepository repository;
 
-        public NavigationMenuCustomerViewComponent(ICustomerRepository repo)
+        public NavigationMenuSupplyViewComponent(ISupplyRepository repo)
         {
             repository = repo;
         }
         public IViewComponentResult Invoke()
         {
+            // ViewBag.SelectedCategory = RouteData?.Values[category];
             return View();
         }
     }

@@ -1,11 +1,10 @@
-﻿@model CheckInsListViewModel
+﻿@model SupplysListViewModel
 @{
-    ViewBag.Title = "Брони";
+    ViewBag.Title = "Предоставленные услуги";
 }
 <div class="row panel">
-
     <div id="categories" class="col-xs-2">
-        @await Component.InvokeAsync("NavigationMenuCheckIn")
+        @await Component.InvokeAsync("NavigationMenuSupply")
     </div>
 
     <div class="col-xs-8">
@@ -14,40 +13,37 @@
             <div class="alert alert-success">@TempData["message"]</div>
         }
         <div class="panel-body">
-            <form  asp-action="AddCheckInFilt" asp-controller="CheckIn" method="post">
+            <form asp-action="AddSupply" asp-controller="Supply" method="post">
                 <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
                 <button type="submit" class="btn btn-success btn-sm pull-right">
-                    +Добавить запись
+                    +Добавить
                 </button>
             </form>
         </div>
-        <table class="table">
+        <table width="100%" class="table">
             <thead>
                 <tr>
-                    <th>Код</th>
-                    <th>Дата заселения</th>
-                    <th>Дата выезда</th>
-                    <th>Номер комнаты</th>
-                    <th>Клиент</th>
-                    <th>Код клиента</th>
+                    <th>Код </th>
+                    <th>Дата оказания</th>
+                    <th>Код услуги</th>
+                    <th>Кол-во</th>
+                    <th>Номер брони</th>
                     <th></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in Model.CheckIns)
-                { 
-                    @Html.Partial("CheckInSummary",p)
+                @foreach (var p in Model.Supplys)
+                {
+                    @Html.Partial("SupplySummary", p)
                 }
             </tbody>
         </table>
+
         <div page-model="@Model.PagingInfo" page-action="List"
              page-classes-enabled="true"
              page-class="btn" page-class-normal="btn-default"
-             page-class-selected="btn-primary" page-url-category="@Model.LastName" class="btn-group pull-right-right">
+             page-class-selected="btn-primary" page-url-category="@Model.CheckInID" class="btn pull-right">
         </div>
     </div>
 </div>
-
-
-

@@ -21,7 +21,7 @@ namespace Hotel.Controllers
             repositoryR = repoR;
         }
 
-        public ViewResult List(string lastname, int customerId, int page = 1)
+        public ViewResult List(string lastname, int page = 1)
             => View(new CheckInsListViewModel
             {
                 CheckIns = repositoryC.CheckIns
@@ -101,18 +101,23 @@ namespace Hotel.Controllers
 
         [HttpPost]
         public IActionResult ConfirmDeleteCheckIn(int checkInID, string returnUrl) =>
-           View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID), ReturnUrl = returnUrl });
+           View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(c => c.CheckInID == checkInID),
+               Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == repositoryC.CheckIns.FirstOrDefault(c => c.CheckInID == checkInID).RoomID),
+               ReturnUrl = returnUrl });
 
         [HttpPost]
         public IActionResult DeleteCheckIn(CheckIn checkIn, string returnUrl)
         {
             repositoryC.DeleteCheckIn(checkIn);
+            TempData["message"] = $"Бронирование с кодом {checkIn.CheckInID} было удалено";
             return RedirectToAction(nameof(List));
         }
 
         [HttpPost]
         public ViewResult EditCheckIn(int checkInID, string returnUrl) =>
-            View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID), ReturnUrl = returnUrl });
+            View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID),
+                Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == repositoryC.CheckIns.FirstOrDefault(c => c.CheckInID == checkInID).RoomID),
+                ReturnUrl = returnUrl });
 
 
         [HttpPost]

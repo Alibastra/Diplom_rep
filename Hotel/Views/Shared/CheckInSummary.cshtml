@@ -19,12 +19,13 @@
     <td align="center">
         @if (Model.CustomerID<=0)
         {
-        <form id="@Model.CheckInID" asp-controller="CheckIn" asp-action="CheckIn" method="post">
+        <form asp-controller="CheckIn" asp-action="CheckIn" method="post">
             <input type="hidden" name="checkInID" value="@Model.CheckInID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="btn btn-success btn-sm pull-right">
                 Зарегистрировать
             </button>
+            @Model.CustomerID
         </form>
         }
         else {
@@ -33,7 +34,7 @@
 
     </td>
     <td align="center">
-        <form id="@Model.CheckInID" asp-controller="CheckIn" asp-action="EditCheckIn" method="post">
+        <form asp-controller="CheckIn" asp-action="EditCheckIn" method="post">
             <input type="hidden" name="checkInID" value="@Model.CheckInID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="btn btn-success btn-sm pull-right">
@@ -42,10 +43,10 @@
         </form>
     </td>
     <td align="center">
-        <form id="@Model.CheckInID" asp-controller="CheckIn" asp-action="ConfirmDeleteService" method="post">
+        <form  asp-controller="CheckIn" method="post">
             <input type="hidden" name="checkInID" value="@Model.CheckInID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <button type="submit" class="btn btn-danger btn-sm pull-right">
+            <button type="submit" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCheckIn">
                 Удалить
             </button>
         </form>
