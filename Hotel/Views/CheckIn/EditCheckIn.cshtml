@@ -8,17 +8,8 @@
         <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
         <input type="hidden" asp-for="CheckIn.CheckInID">
         <div class="form-group">
-            <table width="100%">
-                <tr colspan="2"><label asp-for="CheckIn.RoomID">Номер комнаты:</label></tr>
-                <tr>
-                    <td width="90%">
-                        <input asp-for="CheckIn.RoomID" class="form-control" readonly />
-                    </td>
-                    <td width="10%">
-                        <button class="btn btn-success">Изменить</button>
-                    </td>
-                </tr>
-            </table>
+            <label asp-for="CheckIn.RoomID">Номер комнаты:</label>
+            <input asp-for="CheckIn.RoomID" class="form-control" readonly />
         </div>
         <div>
             <table width="100%">

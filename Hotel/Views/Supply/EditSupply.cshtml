@@ -1,41 +1,46 @@
-﻿@model RoomViewModel
+﻿@model SupplyViewModel
 @{
-    ViewBag.Title = "Edit Room";
+    ViewBag.Title = "Редатировать предоставление";
 }
 <div class="modal-dialog">
-    <h2>Редактировать Комнату</h2>
-    <p>Пожалуста, уточните денные для коммнаты с номером @Model.Room.RoomID</p>
+    <h2>Редактировать запись номер @Model.Supply.SupplyID</h2>
 
-    <form asp-action="UpdateRoom" method="post">
-        <input type="hidden" asp-for="Room.RoomID" />
+    <form asp-action="UpdateSupply" method="post">
+        <input type="hidden" asp-for="Supply.SupplyID" />
         <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
         <div class="form-group">
-            <label asp-for="Room.Category"></label>
-            <div><span asp-validation-for="Room.Category" class="text-danger"></span></div>
-            <select asp-for="Room.Category" class="form-control">
-                <option value="Luxe">Luxe</option>
-                <option value="Standart">Standart</option>
-                <option value="Econom">Econom</option>
-            </select>
+            <label asp-for="Supply.ServiceID">Код услуги:</label>
+            <input asp-for="Supply.ServiceID" class="form-control" readonly />
+        </div>
+        <div>
+            <table width="100%">
+                <tr>
+                    <th>Категория</th>
+                    <th>Название услуги</th>
+                    <th>Цена</th>
+                </tr>
+                <tr>
+                    <td>@Model.Service.Category</td>
+                    <td>@Model.Service.ServiceName</td>
+                    <td>@Model.Service.Price</td>
+                </tr>
+                <tr>
+                    <td>Коментарий:</td>
+                    <td colspan="2">@Model.Service.Comments</td>
+                </tr>
+            </table>
         </div>
         <div class="form-group">
-            <label asp-for="Room.Quantity">Количество мест:</label>
-            <div><span asp-validation-for="Room.Quantity" class="text-danger"></span></div>
-            <input asp-for="Room.Quantity" class="form-control" />
+            <label asp-for="Supply.SupplyDate">Дата оказания услуги:</label>
+            <input asp-for="Supply.SupplyDate" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="Room.Price">Цена:</label>
-            <div><span asp-validation-for="Room.Price" class="text-danger"></span></div>
-            <input asp-for="Room.Price" class="form-control" />
+            <label asp-for="Supply.Quantity">Количество:</label>
+            <input asp-for="Supply.Quantity" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Коментарий:</label>
-            <textarea asp-for="Room.Comments" class="form-control"></textarea>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input asp-for="Room.State" /> Сдается
-            </label>
+            <label asp-for="Supply.CheckInID">Номер брони:</label>
+            <input asp-for="Supply.CheckInID" class="form-control" />
         </div>
         <div class="text-center">
             <button class="btn btn-primary" type="submit">Сохранить</button>

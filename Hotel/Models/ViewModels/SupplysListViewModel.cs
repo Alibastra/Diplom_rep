@@ -7,9 +7,10 @@ namespace Hotel.Models.ViewModels
     public class SupplysListViewModel
     {
         public IEnumerable<Supply> Supplys { get; set; }
-        public PagingInfo PagingInfo { get; set; }
-        public string CurrentCategory { get; set; }
-        public string ReturnUrl { get; set; }
+        public IEnumerable<Service> Services { get; set; }
         public int CheckInID { get; set; }
+        public string ReturnUrl { get; set; }
+        public int SupplyID { get; set; }
+        public PagingInfo PagingInfo { get; set; }
     }
 }

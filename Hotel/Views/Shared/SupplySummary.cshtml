@@ -18,7 +18,7 @@
 
     <td align="center">
         <form asp-controller="Supply" asp-action="EditSupply" method="post">
-            <input type="hidden" name="checkInID" value="@Model.SupplyID" />
+            <input type="hidden" name="supplyID" value="@Model.SupplyID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="btn btn-success btn-sm pull-right">
                 Редактировать
@@ -27,7 +27,7 @@
     </td>
     <td align="center">
         <form  asp-controller="Supply" asp-action="ConfirmDeleteSupply" method="post">
-            <input type="hidden" name="checkInID" value="@Model.SupplyID" />
+            <input type="hidden" name="supplyID" value="@Model.SupplyID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="btn btn-danger btn-sm pull-right">
                 Удалить

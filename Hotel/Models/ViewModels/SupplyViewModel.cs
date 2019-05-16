@@ -7,6 +7,7 @@ namespace Hotel.Models.ViewModels
     public class SupplyViewModel
     {
         public Supply Supply { get; set; }
+        public Service Service { get; set; }
         public string ReturnUrl { get; set; }
     }
 }
