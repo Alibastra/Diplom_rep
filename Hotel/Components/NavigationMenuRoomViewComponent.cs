@@ -7,14 +7,14 @@ namespace Hotel.Views.Shared.Components
     public class NavigationMenuRoomViewComponent:ViewComponent
     {
         private IRoomRepository repository;
-
+        
         public NavigationMenuRoomViewComponent(IRoomRepository repo)
         {
             repository = repo;
         }
         public IViewComponentResult Invoke()
         {
-           // ViewBag.SelectedCategory = RouteData?.Values[category];
+            ViewBag.SelectedCategory = RouteData?.Values["category"];
             return View(repository.Rooms
                 .Select(x => x.Category)
                 .Distinct()

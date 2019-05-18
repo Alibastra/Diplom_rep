@@ -41,7 +41,7 @@
                         <input asp-for="CheckIn.CustomerID" class="form-control" readonly />
                     </td>
                     <td width="10%">
-                        <button class="btn btn-success">Изменить</button>
+                        <a class="btn btn-success" asp-controller="CheckIn" asp-action="AddCustomerFilt">Изменить</a>
                     </td>
                 </tr>
             </table>
@@ -63,7 +63,7 @@
             <input asp-for="CheckIn.LastName" class="form-control" />
         </div>
         <div class="text-center">
-            <input class="btn btn-primary" type="submit" value="Сохранить" />
+            <button class="btn btn-primary" type="submit">Сохранить</button>
             <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>
         </div>
     </form>

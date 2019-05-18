@@ -22,13 +22,15 @@
     <td align="center">
         @if (Model.CustomerID <= 0)
         {
-            <form asp-controller="CheckIn" asp-action="CheckIn" method="post">
-                <input type="hidden" name="checkInID" value="@Model.CheckInID" />
-                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                <button type="submit" class="btn btn-success btn-sm pull-right">
-                    Зарегистрировать
-                </button>
-            </form>
+        <form asp-controller="CheckIn" asp-action="AddCustomerFilt" method="post">
+            <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+            <input type="hidden" name="phone_number" value="@Model.PhoneNumber" />
+            <input type="hidden" name="lastname" value="@Model.LastName" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn btn-success btn-sm pull-right">
+                Зарегистрировать
+            </button>
+        </form>
         }
         else
         {

@@ -1,10 +1,10 @@
 ﻿@model CheckInsListViewModel
 @{
-    ViewBag.Title = "Добавить бронь";
+    ViewBag.Title = "Добавить клиента";
 }
 <div class="row panel">
     <div class="col-xs-2">
-        @await Component.InvokeAsync("NavigationMenuAddCheckIn")
+        @await Component.InvokeAsync("NavigationMenuAddCustomer")
     </div>
 
     <div class="col-xs-8">
@@ -13,46 +13,56 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
-        <div class="text-right">
-            <a class="btn btn-primary" type="submit" asp-controller="CheckIn" asp-action="List">Отмена</a>
-        </div>
+            <div class="text-right">
+                <form asp-action="AddCustomer" asp-controller="CheckIn" method="post">
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <button type="submit" class="btn btn-success btn-sm pull-right">
+                        +Добавить комнату
+                    </button>
+                </form>
+                <a class="btn btn-primary" type="submit" asp-controller="CheckIn" asp-action="List">Отмена</a>
+            </div>
         <table class="table">
             <thead>
                 <tr>
-                    <th width="15%">№ комнаты</th>
-                    <th width="15%">Категория</th>
-                    <th width="45%">Коментарий</th>
-                    <th width="15%">Кол-во мест</th>
-                    <th align="right" width="10%">Стоимость</th>
+                    <th>Код</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Дата рождения</th>
+                    <th>Почта</th>
+                    <th>Номер телефона</th>
                 </tr>
             </thead>
         </table>
 
-        @foreach (var room in Model.Rooms)
+        @foreach (var customer in Model.Customers)
         {
-            <form asp-controller="CheckIn" asp-action="AddCheckIn" method="post">
+            <form asp-controller="Customer" asp-action="AddCustomer" method="post">
                 <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                <input type="hidden" name="roomID" value="@room.RoomID" />
+                @*<input type="hidden" name="roomID" value="@room.RoomID" />
                 <input type="hidden" name="arrival" value="@Model.Arrival" />
-                <input type="hidden" name="department" value="@Model.Department" />
+                <input type="hidden" name="department" value="@Model.Department" />*@
                 <button type="submit" class=" btn-light btn-block">
                     <div class="well">
                         <table width="100%">
                             <tr>
                                 <td width="15%" align="left">
-                                    @room.RoomID
+                                    @customer.CustomerID
                                 </td>
                                 <td width="15%" align="left">
-                                    @room.Category
+                                    @customer.FirstName
                                 </td>
                                 <td width="45%" align="left">
-                                    @room.Comments
+                                    @customer.LastName
                                 </td>
                                 <td width="10%" align="center">
-                                    @room.Quantity
+                                    @customer.BithDate
                                 </td>
                                 <td width="15%" align="right">
-                                    @room.Price.ToString("c")
+                                    Почта @customer.Email
+                                </td>
+                                <td width="15%" align="right">
+                                    Номер :@customer.PhoneNumber
                                 </td>
                             </tr>
                         </table>
@@ -67,6 +77,3 @@
         </div>
     </div>
 </div>
-
-
-

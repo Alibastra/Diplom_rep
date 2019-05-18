@@ -5,16 +5,16 @@ using Hotel.Models.ViewModels;
 
 namespace Hotel.Views.Shared.Components
 {
-    public class NavigationMenuAddCustomerViewComponent : ViewComponent
+    public class NavigationMenuAddCheckInViewComponent : ViewComponent
     {
         private ICheckInRepository repositoryC;
-        private ICustomerRepository repositoryCu;
+        private IRoomRepository repositoryR;
 
 
-        public NavigationMenuAddCustomerViewComponent(ICheckInRepository repoC, ICustomerRepository repoCu)
+        public NavigationMenuAddCheckInViewComponent(ICheckInRepository repoC, IRoomRepository repoR)
         {
             repositoryC = repoC;
-            repositoryCu = repoCu;
+            repositoryR = repoR;
         }
         public IViewComponentResult Invoke()
         {
