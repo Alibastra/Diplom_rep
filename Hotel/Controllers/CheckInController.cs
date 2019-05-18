@@ -38,67 +38,58 @@ namespace Hotel.Controllers
                 LastName = lastname
             });
 
-        public ViewResult AddCheckInFilt(CheckInNewViewModel checkInNew, string returnUrl, int page = 1, int pagesize = 6)
+        public ViewResult AddCheckInFilt(DateTime? arrival, DateTime? department, int? quantity, string category, string returnUrl, int page = 1, int pagesize = 6)
         {
-            if (checkInNew == null)
+            if (arrival == null) arrival = DateTime.Now.Date.AddHours(14);
+            if (department == null || department <= arrival) department = arrival.Value.AddDays(7).AddHours(-2);
+            if (quantity == null) quantity = 2;
+            if (string.IsNullOrEmpty(category)) category = "";
+
+            var model = new CheckInsListViewModel()
             {
-                checkInNew = new CheckInNewViewModel()
-                {
-                    Quantity = 0,
-                    CheckIn = new CheckIn() { Arrival = DateTime.Now, Department = DateTime.Now.AddDays(1) }
-                };
-            }
-            checkInNew.Rooms = repositoryR.Rooms
+                Arrival = (DateTime)arrival,
+                Department = (DateTime)department,
+                Quantity = (int)quantity,
+                Category = category
+            };
+
+            model.Rooms = repositoryR.Rooms
                     .Where(p =>
-                           (checkInNew.Category == null || p.Category == checkInNew.Category)
-                        && (checkInNew.Quantity == 0 || p.Quantity >= checkInNew.Quantity)
-                        && repositoryC.CheckIns.FirstOrDefault(c => c.RoomID == p.RoomID && checkInNew?.CheckIn!= null &&
-                           (c.Arrival >= checkInNew.CheckIn.Arrival && c.Arrival < checkInNew.CheckIn.Department || c.Department <= checkInNew.CheckIn.Department && c.Department > checkInNew.CheckIn.Arrival)) == null
+                           (category == "" || p.Category == category)
+                        && (quantity == 0 || p.Quantity >= quantity)
+                        && repositoryC.CheckIns.FirstOrDefault(c => c.RoomID == p.RoomID  && (c.Arrival >= arrival && c.Arrival < department ||  c.Department <= department && c.Department > arrival)) == null
                     )
                     .OrderBy(p => p.RoomID)
                     .Skip((page - 1) * pagesize)
                     .Take(pagesize);
 
-            checkInNew.PagingInfo = new PagingInfo
+            model.PagingInfo = new PagingInfo
             {
                 CurrentPage = page,
                 ItemsPerPage = pagesize,
-                TotalItems = checkInNew.Category == null ? repositoryR.Rooms.Count() : repositoryR.Rooms.Where(e => e.Category == checkInNew.Category).Count()
-            };
-            checkInNew.ReturnUrl = returnUrl;
-            return View(checkInNew);
-
-            return View(new CheckInNewViewModel
-            {
-                Rooms = repositoryR.Rooms
+                TotalItems = repositoryR.Rooms
                     .Where(p =>
-                           (checkInNew.Category == null || p.Category == checkInNew.Category)
-                        && (checkInNew.Quantity == 0 || p.Quantity >= checkInNew.Quantity)
-                        && repositoryC.CheckIns.FirstOrDefault(c => c.RoomID == p.RoomID && (c.Arrival >= checkInNew.CheckIn.Arrival && c.Arrival < checkInNew.CheckIn.Department || c.Department <= checkInNew.CheckIn.Department && c.Department > checkInNew.CheckIn.Arrival)) == null
-                    )
-                    .OrderBy(p => p.RoomID)
-                    .Skip((page - 1) * pagesize)
-                    .Take(pagesize),
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = pagesize,
-                    TotalItems = checkInNew.Category == null ? repositoryR.Rooms.Count() : repositoryR.Rooms.Where(e => e.Category == checkInNew.Category).Count()
-                },
-                CheckIn = checkInNew.CheckIn,
-                Category = checkInNew.Category,
-                Quantity = checkInNew.Quantity,
-                ReturnUrl = returnUrl
-            });
+                           (category == "" || p.Category == category)
+                        && (quantity == 0 || p.Quantity >= quantity)
+                        && repositoryC.CheckIns.FirstOrDefault(c => c.RoomID == p.RoomID && (c.Arrival >= arrival && c.Arrival < department || c.Department <= department && c.Department > arrival)) == null
+                    ).Count()
+            };
+            model.ReturnUrl = returnUrl;
+            return View(model);
         }
 
-        public ViewResult AddCheckIn(int roomID, string returnUrl, DateTime arrival, DateTime depart ) =>
-            View(new CheckInViewModel {
-                CheckIn = new CheckIn() {RoomID=roomID, Arrival=arrival, Department= depart},
+        public ViewResult AddCheckIn(int roomID, string returnUrl, DateTime arrival, DateTime department)
+        {
+            arrival = new DateTime(arrival.Year, arrival.Month, arrival.Day, 14, 0, 0);
+            department = new DateTime(department.Year, department.Month, department.Day, 12, 0, 0);
+
+            return View(new CheckInViewModel
+            {
+                CheckIn = new CheckIn() { RoomID = roomID, Arrival = arrival, Department = department },
                 Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID),
                 ReturnUrl = returnUrl
             });
-
+        }
         [HttpPost]
         public IActionResult InsertCheckIn(CheckIn checkIn, string returnUrl)
         {

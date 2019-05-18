@@ -1,18 +1,18 @@
-﻿@model CheckInNewViewModel
+﻿@model CheckInsListViewModel
 <a class="btn btn-block btn-default"
    asp-action="AddCheckInFilt"
    asp-controller="CheckIn"
    asp-route-category="">Все комнаты</a>
 <form asp-action="AddCheckInFilt" asp-controler="CheckIn">
     <label>Дата заезда</label>
-    <input class="btn btn-block btn-default form-control" asp-for="@Model.CheckIn.Arrival"/>
+    <input class="btn btn-block btn-default form-control" name="arrival" value="@Model.Arrival"/>
     <label>Дата выезда</label>
-    <input class="btn btn-block btn-default form-control" asp-for="@Model.CheckIn.Department"/>
+    <input class="btn btn-block btn-default form-control" name="department" value="@Model.Department"/>
     <label>Количество гостей</label>
-    <input class="btn btn-block btn-default form-control" asp-for="@Model.Quantity" />
+    <input class="btn btn-block btn-default form-control" name="quantity" value="@Model.Quantity" />
     <label>Категория комнаты</label>
-    <select asp-for="@Model.Category" class="form-control pull-left">
-        <option value=null>не важно</option>
+    <select name="category" value="@Model.Category" class="form-control pull-left">
+        <option value="">не важно</option>
         <option value="Luxe">Luxe</option>
         <option value="Standart">Standart</option>
         <option value="Econom">Econom</option>

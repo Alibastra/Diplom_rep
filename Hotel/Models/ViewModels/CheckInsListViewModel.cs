@@ -11,9 +11,9 @@ namespace Hotel.Models.ViewModels
         public IEnumerable<Room> Rooms { get; set; }
         public IEnumerable<Customer> Customers { get; set; }
         public PagingInfo PagingInfo { get; set; }
-        public DateTime CurrentArrival { get; set; }
-        public DateTime CurrentDepartment { get; set; }
-        public string CurrentCategory { get; set; }
+        public DateTime Arrival { get; set; }
+        public DateTime Department { get; set; }
+        public string Category { get; set; }
         public int Quantity { get; set; }
         public string ReturnUrl { get; set; }
         public string LastName { get; set; }

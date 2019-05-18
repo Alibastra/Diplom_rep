@@ -1,4 +1,4 @@
-﻿@model CheckInNewViewModel
+﻿@model CheckInsListViewModel
 @{
     ViewBag.Title = "Добавить бронь";
 }
@@ -32,8 +32,8 @@
         <form asp-controller="CheckIn" asp-action="AddCheckIn" method="post">
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <input type="hidden" name="roomID" value="@room.RoomID" />
-            <input type="hidden" name="arrival" value="@Model?.CheckIn?.Arrival" />
-            <input type="hidden" name="department" value="@Model?.CheckIn?.Department" />
+            <input type="hidden" name="arrival" value="@Model.Arrival" />
+            <input type="hidden" name="department" value="@Model.Department" />
             <button type="submit" class=" btn-light btn-block">
                 <div class="well">
                     <table width="100%">

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,5 +22,7 @@ namespace Hotel.Models
 
         public int CustomerID { get; set; }
 
+        [Required(ErrorMessage = "Пожалуста, введите номер телефона гостя!")]
+        public string PhoneNumber { get; set; }
     }
 }

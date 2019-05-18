@@ -9,26 +9,29 @@
     <td>
         @Model.Department.ToString("dd.MM.yyyy")
     </td>
-    <td >
+    <td>
         @Model.RoomID
     </td>
     <td>
         @Model.LastName
     </td>
-  
+    <td>
+        @Model.PhoneNumber
+    </td>
+
     <td align="center">
-        @if (Model.CustomerID<=0)
+        @if (Model.CustomerID <= 0)
         {
-        <form asp-controller="CheckIn" asp-action="CheckIn" method="post">
-            <input type="hidden" name="checkInID" value="@Model.CheckInID" />
-            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <button type="submit" class="btn btn-success btn-sm pull-right">
-                Зарегистрировать
-            </button>
-            @Model.CustomerID
-        </form>
+            <form asp-controller="CheckIn" asp-action="CheckIn" method="post">
+                <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                <button type="submit" class="btn btn-success btn-sm pull-right">
+                    Зарегистрировать
+                </button>
+            </form>
         }
-        else {
+        else
+        {
             @Model.CustomerID
         }
 
@@ -43,7 +46,7 @@
         </form>
     </td>
     <td align="center">
-        <form  asp-controller="CheckIn" method="post">
+        <form asp-controller="CheckIn" method="post">
             <input type="hidden" name="checkInID" value="@Model.CheckInID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="btn btn-danger btn-sm pull-right" asp-action="ConfirmDeleteCheckIn">
