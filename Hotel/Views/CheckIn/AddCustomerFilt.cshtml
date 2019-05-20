@@ -13,15 +13,21 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
-            <div class="text-right">
-                <form asp-action="AddCustomer" asp-controller="Customer" method="post">
-                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                    <button type="submit" class="btn btn-success pull-right">
-                        +Новый клиент
-                    </button>
-                    <a class="btn btn-primary" type="submit" asp-controller="CheckIn" asp-action="List">Отмена</a>
-                </form>
+        <div>
+        <div style="float: left; width: 936px">
+            <form asp-action="AddCustomer" asp-controller="Customer" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+                <button type="submit" class="btn btn-success pull-right">
+                    +Новый клиент
+                </button>
+            </form>
+        </div>
+            <div style="float: right">
+                <a class="btn btn-primary" type="submit" asp-controller="CheckIn" asp-action="List">Отмена</a>    
             </div>
+
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -37,8 +43,9 @@
 
         @foreach (var customer in Model.Customers)
         {
-            <form asp-controller="CheckIn" asp-action="AddCustomerForm" method="post">
+            <form asp-controller="CheckIn" asp-action="EditCustomer" method="post">
                 <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                <input type="hidden" name="checkInID" value="@Model.CheckInID" />
                 @*<input type="hidden" name="roomID" value="@room.RoomID" />
                 <input type="hidden" name="arrival" value="@Model.Arrival" />
                 <input type="hidden" name="department" value="@Model.Department" />*@

@@ -9,7 +9,6 @@ namespace Hotel.Models.ViewModels
     {
         public IEnumerable<CheckIn> CheckIns { get; set; }
         public IEnumerable<Room> Rooms { get; set; }
-        public IEnumerable<Customer> Customers { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public DateTime Arrival { get; set; }
         public DateTime Department { get; set; }
@@ -19,5 +18,6 @@ namespace Hotel.Models.ViewModels
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime BithDate { get; set; }
+        public int CheckInID { get; set; }
     }
 }

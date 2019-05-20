@@ -146,6 +146,8 @@ namespace Hotel.Controllers
             });
         }
 
+
+
         [HttpPost]
         public IActionResult ConfirmDeleteCheckIn(int checkInID, string returnUrl) =>
            View(new CheckInViewModel { CheckIn = repositoryC.CheckIns.FirstOrDefault(c => c.CheckInID == checkInID),

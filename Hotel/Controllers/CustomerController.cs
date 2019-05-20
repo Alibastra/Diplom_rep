@@ -34,7 +34,7 @@ namespace Hotel.Controllers
                 LastName = lastname
             });
 
-        public ViewResult AddCustomer(string returnUrl) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});
+        public ViewResult AddCustomer(string returnUrl, int checkInID) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});
 
         [HttpPost]
         public IActionResult InsertCustomer(Customer customer, string returnUrl)
