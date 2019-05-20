@@ -23,7 +23,7 @@ namespace Hotel.Controllers
             repositoryCu = repoCu;
         }
 
-        public ViewResult List(string lastname, int page = 1)
+        public ViewResult List(string lastname, int checkInID, int page = 1)
             => View(new CheckInsListViewModel
             {
                 CheckIns = repositoryC.CheckIns
@@ -37,7 +37,8 @@ namespace Hotel.Controllers
                     ItemsPerPage = PageSize,
                     TotalItems =repositoryC.CheckIns.Count()
                 },
-                LastName = lastname
+                LastName = lastname,
+                CheckInID= checkInID
             });
 
         public ViewResult AddCheckInFilt(DateTime? arrival, DateTime? department, int? quantity, string category, string returnUrl, int page = 1, int pagesize = 6)
@@ -124,29 +125,6 @@ namespace Hotel.Controllers
                                  });
             }
         }
-
-
-        public ViewResult AddCustomerFilt(int checkInID, string lastname, string phone_number, string returnUrl, int page = 1)
-        {
-            return View(new CheckInsListViewModel
-            {
-                Customers = repositoryCu.Customers
-                  .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower()) >= 0))
-                  .OrderBy(p => p.LastName)
-                  .Skip((page - 1) * PageSize)
-                  .Take(PageSize),
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = lastname == null ? repositoryCu.Customers.Count() : repositoryCu.Customers.Where(e => e.LastName == lastname).Count()
-                },
-                ReturnUrl = returnUrl,
-                PhoneNumber = phone_number
-            });
-        }
-
-
 
         [HttpPost]
         public IActionResult ConfirmDeleteCheckIn(int checkInID, string returnUrl) =>

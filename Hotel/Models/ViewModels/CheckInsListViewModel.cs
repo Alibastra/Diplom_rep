@@ -16,8 +16,6 @@ namespace Hotel.Models.ViewModels
         public int Quantity { get; set; }
         public string ReturnUrl { get; set; }
         public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public DateTime BithDate { get; set; }
-        public int CheckInID { get; set; }
+        public int CheckInID { get; internal set; }
     }
 }

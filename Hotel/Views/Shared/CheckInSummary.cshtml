@@ -1,6 +1,6 @@
 ﻿@model CheckIn
 <tr>
-    <td align="center">
+    <td>
         @Model.CheckInID
     </td>
     <td>
@@ -22,7 +22,7 @@
     <td align="center">
         @if (Model.CustomerID <= 0)
         {
-        <form asp-controller="CheckIn" asp-action="AddCustomerFilt" method="post">
+        <form asp-controller="Customer" asp-action="AddCustomerFilt" method="post">
             <input type="hidden" name="checkInID" value="@Model.CheckInID" />
             <input type="hidden" name="phone_number" value="@Model.PhoneNumber" />
             <input type="hidden" name="lastname" value="@Model.LastName" />

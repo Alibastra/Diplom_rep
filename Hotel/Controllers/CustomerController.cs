@@ -11,16 +11,18 @@ namespace Hotel.Controllers
     public class CustomerController : Controller
     {
         public int PageSize = 4;
-        private ICustomerRepository repository;
-        public CustomerController(ICustomerRepository repo)
+        private ICustomerRepository repositoryCu;
+        private ICheckInRepository repositoryCh;
+        public CustomerController(ICustomerRepository repoCu, ICheckInRepository repoCh)
         {
-            repository = repo;
+            repositoryCu = repoCu;
+            repositoryCh = repoCh;
         }
 
         public ViewResult List(string lastname, int page = 1)
             => View(new CustomersListViewModel
             {
-                Customers = repository.Customers
+                Customers = repositoryCu.Customers
                     .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower())>=0))
                     .OrderBy(p => p.CustomerID)
                     .Skip((page - 1) * PageSize)
@@ -29,64 +31,107 @@ namespace Hotel.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = lastname == null ? repository.Customers.Count() : repository.Customers.Where(e => e.LastName == lastname).Count()
+                    TotalItems = lastname == null ? repositoryCu.Customers.Count() : repositoryCu.Customers.Where(e => e.LastName == lastname).Count()
                 },
                 LastName = lastname
             });
 
-        public ViewResult AddCustomer(string returnUrl, int checkInID) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl});
+        public ViewResult AddCustomer(string returnUrl, int checkInID) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl, CheckInID = checkInID });
 
         [HttpPost]
-        public IActionResult InsertCustomer(Customer customer, string returnUrl)
+        public IActionResult InsertCustomer(Customer customer, string returnUrl, int checkInID)
         {
             if (ModelState.IsValid)
             {
-                if (repository.Customers.FirstOrDefault(r => r.CustomerID == customer.CustomerID) == null)
+                if (checkInID == 0)
                 {
-                    repository.InsertCustomer(customer);
                     TempData["message"] = $"Клиент с номером {customer.FirstName} {customer.LastName} был добавлен";
+
+                }
+                else
+                {
+                    CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
+                    TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
+                    checkIn.CustomerID = customer.CustomerID;
+                    repositoryCh.UpdateCheckIn(checkIn);
+
+                }
+                if (repositoryCu.Customers.FirstOrDefault(r => r.CustomerID == customer.CustomerID) == null)
+                {
+                    repositoryCu.InsertCustomer(customer);
                     return RedirectToAction(nameof(List));
                 }
                 else
                 {
                     TempData["message"] = $"Клиент с номером {customer.CustomerID} уже существует.";
-                    return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl });
+                    return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID });
                 }
             }
-            else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl }); }
+            else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID }); }
         }
 
         [HttpPost]
         public IActionResult ConfirmDeleteCustomer(int customerID, string returnUrl) =>
-            View(new CustomerViewModel { Customer = repository.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl });
+            View(new CustomerViewModel { Customer = repositoryCu.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl });
 
         [HttpPost]
         public IActionResult DeleteCustomer(Customer customer)
         {
-            repository.DeleteCustomer(customer);
+            repositoryCu.DeleteCustomer(customer);
             TempData["message"] = $"Клиент {customer.FirstName} {customer.LastName} был удален";
             return RedirectToAction(nameof(List));
         }
 
         [HttpPost]
-        public ViewResult EditCustomer(int customerID, string returnUrl)
+        public ViewResult EditCustomer(int customerID, string returnUrl,int checkInID)
         {
-            return View(new CustomerViewModel { Customer = repository.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl });
+            return View(new CustomerViewModel { Customer = repositoryCu.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl, CheckInID=checkInID });
         }
 
         [HttpPost]
-        public IActionResult UpdateCustomer(Customer customer, string returnUrl)
+        public IActionResult UpdateCustomer(Customer customer, string returnUrl,int checkInID)
         {
             if (ModelState.IsValid)
             {
-                repository.UpdateCustomer(customer);
-                TempData["message"] = $"Изменения информации для клиента {customer.FirstName} {customer.LastName} сохранены";
+                if (checkInID == 0)
+                {
+                    TempData["message"] = $"Изменения информации для клиента {customer.FirstName} {customer.LastName} сохранены";
+
+                }
+                else {
+                    CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
+                    TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
+                    checkIn.CustomerID = customer.CustomerID;
+                    repositoryCh.UpdateCheckIn(checkIn);
+
+                }
+                repositoryCu.UpdateCustomer(customer);
                 return RedirectToAction(nameof(List), new { returnUrl});
             }
             else
             {
-                return View("EditCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl });
+                return View("EditCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID });
             }
+        }
+
+        public ViewResult AddCustomerFilt(int checkInID, string lastname, string phone_number, string returnUrl, int page = 1)
+        {
+            return View(new CustomersListViewModel
+            {
+                Customers = repositoryCu.Customers
+                  .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower()) >= 0))
+                  .OrderBy(p => p.LastName)
+                  .Skip((page - 1) * PageSize)
+                  .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = lastname == null ? repositoryCu.Customers.Count() : repositoryCu.Customers.Where(e => e.LastName == lastname).Count()
+                },
+                ReturnUrl = returnUrl,
+                PhoneNumber = phone_number
+            });
         }
     }
 }

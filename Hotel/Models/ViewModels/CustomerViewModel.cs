@@ -7,6 +7,8 @@ namespace Hotel.Models.ViewModels
     public class CustomerViewModel
     {
         public Customer Customer { get; set; }
+        public CheckIn CheckIn { get; set; }
         public string ReturnUrl { get; set; }
+        public int CheckInID { get; set; }
     }
 }
