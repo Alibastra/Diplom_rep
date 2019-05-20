@@ -14,19 +14,18 @@
             <div class="alert alert-success">@TempData["message"]</div>
         }
         <div>
-        <div style="float: left; width: 936px">
-            <form asp-action="AddCustomer" asp-controller="Customer" method="post">
-                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                <input type="hidden" name="checkInID" value="@Model.CheckInID" />
-                <button type="submit" class="btn btn-success pull-right">
-                    +Новый клиент
-                </button>
-            </form>
-        </div>
             <div style="float: right">
-                <a class="btn btn-primary" type="submit" asp-controller="CheckIn" asp-action="List">Отмена</a>    
+                <a class="btn btn-primary" type="submit" asp-controller="CheckIn" asp-action="List">Отмена</a>
             </div>
-
+            <div style="float: right">
+                <form asp-action="AddCustomer" asp-controller="Customer" method="post">
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+                    <button type="submit" class="btn btn-success pull-right">
+                        +Новый клиент
+                    </button>
+                </form>
+            </div>
         </div>
         <table class="table">
             <thead>
@@ -43,41 +42,38 @@
 
         @foreach (var customer in Model.Customers)
         {
-        <form asp-controller="Customer" asp-action="EditCustomer" method="post">
-            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <input type="hidden" name="checkInID" value="@Model.CheckInID" />
-            <input type="hidden" name="customerID" value="@customer.CustomerID" />
-            @*<input type="hidden" name="roomID" value="@room.RoomID" />
-        <input type="hidden" name="arrival" value="@Model.Arrival" />
-        <input type="hidden" name="department" value="@Model.Department" />*@
-            <button type="submit" class=" btn-light btn-block">
-                <div class="well">
-                    <table width="100%">
-                        <tr>
-                            <td width="5% align="left">
-                                @customer.CustomerID
-                            </td>
-                            <td width="20% align="left">
-                                @customer.LastName
-                            </td>
-                            <td width="15% align="left">
-                                @customer.FirstName
-                            </td>
-                            <td width="15% align="left">
-                                @customer.BithDate.ToString("dd:MM:yyyy")
+            <form asp-controller="Customer" asp-action="EditCustomer" method="post">
+                <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+                <input type="hidden" name="customerID" value="@customer.CustomerID" />
+                <button type="submit" class=" btn-light btn-block">
+                    <div class="well">
+                        <table width="100%">
+                            <tr>
+                                <td width="5% align="left">
+                                    @customer.CustomerID
+                                </td>
+                                <td width="20% align="left">
+                                    @customer.LastName
+                                </td>
+                                <td width="15% align="left">
+                                    @customer.FirstName
+                                </td>
+                                <td width="15% align="left">
+                                    @customer.BithDate.ToString("dd:MM:yyyy")
 
-                            </td>
-                            <td width="15% align="left">
-                                @customer.PhoneNumber
-                            </td>
-                            <td width="20% align="left">
-                                @customer.Email
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </button>
-        </form>
+                                </td>
+                                <td width="15% align="left">
+                                    @customer.PhoneNumber
+                                </td>
+                                <td width="20% align="left">
+                                    @customer.Email
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </button>
+            </form>
         }
         <div page-model="@Model.PagingInfo" page-action="AddCheckInFilt"
              page-classes-enabled="true"

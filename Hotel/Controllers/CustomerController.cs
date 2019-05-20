@@ -130,7 +130,9 @@ namespace Hotel.Controllers
                     TotalItems = lastname == null ? repositoryCu.Customers.Count() : repositoryCu.Customers.Where(e => e.LastName == lastname).Count()
                 },
                 ReturnUrl = returnUrl,
-                PhoneNumber = phone_number
+                PhoneNumber = phone_number,
+                LastName=lastname,
+                CheckInID=checkInID
             });
         }
     }

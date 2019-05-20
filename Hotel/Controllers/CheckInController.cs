@@ -23,7 +23,7 @@ namespace Hotel.Controllers
             repositoryCu = repoCu;
         }
 
-        public ViewResult List(string lastname, int checkInID, int page = 1)
+        public ViewResult List(string lastname, int page = 1)
             => View(new CheckInsListViewModel
             {
                 CheckIns = repositoryC.CheckIns
@@ -38,7 +38,6 @@ namespace Hotel.Controllers
                     TotalItems =repositoryC.CheckIns.Count()
                 },
                 LastName = lastname,
-                CheckInID= checkInID
             });
 
         public ViewResult AddCheckInFilt(DateTime? arrival, DateTime? department, int? quantity, string category, string returnUrl, int page = 1, int pagesize = 6)
