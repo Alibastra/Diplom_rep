@@ -89,7 +89,7 @@ namespace Hotel.Controllers
             {
                 repositorySu.InsertSupply(supply);
                 TempData["message"] = $"Услуга с кодом {supply.ServiceID} была оказана для брони {supply.CheckInID}";
-                return RedirectToAction(nameof(List));
+                return Redirect("/CheckIn/List");
             }
             else
             {
