@@ -35,19 +35,19 @@ namespace Hotel.Controllers
                 },
             });
 
-        public ViewResult AddSupplyFilt(int checkInID,int serviceID, string category, string returnUrl, int page = 1, int pagesize = 6)
+        public ViewResult AddSupplyFilt(int checkInID, int serviceID, string category, string returnUrl, int page = 1, int pagesize = 6)
         {
             if (string.IsNullOrEmpty(category)) category = "";
 
             var model = new SupplysListViewModel()
             {
-                ServiceID=(int)serviceID,
+                ServiceID = (int)serviceID,
                 Category = category
             };
 
             model.Services = repositorySe.Services
-                    .Where(p =>(category == "" || p.Category == category)
-                        && (p.ServiceID == serviceID|| serviceID==0))
+                    .Where(p => (category == "" || p.Category == category)
+                        && (p.ServiceID == serviceID || serviceID == 0))
                     .OrderBy(p => p.ServiceID)
                     .Skip((page - 1) * pagesize)
                     .Take(pagesize);
@@ -57,19 +57,27 @@ namespace Hotel.Controllers
                 CurrentPage = page,
                 ItemsPerPage = pagesize,
                 TotalItems = repositorySe.Services
-                    .Where(p => (category == "" || p.Category == category)&& (p.ServiceID == serviceID || serviceID == 0)).Count()
+                    .Where(p => (category == "" || p.Category == category) && (p.ServiceID == serviceID || serviceID == 0)).Count()
             };
             model.ReturnUrl = returnUrl;
             model.CheckInID = checkInID;
             return View(model);
         }
-      
+
         public ViewResult AddSupply(int checkInID, string returnUrl, int serviceID)
         {
             return View(new SupplyViewModel
             {
-                Supply = new Supply() { ServiceID = serviceID, SupplyDate= DateTime.Now.Date, CheckInID=checkInID, Quantity = 1},
-                Service = repositorySe.Services.FirstOrDefault(s => s.ServiceID ==serviceID),
+                Service = repositorySe.Services.FirstOrDefault(s => s.ServiceID == serviceID),
+                Supply = new Supply()
+                {
+                    ServiceID = serviceID,
+                    SupplyDate = DateTime.Now.Date,
+                    CheckInID = checkInID,
+                    Quantity = 1,
+                    Price = (int)repositorySe.Services.FirstOrDefault(s => s.ServiceID == serviceID).Price,
+                    ServiceName = repositorySe.Services.FirstOrDefault(s => s.ServiceID == serviceID).ServiceName
+                },
                 ReturnUrl = returnUrl
             });
         }
@@ -97,9 +105,12 @@ namespace Hotel.Controllers
 
         [HttpPost]
         public IActionResult ConfirmDeleteSupply(int supplyID, string returnUrl) =>
-           View(new SupplyViewModel { Supply = repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID),
-               Service = repositorySe.Services.FirstOrDefault(s=>s.ServiceID ==(repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID)).ServiceID),
-               ReturnUrl = returnUrl });
+           View(new SupplyViewModel
+           {
+               Supply = repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID),
+               Service = repositorySe.Services.FirstOrDefault(s => s.ServiceID == (repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID)).ServiceID),
+               ReturnUrl = returnUrl
+           });
 
         [HttpPost]
         public IActionResult DeleteSupply(Supply supply, string returnUrl)
@@ -111,9 +122,12 @@ namespace Hotel.Controllers
 
         [HttpPost]
         public ViewResult EditSupply(int supplyID, string returnUrl) =>
-            View(new SupplyViewModel { Supply = repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID),
-               Service = repositorySe.Services.FirstOrDefault(s=>s.ServiceID ==repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID).ServiceID),
-               ReturnUrl = returnUrl });
+            View(new SupplyViewModel
+            {
+                Supply = repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID),
+                Service = repositorySe.Services.FirstOrDefault(s => s.ServiceID == repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == supplyID).ServiceID),
+                ReturnUrl = returnUrl
+            });
 
 
         [HttpPost]
