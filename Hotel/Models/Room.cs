@@ -25,5 +25,8 @@ namespace Hotel.Models
 
         public string Comments { get; set; }
 
-        public bool State { get; set; }     }
+        public bool State { get; set; }
+
+        public virtual ICollection<CheckIn> CheckInsRoomIDNavigation { get; set; }
+    }
 }

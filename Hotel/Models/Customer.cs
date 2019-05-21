@@ -26,5 +26,7 @@ namespace Hotel.Models
         [Required]
         [StringLength(15, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
         public string PhoneNumber { get; set; }
+
+        public virtual ICollection<CheckIn> CheckInsCustomerIDNavigation { get; set; }
     }
 }

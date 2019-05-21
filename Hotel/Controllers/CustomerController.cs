@@ -79,7 +79,7 @@ namespace Hotel.Controllers
                     checkIn.CustomerID = customer.CustomerID;
                     repositoryCh.UpdateCheckIn(checkIn);
                     repositoryCu.InsertCustomer(customer);
-                    return View("/CheckIn/List");
+                    return Redirect("/CheckIn/List");
                 }
             }
             else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID }); }
@@ -120,7 +120,7 @@ namespace Hotel.Controllers
                     checkIn.CustomerID = customer.CustomerID;
                     repositoryCh.UpdateCheckIn(checkIn);
                     repositoryCu.UpdateCustomer(customer);
-                    return View("/CheckIn/List");
+                    return Redirect("/CheckIn/List");
                 }
             }
             else

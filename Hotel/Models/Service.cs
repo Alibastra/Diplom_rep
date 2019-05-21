@@ -26,5 +26,9 @@ namespace Hotel.Models
         public string Comments { get; set; }
 
         public bool State { get; set; }
+
+        //Одна запись  сервисах -  много записей в предоставленных услугах
+        public virtual ICollection<Supply> SupplysServiceIDNavigation { get; set; }
+
     }
 }

@@ -22,5 +22,12 @@ namespace Hotel.Models
 
         [Required]
         public int CheckInID { get; set; }
+
+        //Много записей в предоставленных услугах ссылаются на одну запись в бронях
+        public virtual CheckIn CheckInIDNavigation { get; set; }
+
+        //Много записей в предоставленных услугах ссылаются на одну запись в услугах
+        public virtual Service ServiceIDNavigation { get; set; }
+
     }
 }

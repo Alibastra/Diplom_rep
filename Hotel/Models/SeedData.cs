@@ -172,6 +172,8 @@ namespace Hotel.Models
                        Department = new DateTime(2019, 05, 5),
                        RoomID = 5,
                        CustomerID = 1,
+                       LastName = "Иванов",
+                       PhoneNumber="7-999-999-99-99"
                    },
                    new CheckIn
                    {
@@ -179,6 +181,8 @@ namespace Hotel.Models
                        Department = new DateTime(2019, 05, 5),
                        RoomID = 4,
                        CustomerID = 2,
+                       LastName = "Петров",
+                       PhoneNumber = "7-999-999-99-99"
                    },
                    new CheckIn
                    {
@@ -186,6 +190,8 @@ namespace Hotel.Models
                        Department = new DateTime(2019, 05, 5),
                        RoomID = 5,
                        CustomerID = 3,
+                       LastName = "Сидоров",
+                       PhoneNumber = "7-999-999-99-99"
                    }
                    );
                 context.SaveChanges();

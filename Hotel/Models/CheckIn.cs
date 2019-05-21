@@ -30,5 +30,15 @@ namespace Hotel.Models
         [Required]
         [StringLength(15, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
         public string PhoneNumber { get; set; }
+
+
+        //Много записей в бронях ссылаются на одну запись в комнатах
+        public virtual Room RoomIDNavigation { get; set; }
+        //Много записей в бронях ссылаются на одну запись в клиентах
+        public virtual Customer CustomerIDNavigation { get; set; }
+
+
+        public virtual ICollection<Supply> SupplysCheckInIDNavigation { get; set; }
+
     }
 }
