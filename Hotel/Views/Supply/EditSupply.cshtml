@@ -12,21 +12,23 @@
             <label asp-for="Supply.ServiceID">Код услуги:</label>
             <input asp-for="Supply.ServiceID" class="form-control" readonly />
         </div>
+        <div class="form-group">
+            <label asp-for="Supply.ServiceName">Название услуги:</label>
+            <input asp-for="Supply.ServiceName" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label asp-for="Supply.Price">Стоимость услуги:</label>
+            <input asp-for="Supply.Price" class="form-control" readonly />
+        </div>
         <div>
             <table width="100%">
                 <tr>
                     <th>Категория</th>
-                    <th>Название услуги</th>
-                    <th>Цена</th>
+                    <th>Коментарий:</th>
                 </tr>
                 <tr>
                     <td>@Model.Service.Category</td>
-                    <td>@Model.Service.ServiceName</td>
-                    <td>@Model.Service.Price</td>
-                </tr>
-                <tr>
-                    <td><b>Коментарий:</b></td>
-                    <td colspan="2">@Model.Service.Comments</td>
+                    <td>@Model.Service.Comments</td>
                 </tr>
             </table>
         </div>

@@ -68,8 +68,14 @@ namespace Hotel.Controllers
         {
             return View(new SupplyViewModel
             {
-                Supply = new Supply() { ServiceID = serviceID, SupplyDate= DateTime.Now.Date, CheckInID=checkInID, Quantity = 1},
                 Service = repositorySe.Services.FirstOrDefault(s => s.ServiceID ==serviceID),
+                Supply = new Supply() { ServiceID = serviceID,
+                    SupplyDate = DateTime.Now.Date,
+                    CheckInID = checkInID,
+                    Quantity = 1,
+                    Price = (int) repositorySe.Services.FirstOrDefault(s => s.ServiceID == serviceID).Price,
+                    ServiceName = repositorySe.Services.FirstOrDefault(s => s.ServiceID == serviceID).ServiceName
+                },
                 ReturnUrl = returnUrl
             });
         }
