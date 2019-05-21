@@ -10,9 +10,17 @@ namespace Hotel.Models
     {
         [Key]
         public int SupplyID { get; set; }
+
+        [Required]
         public int ServiceID { get; set; }
+
+        [Required]
         public DateTime SupplyDate { get; set; }
+
+        [Required]
         public int Quantity { get; set; }
+
+        [Required]
         public int CheckInID { get; set; }
     }
 }

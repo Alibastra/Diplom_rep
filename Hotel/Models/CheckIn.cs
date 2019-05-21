@@ -12,17 +12,23 @@ namespace Hotel.Models
         [Key]
         public int CheckInID { get; set; }
 
+        [Required]
         public int RoomID { get; set; }
 
+        [Required]
         public DateTime Arrival { get; set; }
 
+        [Required]
         public DateTime Department { get; set; }
 
+        [Required(ErrorMessage = "Пожалуста, введите фамилию гостя!")]
         public string LastName { get; set; }
 
+        [Required]
         public int CustomerID { get; set; }
 
-        [Required(ErrorMessage = "Пожалуста, введите номер телефона гостя!")]
+        [Required]
+        [StringLength(15, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
         public string PhoneNumber { get; set; }
     }
 }

@@ -3,10 +3,12 @@
    asp-action="AddCustomerFilt"
    asp-controller="Customer"
    asp-route-category="">Все комнаты</a>
-@*<form asp-action="AddCustomerFilt" asp-controler="CheckIn">
+<form asp-action="AddCustomerFilt" asp-controler="CheckIn">
+    <label>Фамилия</label>
+    <input class="btn btn-block btn-default form-control" name="lastname" value="@Model.LastName" />
     <label>Дата рождения:</label>
-    <input class="btn btn-block btn-default form-control" name="bithdate" value="@Model.BithDate"/>
-    <button type="submit" class="btn btn-success btn-sm pull-left">
+    <input class="btn btn-block btn-default form-control" name="bithdate" value="@Model.BithDate" />
+    <button type="submit" class="btn btn-default btn-sm pull-right">
         поиск
     </button>
-</form>*@   
+</form>   

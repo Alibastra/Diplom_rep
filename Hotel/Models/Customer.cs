@@ -20,10 +20,11 @@ namespace Hotel.Models
         [Required (ErrorMessage = "Пожалуста, введите дату рождения гостя!")]
         public DateTime BithDate { get; set; }
 
-        [Required (ErrorMessage = "Пожалуста, введите адрес почты!")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Пожалуста, введите корректный адрес почты!")]
         public string Email{ get; set; }
 
-        [Required (ErrorMessage = "Пожалуста, введите номер телефона гостя!")]
+        [Required]
+        [StringLength(15, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
         public string PhoneNumber { get; set; }
     }
 }

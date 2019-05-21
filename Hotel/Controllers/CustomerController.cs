@@ -36,6 +36,29 @@ namespace Hotel.Controllers
                 LastName = lastname
             });
 
+        public ViewResult AddCustomerFilt(int checkInID, string lastname, string phone_number, string returnUrl, DateTime bithdate, int page = 1)
+        {
+            return View(new CustomersListViewModel
+            {
+                Customers = repositoryCu.Customers
+                  .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower()) >= 0) &&(p.BithDate==bithdate||bithdate== new DateTime (1,1,1, 0,0,0)))
+                  .OrderBy(p => p.LastName)
+                  .Skip((page - 1) * PageSize)
+                  .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = lastname == null ? repositoryCu.Customers.Count() : repositoryCu.Customers.Where(e => e.LastName == lastname).Count()
+                },
+                ReturnUrl = returnUrl,
+                PhoneNumber = phone_number,
+                LastName = lastname,
+                CheckInID = checkInID,
+                BithDate = bithdate
+            });
+        }
+
         public ViewResult AddCustomer(string returnUrl, int checkInID, string lastname, string phone_number) => View(new CustomerViewModel { Customer = new Customer() { LastName = lastname, PhoneNumber = phone_number, BithDate = new DateTime(1990, 1, 1)}, ReturnUrl=returnUrl, CheckInID = checkInID });
 
         [HttpPost]
@@ -104,28 +127,6 @@ namespace Hotel.Controllers
             {
                 return View("EditCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID });
             }
-        }
-
-        public ViewResult AddCustomerFilt(int checkInID, string lastname, string phone_number, string returnUrl, int page = 1)
-        {
-            return View(new CustomersListViewModel
-            {
-                Customers = repositoryCu.Customers
-                  .Where(p => (lastname == null || p.LastName.ToLower().IndexOf(lastname.ToLower()) >= 0))
-                  .OrderBy(p => p.LastName)
-                  .Skip((page - 1) * PageSize)
-                  .Take(PageSize),
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = lastname == null ? repositoryCu.Customers.Count() : repositoryCu.Customers.Where(e => e.LastName == lastname).Count()
-                },
-                ReturnUrl = returnUrl,
-                PhoneNumber = phone_number,
-                LastName=lastname,
-                CheckInID=checkInID
-            });
         }
     }
 }

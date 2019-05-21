@@ -24,7 +24,6 @@ namespace Hotel.Models
         public decimal Price { get; set; }
 
         public string Comments { get; set; }
-        
-        public bool State { get; set; } 
-    }
+
+        public bool State { get; set; }     }
 }
