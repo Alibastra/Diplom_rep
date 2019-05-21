@@ -28,7 +28,7 @@ namespace Hotel.Models
         public int CustomerID { get; set; }
 
         [Required]
-        [StringLength(15, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
+        [StringLength(60, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
         public string PhoneNumber { get; set; }
 
 
