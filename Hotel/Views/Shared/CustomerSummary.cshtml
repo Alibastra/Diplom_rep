@@ -4,6 +4,7 @@
     <table class="table">
         <tbody>
             <tr>
+                <td width="3%"><h3>@Model.CustomerID</h3></td>
                 <td width="60%">
                     <h3>
                         <strong>@Model.FirstName @Model.LastName</strong>
@@ -16,10 +17,10 @@
                 </td>
             </tr>
             <tr>
-                <td valign="bottom" border="0">
-                    @Model.PhoneNumber
-                    </br>
+                <td valign="bottom" border="0" colspan="2">
                     @Model.Email
+                    </br>
+                    @Model.PhoneNumber
                 </td>
                 <td>
                     <form id=" @Model.CustomerID" asp-controller="Customer" method="post">

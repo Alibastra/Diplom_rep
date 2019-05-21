@@ -4,7 +4,7 @@ using Hotel.Models;
 using System.Linq;
 using Hotel.Models.ViewModels;
 using Npgsql.EntityFrameworkCore;
-
+using System;
 
 namespace Hotel.Controllers
 {
@@ -35,26 +35,64 @@ namespace Hotel.Controllers
                 },
             });
 
-        //public ViewResult AddSupply(string returnUrl) => View(new AddSupplyViewModel { Supply = new Supply(), ReturnUrl = returnUrl });
+        public ViewResult AddSupplyFilt(int checkInID,int serviceID, string category, string returnUrl, int page = 1, int pagesize = 6)
+        {
+            if (string.IsNullOrEmpty(category)) category = "";
+
+            var model = new SupplysListViewModel()
+            {
+                ServiceID=(int)serviceID,
+                Category = category
+            };
+
+            model.Services = repositorySe.Services
+                    .Where(p =>(category == "" || p.Category == category)
+                        && (p.ServiceID == serviceID|| serviceID==0))
+                    .OrderBy(p => p.ServiceID)
+                    .Skip((page - 1) * pagesize)
+                    .Take(pagesize);
+
+            model.PagingInfo = new PagingInfo
+            {
+                CurrentPage = page,
+                ItemsPerPage = pagesize,
+                TotalItems = repositorySe.Services
+                    .Where(p => (category == "" || p.Category == category)&& (p.ServiceID == serviceID || serviceID == 0)).Count()
+            };
+            model.ReturnUrl = returnUrl;
+            model.CheckInID = checkInID;
+            return View(model);
+        }
+      
+        public ViewResult AddSupply(int checkInID, string returnUrl, int serviceID)
+        {
+            return View(new SupplyViewModel
+            {
+                Supply = new Supply() { ServiceID = serviceID, SupplyDate= DateTime.Now.Date, CheckInID=checkInID, Quantity = 1},
+                Service = repositorySe.Services.FirstOrDefault(s => s.ServiceID ==serviceID),
+                ReturnUrl = returnUrl
+            });
+        }
 
         [HttpPost]
-        public IActionResult InsertSupply(Supply room, string returnUrl)
+        public IActionResult InsertSupply(Supply supply, string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                if (repositorySu.Supplys.FirstOrDefault(r => r.SupplyID == room.SupplyID) == null)
-                {
-                    repositorySu.InsertSupply(room);
-                    TempData["message"] = $"Supply № {room.SupplyID} has been added";
-                    return RedirectToAction(nameof(List));
-                }
-                else
-                {
-                    TempData["message"] = $"Комната с номером {room.SupplyID} уже существует.";
-                    return View(new SupplyViewModel { Supply = room, ReturnUrl = returnUrl });
-                }
+                repositorySu.InsertSupply(supply);
+                TempData["message"] = $"Услуга с кодом {supply.ServiceID} была оказана для брони {supply.CheckInID}";
+                return RedirectToAction(nameof(List));
             }
-            else { return View(new SupplyViewModel { Supply = room, ReturnUrl = returnUrl }); }
+            else
+            {
+                return View("AddSupply",
+                              new SupplyViewModel
+                              {
+                                  CheckInID = supply.CheckInID,
+                                  ReturnUrl = returnUrl,
+                                  ServiceID = supply.ServiceID,
+                              });
+            }
         }
 
         [HttpPost]

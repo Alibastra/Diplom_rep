@@ -12,20 +12,20 @@
         {
             <div class="alert alert-success">@TempData["message"]</div>
         }
-        <div class="panel-body">
+        @*<div class="panel-body">
             <form asp-action="AddSupply" asp-controller="Supply" method="post">
                 <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
                 <button type="submit" class="btn btn-success btn-sm pull-right">
                     +Добавить
                 </button>
             </form>
-        </div>
+        </div>*@
         <table width="100%" class="table">
             <thead>
                 <tr>
                     <th>Код </th>
-                    <th>Дата оказания</th>
                     <th>Код услуги</th>
+                    <th>Дата оказания</th>
                     <th>Кол-во</th>
                     <th>Номер брони</th>
                     <th></th>

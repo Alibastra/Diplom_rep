@@ -35,8 +35,7 @@
             <input asp-for="Customer.PhoneNumber" class="form-control" />
         </div>
         <div class="text-center">
-            @*<input type="hidden" name="checkId" value="@Model.CheckId" />*@
-            <button class="btn btn-primary" type="submit">Сохранить</button>
+            <button class="btn btn-primary" type="submit" href="/CheckIn/List">Сохранить</button>
             <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
         </div>
     </form>

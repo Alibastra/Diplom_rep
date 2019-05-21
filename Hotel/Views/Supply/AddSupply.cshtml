@@ -1,53 +1,51 @@
-﻿@model RoomViewModel
+﻿@model SupplyViewModel
 @{
-    ViewBag.Title = "Добавить комнату";
+    ViewBag.Title = "Предоставление услуги";
 }
 <div class="modal-dialog">
-    @if (TempData["message"] != null)
-    {
-        <div class="alert alert-danger">@TempData["message"]</div>
-    }
-    <h2>Добавить комнату</h2>
-    <p>Пожалуйста, заполните данные!</p>
-    <form asp-action="AddRoom" method="post">
+    <h2>Пожалуйста, заполните данные</h2>
+
+    <form asp-action="InsertSupply" method="post">
         <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+        <input type="hidden" name="serviceID" value="@Model.ServiceID" />
         <div class="form-group">
-            <label>Номер комнаты:</label>
-            <div><span asp-validation-for="Room.RoomID" class="text-danger"></span></div>
-            <input asp-for="Room.RoomID" class="form-control" />
+            <label asp-for="Supply.ServiceID">Код услуги:</label>
+            <input asp-for="Supply.ServiceID" class="form-control" readonly />
+        </div>
+        <div>
+            <table width="100%">
+                <tr>
+                    <th>Категория</th>
+                    <th>Название услуги</th>
+                    <th>Цена</th>
+                </tr>
+                <tr>
+                    <td>@Model.Service.Category</td>
+                    <td>@Model.Service.ServiceName</td>
+                    <td>@Model.Service.Price</td>
+                </tr>
+                <tr>
+                    <td><b>Коментарий:</b></td>
+                    <td colspan="2">@Model.Service.Comments</td>
+                </tr>
+            </table>
         </div>
         <div class="form-group">
-            <label>Категория:</label>
-            <div><span asp-validation-for="Room.Category" class="text-danger"></span></div>
-            <select asp-for="Room.Category" class="form-control">
-                <option selected disabled value="">Выберите категорию</option>
-                <option value="Luxe">Luxe</option>
-                <option value="Standart">Standart</option>
-                <option value="Econom">Econom</option>
-            </select>
+            <label asp-for="Supply.SupplyDate">Дата оказания услуги:</label>
+            <input asp-for="Supply.SupplyDate" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Количество мест:</label>
-            <div><span asp-validation-for="Room.Quantity" class="text-danger"></span></div>
-            <input asp-for="Room.Quantity" class="form-control" />
+            <label asp-for="Supply.Quantity">Количество:</label>
+            <input asp-for="Supply.Quantity" class="form-control" />
         </div>
         <div class="form-group">
-            <label>Цена:</label>
-            <div><span asp-validation-for="Room.Price" class="text-danger"></span></div>
-            <input asp-for="Room.Price" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Коментарии:</label>
-            <input asp-for="Room.Comments" class="form-control" />
-        </div>
-        <div class="checkbox">
-            <label>
-                <input asp-for="Room.State" /> Сдается
-            </label>
+            <label asp-for="Supply.CheckInID">Номер брони:</label>
+            <input asp-for="Supply.CheckInID" class="form-control"  readonly  />
         </div>
         <div class="text-center">
-            <input class="btn btn-primary" type="submit" value="Создать" asp-action="InsertRoom" />
-            <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+            <a href="@Model.ReturnUrl" class="btn btn-primary">Отмена</a>
         </div>
     </form>
 </div>

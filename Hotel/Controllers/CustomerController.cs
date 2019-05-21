@@ -4,7 +4,7 @@ using Hotel.Models;
 using System.Linq;
 using Hotel.Models.ViewModels;
 using Npgsql.EntityFrameworkCore;
-
+using System;
 
 namespace Hotel.Controllers
 {
@@ -36,7 +36,7 @@ namespace Hotel.Controllers
                 LastName = lastname
             });
 
-        public ViewResult AddCustomer(string returnUrl, int checkInID) => View(new CustomerViewModel { Customer = new Customer(), ReturnUrl=returnUrl, CheckInID = checkInID });
+        public ViewResult AddCustomer(string returnUrl, int checkInID, string lastname, string phone_number) => View(new CustomerViewModel { Customer = new Customer() { LastName = lastname, PhoneNumber = phone_number, BithDate = new DateTime(1990, 1, 1)}, ReturnUrl=returnUrl, CheckInID = checkInID });
 
         [HttpPost]
         public IActionResult InsertCustomer(Customer customer, string returnUrl, int checkInID)
@@ -46,7 +46,8 @@ namespace Hotel.Controllers
                 if (checkInID == 0)
                 {
                     TempData["message"] = $"Клиент с номером {customer.FirstName} {customer.LastName} был добавлен";
-
+                    repositoryCu.InsertCustomer(customer);
+                    return RedirectToAction(nameof(List));
                 }
                 else
                 {
@@ -54,17 +55,8 @@ namespace Hotel.Controllers
                     TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
                     checkIn.CustomerID = customer.CustomerID;
                     repositoryCh.UpdateCheckIn(checkIn);
-
-                }
-                if (repositoryCu.Customers.FirstOrDefault(r => r.CustomerID == customer.CustomerID) == null)
-                {
                     repositoryCu.InsertCustomer(customer);
-                    return RedirectToAction(nameof(List));
-                }
-                else
-                {
-                    TempData["message"] = $"Клиент с номером {customer.CustomerID} уже существует.";
-                    return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID });
+                    return View("/CheckIn/List");
                 }
             }
             else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID }); }
@@ -96,17 +88,17 @@ namespace Hotel.Controllers
                 if (checkInID == 0)
                 {
                     TempData["message"] = $"Изменения информации для клиента {customer.FirstName} {customer.LastName} сохранены";
-
+                    repositoryCu.UpdateCustomer(customer);
+                    return RedirectToAction(nameof(List), new { returnUrl });
                 }
                 else {
                     CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
                     TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
                     checkIn.CustomerID = customer.CustomerID;
                     repositoryCh.UpdateCheckIn(checkIn);
-
+                    repositoryCu.UpdateCustomer(customer);
+                    return View("/CheckIn/List");
                 }
-                repositoryCu.UpdateCustomer(customer);
-                return RedirectToAction(nameof(List), new { returnUrl});
             }
             else
             {

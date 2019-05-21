@@ -4,12 +4,12 @@
         @Model.SupplyID
     </td>
     <td>
+        @Model.ServiceID
+    </td>
+    <td>
         @Model.SupplyDate.ToString("dd.MM.yyyy")
     </td>
     <td>
-        @Model.ServiceID
-    </td>
-    <td >
         @Model.Quantity
     </td>
     <td>
@@ -26,7 +26,7 @@
         </form>
     </td>
     <td align="center">
-        <form  asp-controller="Supply" asp-action="ConfirmDeleteSupply" method="post">
+        <form asp-controller="Supply" asp-action="ConfirmDeleteSupply" method="post">
             <input type="hidden" name="supplyID" value="@Model.SupplyID" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="btn btn-danger btn-sm pull-right">

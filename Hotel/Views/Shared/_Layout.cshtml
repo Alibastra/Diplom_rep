@@ -15,15 +15,16 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse" role="navigation">
+    <div class="navbar navbar-inverse" role="navigation" width="100%">
         <table border="0" width="100%">
             <tr>
                 <td>
                     <a class="navbar-brand" href="/">ГОСТИНИЦА РАЗВИТИЕ</a>
                 </td>
+                <td align="right"> <font color="white" size="5px">@DateTime.Now.ToString("dd.MM.yyyy")</font></td>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     @await Component.InvokeAsync("NavigationPanel")
                 </td>
             </tr>

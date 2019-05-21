@@ -1,0 +1,19 @@
+﻿@model SupplysListViewModel
+<a class="btn btn-block btn-default"
+   asp-action="AddSupplyFilt"
+   asp-controller="Supply"
+   asp-route-category="">Все услуги</a>
+<form asp-action="AddSupplyFilt" asp-controler="Supply">
+    <label>Код услуги</label>
+    <input class="btn btn-block btn-default form-control" name="serviceID" value="@Model.ServiceID"/>
+    <label>Категория услуги</label>
+    <select name="category" value="@Model.Category" class="form-control pull-left">
+        <option value="">Выберите вид услуги</option>
+        <option value="Основные">Основные</option>
+        <option value="Дополнительные">Дополнительные</option>
+        <option value="Индивидуальные">Индивидуальные</option>
+    </select>
+    <button type="submit" class="btn btn-default btn-sm pull-right">
+        поиск
+    </button>
+</form>   

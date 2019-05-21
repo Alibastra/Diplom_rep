@@ -12,5 +12,7 @@ namespace Hotel.Models.ViewModels
         public string ReturnUrl { get; set; }
         public int SupplyID { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string Category { get; set; }
+        public int ServiceID { get; set; }
     }
 }

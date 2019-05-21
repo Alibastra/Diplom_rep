@@ -1,0 +1,71 @@
+﻿@model SupplysListViewModel
+@{
+    ViewBag.Title = "Оказать услугу";
+}
+<div class="row panel">
+    <div class="col-xs-2">
+        @await Component.InvokeAsync("NavigationMenuAddSupply")
+    </div>
+
+    <div class="col-xs-8">
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        @if (TempData["message"] != null)
+        {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        <div class="text-right">
+            <a class="btn btn-primary" type="submit" asp-controller="Supply" asp-action="List">Отмена</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="15%">Код услуги</th>
+                    <th width="15%">Наименование</th>
+                    <th width="15%">Категория</th>
+                    <th width="45%">Коментарий</th>
+                    <th align="right" width="10%">Стоимость</th>
+                </tr>
+            </thead>
+        </table>
+
+        @foreach (var service in Model.Services)
+        {
+        <form asp-controller="Supply" asp-action="AddSupply" method="post">
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <input type="hidden" name="checkInID" value="@Model.CheckInID" />
+            <input type="hidden" name="serviceID" value="@service.ServiceID" />
+            <button type="submit" class=" btn-light btn-block">
+                <div class="well">
+                    <table width="100%">
+                        <tr>
+                            <td width="15%" align="left">
+                                @service.ServiceID
+                            </td>
+                            <td width="15%" align="left">
+                                @service.ServiceName
+                            </td>
+                            <td width="15%" align="left">
+                                @service.Category
+                            </td>
+                            <td width="45%" align="left">
+                                @service.Comments
+                            </td>
+                            <td width="15%" align="right">
+                                @service.Price.ToString("c")
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </button>
+        </form>
+        }
+        <div page-model="@Model.PagingInfo" page-action="AddSupplyFilt"
+             page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-default"
+             page-class-selected="btn-primary" page-url-category="@Model.Category" class="btn-group pull-right-right">
+        </div>
+    </div>
+</div>
+
+
+

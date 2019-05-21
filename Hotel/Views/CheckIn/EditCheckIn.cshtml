@@ -4,57 +4,61 @@
 }
 <div class="modal-dialog">
     <h4>Редактировать бронирование с кодом @Model.CheckIn.CheckInID</h4>
+    <input type="hidden" asp-for="CheckIn.CheckInID">
+    <div class="form-group">
+        <label asp-for="CheckIn.RoomID">Номер комнаты:</label>
+        <input asp-for="CheckIn.RoomID" class="form-control" readonly />
+    </div>
+    <div>
+        <table width="100%">
+            <tr>
+                <th>Категория</th>
+                <th>Кол-во мест</th>
+                <th>Цена</th>
+            </tr>
+            <tr>
+                <td>@Model.Room.Category</td>
+                <td>@Model.Room.Quantity</td>
+                <td>@Model.Room.Price</td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <label asp-for="CheckIn.Arrival">Дата заселения:</label>
+        <input asp-for="CheckIn.Arrival" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CheckIn.Department">Дата выезда:</label>
+        <input asp-for="CheckIn.Department" class="form-control" />
+    </div>
+    <div class="form-group">
+        <table width="100%">
+            <tr colspan="2"><label asp-for="CheckIn.CustomerID">Код клиента:</label></tr>
+            <tr>
+                <td width="90%">
+                    <input asp-for="CheckIn.CustomerID" class="form-control" readonly />
+                </td>
+                <td width="10%">
+                    <form asp-controller="Customer" asp-action="AddCustomerFilt" method="post">
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                        <input type="hidden" name="checkInID" value="@Model.CheckIn.CheckInID" />
+                        <input type="hidden" name="lastname" value="@Model.CheckIn.LastName" />
+                        <button class="btn btn-success">Изменить</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="form-group">
+        <label>Клиент</label>
+        <input asp-for="CheckIn.LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Номер телефона:</label>
+        <input asp-for="CheckIn.PhoneNumber" class="form-control" />
+    </div>
     <form asp-action="UpdateCheckIn" method="post">
         <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-        <input type="hidden" asp-for="CheckIn.CheckInID">
-        <div class="form-group">
-            <label asp-for="CheckIn.RoomID">Номер комнаты:</label>
-            <input asp-for="CheckIn.RoomID" class="form-control" readonly />
-        </div>
-        <div>
-            <table width="100%">
-                <tr>
-                    <th>Категория</th>
-                    <th>Кол-во мест</th>
-                    <th>Цена</th>
-                </tr>
-                <tr>
-                    <td>@Model.Room.Category</td>
-                    <td>@Model.Room.Quantity</td>
-                    <td>@Model.Room.Price</td>
-                </tr>
-            </table>
-        </div>
-        <div class="form-group">
-            <label asp-for="CheckIn.Arrival">Дата заселения:</label>
-            <input asp-for="CheckIn.Arrival" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="CheckIn.Department">Дата выезда:</label>
-            <input asp-for="CheckIn.Department" class="form-control" />
-        </div>
-        <div class="form-group">
-            <table width="100%">
-                <tr colspan="2"><label asp-for="CheckIn.CustomerID">Код клиента:</label></tr>
-                <tr>
-                    <td width="90%">
-                        <input asp-for="CheckIn.CustomerID" class="form-control" readonly />
-                    </td>
-                    <td width="10%">
-                        <a class="btn btn-success" asp-controller="CheckIn" asp-action="AddCustomerFilt">Изменить</a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="form-group">
-            <label>Клиент</label>
-            <input asp-for="CheckIn.LastName" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Номер телефона:</label>
-            <input asp-for="CheckIn.PhoneNumber" class="form-control" />
-        </div>
-
         <div class="text-center">
             <button class="btn btn-primary" type="submit">Сохранить</button>
             <a class="btn btn-primary" type="submit" href="@Model.ReturnUrl">Отмена</a>

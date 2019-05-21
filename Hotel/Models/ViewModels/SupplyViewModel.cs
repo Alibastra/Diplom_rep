@@ -9,5 +9,7 @@ namespace Hotel.Models.ViewModels
         public Supply Supply { get; set; }
         public Service Service { get; set; }
         public string ReturnUrl { get; set; }
+        public int ServiceID { get; set; }
+        public int CheckInID { get; set; }
     }
 }
