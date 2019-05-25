@@ -47,7 +47,8 @@ namespace Hotel.Controllers
 
             model.Services = repositorySe.Services
                     .Where(p => (category == "" || p.Category == category)
-                        && (p.ServiceID == serviceID || serviceID == 0))
+                        && (p.ServiceID == serviceID || serviceID == 0)
+                        && p.State == true)
                     .OrderBy(p => p.ServiceID)
                     .Skip((page - 1) * pagesize)
                     .Take(pagesize);
@@ -57,7 +58,7 @@ namespace Hotel.Controllers
                 CurrentPage = page,
                 ItemsPerPage = pagesize,
                 TotalItems = repositorySe.Services
-                    .Where(p => (category == "" || p.Category == category) && (p.ServiceID == serviceID || serviceID == 0)).Count()
+                    .Where(p => (category == "" || p.Category == category) && (p.ServiceID == serviceID || serviceID == 0) && p.State == true).Count()
             };
             model.ReturnUrl = returnUrl;
             model.CheckInID = checkInID;

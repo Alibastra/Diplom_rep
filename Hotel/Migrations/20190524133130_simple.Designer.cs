@@ -3,15 +3,17 @@ using System;
 using Hotel.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hotel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190524133130_simple")]
+    partial class simple
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace Hotel.Migrations
 
                     b.Property<DateTime>("Arrival");
 
-                    b.Property<int?>("CustomerID");
+                    b.Property<int>("CustomerID");
 
                     b.Property<DateTime>("Department");
 
@@ -146,7 +148,8 @@ namespace Hotel.Migrations
                 {
                     b.HasOne("Hotel.Models.Customer", "CustomerIDNavigation")
                         .WithMany("CheckInsCustomerIDNavigation")
-                        .HasForeignKey("CustomerID");
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Hotel.Models.Room", "RoomIDNavigation")
                         .WithMany("CheckInsRoomIDNavigation")

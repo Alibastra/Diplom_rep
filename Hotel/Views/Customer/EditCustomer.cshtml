@@ -3,6 +3,10 @@
     ViewBag.Title = "Редактировать данные клиента";
 }
 <div class="modal-dialog">
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-danger">@TempData["message"]</div>
+    }
     <h4>Редактировать данные клиента</h4>
     <p> гостя @Model.Customer.FirstName @Model.Customer.LastName? </p>
     <form asp-action="UpdateCustomer" method="post">

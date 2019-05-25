@@ -6,10 +6,10 @@
 
 @foreach (string category in Model)
 {
-    <a class="btn btn-block
+<a class="btn btn-block
         @(category == ViewBag.SelectedCategory ?  "btn-primary":"btn-default")"
-       asp-action="List"
-       asp-controller="Service"
-       asp-route-category="@category"
-       asp-route-page="1">@category</a>
+   asp-action="List"
+   asp-controller="Service"
+   asp-route-category="@category"
+   asp-route-page="1">@category</a>
 }

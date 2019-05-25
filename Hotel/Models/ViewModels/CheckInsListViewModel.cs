@@ -16,6 +16,6 @@ namespace Hotel.Models.ViewModels
         public int Quantity { get; set; }
         public string ReturnUrl { get; set; }
         public string LastName { get; set; }
-        public int CheckInID { get; internal set; }
+        public int CheckInID { get; set; }
     }
 }

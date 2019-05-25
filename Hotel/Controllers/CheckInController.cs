@@ -59,6 +59,7 @@ namespace Hotel.Controllers
                     .Where(p =>
                            (category == "" || p.Category == category)
                         && (quantity == 0 || p.Quantity >= quantity)
+                        && p.State == true
                         && repositoryC.CheckIns.FirstOrDefault(c => c.RoomID == p.RoomID  && (c.Arrival >= arrival && c.Arrival < department ||  c.Department <= department && c.Department > arrival)) == null
                     )
                     .OrderBy(p => p.RoomID)
@@ -73,6 +74,7 @@ namespace Hotel.Controllers
                     .Where(p =>
                            (category == "" || p.Category == category)
                         && (quantity == 0 || p.Quantity >= quantity)
+                        && p.State == true
                         && repositoryC.CheckIns.FirstOrDefault(c => c.RoomID == p.RoomID && (c.Arrival >= arrival && c.Arrival < department || c.Department <= department && c.Department > arrival)) == null
                     ).Count()
             };
@@ -87,11 +89,12 @@ namespace Hotel.Controllers
 
             return View(new CheckInViewModel
             {
-                CheckIn = new CheckIn() { RoomID = roomID, Arrival = arrival, Department = department },
+                CheckIn = new CheckIn() { RoomID = roomID, Arrival = arrival, Department = department},
                 Room = repositoryR.Rooms.FirstOrDefault(r => r.RoomID == roomID),
                 ReturnUrl = returnUrl
             });
         }
+
         [HttpPost]
         public IActionResult InsertCheckIn(CheckIn checkIn, string returnUrl)
         {

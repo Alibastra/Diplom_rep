@@ -59,32 +59,39 @@ namespace Hotel.Controllers
             });
         }
 
-        public ViewResult AddCustomer(string returnUrl, int checkInID, string lastname, string phone_number) => View(new CustomerViewModel { Customer = new Customer() { LastName = lastname, PhoneNumber = phone_number, BithDate = new DateTime(1990, 1, 1)}, ReturnUrl=returnUrl, CheckInID = checkInID });
+        public ViewResult AddCustomer(string returnUrl, int? checkInID, string lastname, string phone_number) => View(new CustomerViewModel { Customer = new Customer() { LastName = lastname, PhoneNumber = phone_number, BithDate = new DateTime(1990, 1, 1)}, ReturnUrl=returnUrl});
 
         [HttpPost]
-        public IActionResult InsertCustomer(Customer customer, string returnUrl, int checkInID)
+        public IActionResult InsertCustomer(Customer customer, string returnUrl, int? checkInID)
         {
             if (ModelState.IsValid)
             {
-                if (checkInID == 0)
+                if ((DateTime.Now.Year - customer.BithDate.Year)>18||
+                    ((DateTime.Now.Year - customer.BithDate.Year)==18 && (DateTime.Now.Month > customer.BithDate.Month)))
                 {
-                    TempData["message"] = $"Клиент с номером {customer.FirstName} {customer.LastName} был добавлен";
-                    repositoryCu.InsertCustomer(customer);
-                    return RedirectToAction(nameof(List));
+                    if (checkInID != null)
+                    {
+                        TempData["message"] = $"Клиент с номером {customer.FirstName} {customer.LastName} был добавлен";
+                        repositoryCu.InsertCustomer(customer);
+                        return RedirectToAction(nameof(List));
+                    }
+                    else
+                    {
+                        CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
+                        TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
+                        repositoryCu.InsertCustomer(customer);
+                        checkIn.CustomerID = customer.CustomerID;
+                        repositoryCh.UpdateCheckIn(checkIn);
+                        return Redirect("/CheckIn/List");
+                    } 
                 }
-                else
-                {
-                    CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
-                    TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
-                    checkIn.CustomerID = customer.CustomerID;
-                    repositoryCh.UpdateCheckIn(checkIn);
-                    repositoryCu.InsertCustomer(customer);
-                    return Redirect("/CheckIn/List");
-                }
+                else {
+                    TempData["message"] = $"Клиент не достиг 18 лет";
+                    return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl }); }
             }
-            else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID }); }
+            else { return View("AddCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl }); }
         }
-
+  
         [HttpPost]
         public IActionResult ConfirmDeleteCustomer(int customerID, string returnUrl) =>
             View(new CustomerViewModel { Customer = repositoryCu.Customers.FirstOrDefault(r => r.CustomerID == customerID), ReturnUrl = returnUrl });
@@ -108,20 +115,26 @@ namespace Hotel.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (checkInID == 0)
+                if ((DateTime.Now.Year - customer.BithDate.Year) > 18 ||
+                    ((DateTime.Now.Year - customer.BithDate.Year) == 18 && (DateTime.Now.Month > customer.BithDate.Month)))
                 {
-                    TempData["message"] = $"Изменения информации для клиента {customer.FirstName} {customer.LastName} сохранены";
-                    repositoryCu.UpdateCustomer(customer);
-                    return RedirectToAction(nameof(List), new { returnUrl });
+                    if (checkInID == 0)
+                    {
+                        TempData["message"] = $"Изменения информации для клиента {customer.FirstName} {customer.LastName} сохранены";
+                        repositoryCu.UpdateCustomer(customer);
+                        return RedirectToAction(nameof(List), new { returnUrl });
+                    }
+                    else
+                    {
+                        CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
+                        TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
+                        checkIn.CustomerID = customer.CustomerID;
+                        repositoryCh.UpdateCheckIn(checkIn);
+                        repositoryCu.UpdateCustomer(customer);
+                        return Redirect("/CheckIn/List");
+                    }
                 }
-                else {
-                    CheckIn checkIn = repositoryCh.CheckIns.FirstOrDefault(r => r.CheckInID == checkInID);
-                    TempData["message"] = $" Клиент {customer.FirstName} {customer.LastName} был зарегистрирован";
-                    checkIn.CustomerID = customer.CustomerID;
-                    repositoryCh.UpdateCheckIn(checkIn);
-                    repositoryCu.UpdateCustomer(customer);
-                    return Redirect("/CheckIn/List");
-                }
+                return View("EditCustomer", new CustomerViewModel { Customer = customer, ReturnUrl = returnUrl, CheckInID = checkInID });
             }
             else
             {

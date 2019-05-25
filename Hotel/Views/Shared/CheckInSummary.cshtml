@@ -20,7 +20,7 @@
     </td>
 
 
-    @if (Model.CustomerID <= 0)
+    @if (Model.CustomerID == null )
     {
         <td align="center" colspan="2">
             <form asp-controller="Customer" asp-action="AddCustomerFilt" method="post">

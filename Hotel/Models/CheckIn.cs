@@ -24,8 +24,7 @@ namespace Hotel.Models
         [Required(ErrorMessage = "Пожалуста, введите фамилию гостя!")]
         public string LastName { get; set; }
 
-        [Required]
-        public int CustomerID { get; set; }
+        public int? CustomerID { get; set; }
 
         [Required]
         [StringLength(60, MinimumLength = 10, ErrorMessage = "Пожалуста, введите корректный номер телефона гостя!")]
